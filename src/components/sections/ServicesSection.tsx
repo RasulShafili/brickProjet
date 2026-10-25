@@ -139,8 +139,9 @@ function generateBricks(rowsConfig: { cols: number; widthRatio: number }[], isMo
       // Qarışıq bucaq altında tökülmə (-50 dərəcə .. +50 dərəcə)
       const pileRot = (rand3 - 0.5) * 100;
 
-      const dumpDelayMs = 80 + Math.floor(rand4 * 440);
-      const buildDelayMs = Math.floor(rand5 * 450);
+      // Tökülmə və yuxarıdan aşağı (r=0 -> son sətir) sürətli düzülmə gecikməsi
+      const dumpDelayMs = 40 + Math.floor(rand4 * 260);
+      const buildDelayMs = r * 24 + c * 8 + Math.floor(rand5 * 30);
 
       list.push({
         id,
@@ -213,11 +214,11 @@ export default function ServicesSection() {
     setAnimKey((prev) => prev + 1);
 
     requestAnimationFrame(() => {
-      setTimeout(() => setStage(1), 40);     // 1. Soldan Kubik maşını, Sağdan Sement maşını yaxınlaşır
-      setTimeout(() => setStage(2), 880);    // 2. Xırda kubiklər maşının arxasına qarışıq tökülür
-      setTimeout(() => setStage(3), 2050);   // 3. Kubiklər bir-birinə yapışıq divar kimi düzülür
-      setTimeout(() => setStage(4), 3150);   // 4. Kubiklər düzüləndən SONRA sement tökülür və aralarına dolur
-      setTimeout(() => setStage(5), 4350);   // 5. Xidmət pəncərələri açılır
+      setTimeout(() => setStage(1), 30);     // 1. Soldan Kubik maşını, Sağdan Sement maşını sürətlə yaxınlaşır
+      setTimeout(() => setStage(2), 620);    // 2. Xırda kubiklər maşının arxasına qarışıq tökülür
+      setTimeout(() => setStage(3), 1340);   // 3. Kubiklər yuxarıdan aşağı sürətlə divar kimi düzülür
+      setTimeout(() => setStage(4), 2060);   // 4. Kubiklər düzülən kimi yuxarıdan aşağı sement dolur
+      setTimeout(() => setStage(5), 2580);   // 5. Xidmət pəncərələri 1 -> 2 -> 3 -> 4 -> 5 -> 6 ardıcıllığı ilə açılır
     });
   };
 
@@ -300,7 +301,7 @@ export default function ServicesSection() {
               SOL TƏRƏF: KUBİK GƏTİRƏN MAŞIN (SAMOSVAL — 77% ÖLÇÜDƏ)
              ----------------------------------------------------------------- */}
           <div
-            className="relative z-20 transition-transform duration-[850ms] ease-out will-change-transform"
+            className="relative z-20 transition-transform duration-[580ms] ease-out will-change-transform"
             style={{
               transform:
                 stage === 0
@@ -323,7 +324,7 @@ export default function ServicesSection() {
                   stroke="#D1D5DB"
                   strokeWidth="10"
                   strokeLinecap="round"
-                  className="transition-all duration-600 ease-in-out"
+                  className="transition-all duration-400 ease-in-out"
                 />
                 <line
                   x1="243"
@@ -333,7 +334,7 @@ export default function ServicesSection() {
                   stroke="#4B5563"
                   strokeWidth="12"
                   strokeDasharray="18 120"
-                  className="transition-all duration-600 ease-in-out"
+                  className="transition-all duration-400 ease-in-out"
                 />
               </g>
 
@@ -342,7 +343,7 @@ export default function ServicesSection() {
                 style={{
                   transformOrigin: '455px 215px',
                   transform: stage === 2 || stage === 3 ? 'rotate(34deg)' : 'rotate(0deg)',
-                  transition: 'transform 600ms cubic-bezier(0.22, 1, 0.36, 1)',
+                  transition: 'transform 420ms cubic-bezier(0.22, 1, 0.36, 1)',
                 }}
               >
                 <path
@@ -391,7 +392,7 @@ export default function ServicesSection() {
                   style={{
                     transformOrigin: `${cx}px 256px`,
                     transform: stage === 0 ? 'rotate(-360deg)' : 'rotate(0deg)',
-                    transition: 'transform 850ms ease-out',
+                    transition: 'transform 580ms ease-out',
                   }}
                 >
                   <circle cx={cx} cy={256} r={34} fill="#1E2022" stroke="#111" strokeWidth="4" strokeDasharray="9 4" />
@@ -424,7 +425,7 @@ export default function ServicesSection() {
               SAĞ TƏRƏF: SEMENT MAŞINI (BETONQARIŞDIRAN MİKSER — 77% ÖLÇÜDƏ)
              ----------------------------------------------------------------- */}
           <div
-            className="relative z-20 transition-transform duration-[880ms] ease-out will-change-transform"
+            className="relative z-20 transition-transform duration-[600ms] ease-out will-change-transform"
             style={{
               transform:
                 stage === 0
@@ -672,10 +673,10 @@ export default function ServicesSection() {
                   style={{
                     width: `${rowCfg.widthRatio * 100}%`,
                     gridTemplateColumns: `repeat(${rowCfg.cols}, minmax(0, 1fr))`,
-                    // Stage 3-də kubiklər bir-birinə sıx yapışıq düzülür, Stage 4-də aradakı tikişlərə boz sement dolur
+                    // Stage 3-də kubiklər bir-birinə sıx yapışıq düzülür, Stage 4-də aradakı tikişlərə yuxarıdan aşağı boz sement dolur
                     backgroundColor: stage >= 4 ? '#788088' : 'transparent',
                     boxShadow: stage >= 4 ? '0 0 0 2px #1A1A1A' : 'none',
-                    transition: `background-color 450ms ease-in-out ${80 + rowIndex * 35}ms, box-shadow 400ms ease ${80 + rowIndex * 35}ms`,
+                    transition: `background-color 300ms ease-in-out ${40 + rowIndex * 22}ms, box-shadow 280ms ease ${40 + rowIndex * 22}ms`,
                   }}
                 >
                   {rowBricks.map((brick) => {
@@ -696,16 +697,16 @@ export default function ServicesSection() {
                     let transitionStr = 'none';
 
                     if (stage === 2) {
-                      // Stage 2: Yerə tökülən kubiklər kiçik ölçüdədir (scale 0.25), maşınların üstünə çıxmır
+                      // Stage 2: Yerə tökülən kubiklər kiçik ölçüdədir (scale 0.26), maşınların üstünə çıxmır
                       const dumpScale = isMobile ? 0.26 : 0.28;
                       transformStr = `translate3d(${toPileX}px, ${toPileY}px, 0px) rotate(${brick.pileRot}deg) scale(${dumpScale})`;
                       opacityVal = 1;
-                      transitionStr = `transform 460ms cubic-bezier(0.22, 0.85, 0.36, 1) ${brick.dumpDelayMs}ms, opacity 120ms ease-out ${brick.dumpDelayMs}ms`;
+                      transitionStr = `transform 340ms cubic-bezier(0.22, 0.85, 0.36, 1) ${brick.dumpDelayMs}ms, opacity 100ms ease-out ${brick.dumpDelayMs}ms`;
                     } else if (stage >= 3) {
-                      // Stage 3+: Divarda bir-birinə tam yapışıq şəkildə yerini alır
+                      // Stage 3+: Divarda yuxarıdan aşağı bir-birinə tam yapışıq şəkildə yerini alır
                       transformStr = 'translate3d(0px, 0px, 0px) rotate(0deg) scale(1)';
                       opacityVal = 1;
-                      transitionStr = `transform 540ms cubic-bezier(0.2, 0.92, 0.28, 1.08) ${brick.buildDelayMs}ms, opacity 150ms ease-out`;
+                      transitionStr = `transform 380ms cubic-bezier(0.2, 0.92, 0.28, 1.06) ${brick.buildDelayMs}ms, opacity 120ms ease-out`;
                     }
 
                     return (
@@ -731,7 +732,7 @@ export default function ServicesSection() {
           </div>
 
           {/* =====================================================================
-              3. SEMENT DOLANDAN SONRA (Stage 5) AÇILAN XİDMƏT PƏNCƏRƏLƏRİ (6 KART)
+              3. SEMENT DOLANDAN SONRA (Stage 5) YUXARIDAN AŞAĞI ARDICIL AÇILAN XİDMƏTLƏR (1 -> 2 -> 3 -> 4 -> 5 -> 6)
              ===================================================================== */}
           <div className="relative z-40 grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 px-1.5 sm:px-5 py-1.5 sm:py-2">
             {SERVICES.map((srv, idx) => {
@@ -742,9 +743,9 @@ export default function ServicesSection() {
                   style={{
                     transform: isVisible
                       ? 'translate3d(0, 0, 0) scale(1)'
-                      : 'translate3d(0, 16px, 0) scale(0.92)',
+                      : 'translate3d(0, -14px, 0) scale(0.92)',
                     opacity: isVisible ? 1 : 0,
-                    transition: `all 420ms cubic-bezier(0.16, 1, 0.3, 1) ${idx * 75}ms`,
+                    transition: `transform 260ms cubic-bezier(0.2, 0.95, 0.3, 1.05) ${idx * 130}ms, opacity 220ms ease-out ${idx * 130}ms`,
                     pointerEvents: isVisible ? 'auto' : 'none',
                   }}
                   className="bg-[#FFFFFF]/95 backdrop-blur-sm border-[2px] sm:border-[2.5px] border-[#1A1A1A] rounded-[4px] shadow-[3px_3px_0px_#1A1A1A] sm:shadow-[5px_5px_0px_#1A1A1A] p-2.5 sm:p-5 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-[7px_7px_0px_#C85A32] transition-all"
