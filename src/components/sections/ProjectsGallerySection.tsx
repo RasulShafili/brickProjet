@@ -67,7 +67,7 @@ function BeforeAfterSlider() {
   const [sliderPos, setSliderPos] = useState(50);
 
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden border-2 border-[#262626] bg-[#262626] select-none rounded-[2px]">
+    <div className="relative aspect-[4/3] w-full overflow-hidden border-[3px] border-[#2D1E16] bg-[#262626] select-none">
       
       {/* SAĞ TƏRƏF: SONRA */}
       <div className="absolute inset-0 bg-[#E6EFE9] flex flex-col items-center justify-center p-3 text-center">
@@ -129,10 +129,10 @@ export default function ProjectsGallerySection() {
     >
       <div className="max-w-7xl mx-auto">
         
-        {/* Qısa Başlıq və Filtrlər */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7 bg-[#FFFFFF] border-2 border-[#262626] shadow-[4px_4px_0px_#262626] rounded-[4px] p-4">
-          <div>
-            <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-1">
+        {/* Asılmış Tabela Başlıq və Filtrlər */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div className="hanging-sign px-6 py-3.5">
+            <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-0.5">
               QALEREYA
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-[#262626]">
@@ -140,7 +140,7 @@ export default function ProjectsGallerySection() {
             </h2>
           </div>
 
-          <div className="flex flex-wrap gap-2 text-xs">
+          <div className="flex flex-wrap gap-2.5 text-xs">
             {[
               { id: 'all', label: 'Hamısı' },
               { id: 'before-after', label: 'Əvvəl / Sonra' },
@@ -150,10 +150,10 @@ export default function ProjectsGallerySection() {
               <button
                 key={tab.id}
                 onClick={() => setFilter(tab.id as typeof filter)}
-                className={`min-h-[38px] px-3.5 py-1.5 border-2 border-[#262626] rounded-[4px] font-bold transition-all cursor-pointer ${
+                className={`hanging-badge min-h-[38px] px-3.5 py-1.5 font-extrabold transition-all cursor-pointer ${
                   filter === tab.id
-                    ? 'bg-[#C85A32] text-white shadow-[2px_2px_0px_#262626]'
-                    : 'bg-[#FFFFFF] text-[#262626] hover:bg-[#EAE5D0]'
+                    ? '!bg-[#C85A32] !bg-none text-white'
+                    : 'text-[#262626] hover:bg-[#EAE5D0]'
                 }`}
               >
                 {tab.label}
@@ -162,17 +162,17 @@ export default function ProjectsGallerySection() {
           </div>
         </div>
 
-        {/* Sade və Yığcam Qalereya Şəbəkəsi */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Ev Pəncərəsi Görünüşlü Qalereya Kartları */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {filtered.map((proj) => (
             <div
               key={proj.id}
-              className="brick-card bg-[#FFFFFF] p-3 flex flex-col justify-between"
+              className="brick-card bg-[#FFFFFF] p-4 flex flex-col justify-between"
             >
               {proj.isBeforeAfter ? (
                 <BeforeAfterSlider />
               ) : (
-                <div className="relative aspect-[4/3] overflow-hidden border-2 border-[#262626] bg-[#EAE5D0] flex flex-col items-center justify-center p-4 text-center rounded-[2px]">
+                <div className="relative aspect-[4/3] overflow-hidden border-[3px] border-[#2D1E16] bg-[#EAE5D0] flex flex-col items-center justify-center p-4 text-center">
                   <div className="text-xs font-black text-[#262626]">
                     [Layihə Şəkli Yeri]
                   </div>

@@ -61,7 +61,8 @@ export default function TrustAndProcessSection() {
         
         {/* 1. 4 Qısa Addımda İş Prosesi */}
         <div>
-          <div className="inline-block bg-[#FFFFFF] border-2 border-[#262626] shadow-[4px_4px_0px_#262626] rounded-[4px] px-5 py-3 mb-6">
+          {/* Asılmış Tabela Başlıq */}
+          <div className="hanging-sign px-6 py-3.5 mb-7">
             <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-0.5">
               İŞ PROSESİ
             </div>
@@ -70,13 +71,13 @@ export default function TrustAndProcessSection() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             {WORKFLOW_STEPS.map((step, idx) => {
               const StepIcon = step.icon;
               return (
                 <div
                   key={idx}
-                  className="brick-card bg-[#FFFFFF] p-4 flex flex-col justify-between"
+                  className="brick-card bg-[#FFFFFF] p-4 sm:p-5 flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
@@ -102,7 +103,8 @@ export default function TrustAndProcessSection() {
 
         {/* 2. Qısa Müştəri Rəyləri */}
         <div>
-          <div className="inline-block bg-[#FFFFFF] border-2 border-[#262626] shadow-[4px_4px_0px_#262626] rounded-[4px] px-5 py-3 mb-5">
+          {/* Asılmış Tabela Başlıq */}
+          <div className="hanging-sign px-6 py-3.5 mb-6">
             <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-0.5">
               MÜŞTƏRİ RƏYLƏRİ
             </div>
@@ -111,11 +113,11 @@ export default function TrustAndProcessSection() {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {REVIEWS.map((rev, i) => (
               <div
                 key={i}
-                className="brick-card bg-[#FFFFFF] p-4 flex flex-col justify-between"
+                className="brick-card bg-[#FFFFFF] p-5 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center gap-0.5 text-[#F59E0B] mb-2">

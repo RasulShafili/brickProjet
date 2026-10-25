@@ -52,8 +52,8 @@ export default function ServicesSection() {
     >
       <div className="max-w-7xl mx-auto">
         
-        {/* Qısa Başlıq */}
-        <div className="inline-block bg-[#FFFFFF] border-2 border-[#262626] shadow-[4px_4px_0px_#262626] rounded-[4px] px-5 py-3 mb-8">
+        {/* Kərpic Divardan Asılmış Başlıq Tabelası */}
+        <div className="hanging-sign px-6 py-3.5 mb-8">
           <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-0.5">
             XİDMƏTLƏRİMİZ
           </div>
@@ -62,8 +62,8 @@ export default function ServicesSection() {
           </h2>
         </div>
 
-        {/* 6 Yığcam və Aydın Xidmət Kartı */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+        {/* 6 Ev Pəncərəsi Görünüşlü Xidmət Kartı */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {SERVICES.map((srv, idx) => {
             const IconComponent = srv.icon;
             const textMsg = `Salam usta, "${srv.title}" xidməti üzrə qiymət öyrənmək istəyirəm.`;
@@ -79,7 +79,7 @@ export default function ServicesSection() {
                     <div className="w-10 h-10 bg-[#C85A32] text-white border-2 border-[#262626] shadow-[2px_2px_0px_#262626] flex items-center justify-center rounded-[4px] shrink-0">
                       <IconComponent className="w-5 h-5" />
                     </div>
-                    <span className="px-2 py-0.5 bg-[#262626] text-[#F4F0DB] text-[10px] font-bold rounded-[2px]">
+                    <span className="hanging-badge px-2.5 py-0.5 text-[#262626] text-[10px] font-extrabold">
                       {srv.badge}
                     </span>
                   </div>

@@ -42,9 +42,9 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-12 gap-6 sm:gap-8 items-start">
           
-          {/* Sol 5 Sütun: Birbaşa Zəng və WhatsApp Kartı */}
-          <div className="col-span-12 lg:col-span-5 space-y-4">
-            <div className="inline-block bg-[#FFFFFF] border-2 border-[#262626] shadow-[4px_4px_0px_#262626] rounded-[4px] px-5 py-3">
+          {/* Sol 5 Sütun: Asılmış Tabela Başlıq + Pəncərə Görünüşlü Əlaqə Kartı */}
+          <div className="col-span-12 lg:col-span-5 space-y-5">
+            <div className="hanging-sign px-6 py-3.5">
               <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-0.5">
                 ƏLAQƏ
               </div>
@@ -85,20 +85,21 @@ export default function ContactSection() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-bold text-[#262626]">
-              <div className="flex items-center gap-2 bg-[#FFFFFF] p-2.5 border-2 border-[#262626] rounded-[4px]">
+            {/* 2 Kiçik Asılmış Tabela (İş Saatı və Ərazi) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold text-[#262626]">
+              <div className="hanging-badge flex items-center gap-2 p-3">
                 <Clock className="w-4 h-4 text-[#C85A32] shrink-0" />
                 <span>Hər gün: 08:00 – 20:00</span>
               </div>
-              <div className="flex items-center gap-2 bg-[#FFFFFF] p-2.5 border-2 border-[#262626] rounded-[4px]">
+              <div className="hanging-badge flex items-center gap-2 p-3">
                 <MapPin className="w-4 h-4 text-[#C85A32] shrink-0" />
                 <span>Qəbələ və ətraf ərazilər</span>
               </div>
             </div>
           </div>
 
-          {/* Sağ 7 Sütun: Seçilən Xidmətin Qiymətini WhatsApp-da Soruşan Modul */}
-          <div className="col-span-12 lg:col-span-7 brick-card p-5 sm:p-6 bg-[#FFFFFF]">
+          {/* Sağ 7 Sütun: Pəncərə Görünüşlü WhatsApp Sorğu Modulu */}
+          <div className="col-span-12 lg:col-span-7 brick-window p-6 sm:p-7 bg-[#FFFFFF]">
             <form onSubmit={handleWhatsAppSend} className="space-y-3.5 text-xs sm:text-sm">
               <h3 className="text-base sm:text-lg font-black text-[#262626] border-b-2 border-[#262626] pb-2.5">
                 WhatsApp ilə Qiymət Soruş

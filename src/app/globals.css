@@ -10,6 +10,9 @@
   --cement-gray: #4A4A4A;
   --stone-paper: #F4F0DB;
   --stone-card: #FFFFFF;
+  --window-wood: #2D1E16;
+  --window-trim: #9E4724;
+  --sill-stone: #DFD5C3;
 }
 
 * {
@@ -40,18 +43,161 @@ body {
   background-size: 28px 28px;
 }
 
-/* Kəskin Kərpic Kartı (Brick Brutalism) */
-.brick-card {
+/* ============================================================================
+   1. EV PƏNCƏRƏSİ ÇƏRÇİVƏSİ (.brick-card & .brick-window)
+   Böyük bloklar kərpic divarın üzərində həqiqi ev pəncərəsi kimi görünür:
+   - Üst hissədə Pəncərə Kəməri (Lintel / Karniz)
+   - İkiqat taxta/metal pəncərə çərçivəsi (Рама)
+   - Alt hissədə çıxıntılı daş Pəncərə Altlığı (Podokonnik)
+   ============================================================================ */
+.brick-card,
+.brick-window {
+  position: relative;
   background-color: #FFFFFF;
-  border: 2px solid var(--cement-dark);
-  border-radius: 4px;
-  box-shadow: 4px 4px 0px 0px var(--cement-dark);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 4px solid var(--window-wood);
+  border-radius: 2px;
+  /* İkiqat daxili pəncərə çərçivəsi + kərpic divara düşən dərin kölgə */
+  box-shadow:
+    inset 0 0 0 3px var(--window-trim),
+    inset 0 0 0 5px var(--window-wood),
+    inset 0 3px 8px rgba(0, 0, 0, 0.08),
+    0 12px 0 0 rgba(30, 20, 14, 0.85);
+  margin-top: 8px;
+  margin-bottom: 12px;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+/* Pəncərə Üst Kəməri (Lintel / Karniz) */
+.brick-card::before,
+.brick-window::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -8px;
+  right: -8px;
+  height: 8px;
+  background: linear-gradient(
+    90deg,
+    #3D281D 0%,
+    #5A3A28 15%,
+    #C85A32 50%,
+    #5A3A28 85%,
+    #3D281D 100%
+  );
+  border: 2px solid var(--window-wood);
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Pəncərə Altlığı (Daş Podokonnik) */
+.brick-card::after,
+.brick-window::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: -10px;
+  right: -10px;
+  height: 10px;
+  background: linear-gradient(180deg, #EAE2D3 0%, #CFC3AF 65%, #A89B87 100%);
+  border: 2px solid var(--window-wood);
+  border-radius: 1px 1px 3px 3px;
+  box-shadow: 0 5px 0 rgba(28, 18, 12, 0.75);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .brick-card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px 0px var(--brick-red);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 0 3px #C85A32,
+    inset 0 0 0 5px var(--window-wood),
+    inset 0 3px 8px rgba(0, 0, 0, 0.08),
+    0 14px 0 0 var(--brick-dark);
+}
+
+/* ============================================================================
+   2. KƏRPİC DİVARDAN ASILMIŞ TABELA (.hanging-sign & .hanging-badge)
+   Kiçik başlıqlar və göstərici qutuları divara mıxlanmış / zəncirlə asılmış
+   taxta-metal tabela kimi görünür.
+   ============================================================================ */
+.hanging-sign {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(180deg, #FFFDF7 0%, #F4ECDD 100%);
+  border: 3px solid var(--window-wood);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 0 2px #C85A32,
+    0 6px 0 0 #261912,
+    0 9px 14px rgba(0, 0, 0, 0.28);
+  margin-top: 16px;
+}
+
+/* Tabelanı divara bağlayan 2 dəmir halqa/zəncir dirəyi (sol və sağ üst küncdə) */
+.hanging-sign::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 18px;
+  right: 18px;
+  height: 14px;
+  background-image:
+    /* Sol divar mıxı (dairəvi başlıq) */
+    radial-gradient(circle at 4px 3px, #C85A32 2.5px, #1F1610 3px, #1F1610 4.5px, transparent 5px),
+    /* Sağ divar mıxı (dairəvi başlıq) */
+    radial-gradient(circle at calc(100% - 4px) 3px, #C85A32 2.5px, #1F1610 3px, #1F1610 4.5px, transparent 5px),
+    /* Sol asqı dəmiri */
+    linear-gradient(90deg, transparent 2px, #261912 2px, #594336 4px, #261912 6px, transparent 6px),
+    /* Sağ asqı dəmiri */
+    linear-gradient(90deg, transparent calc(100% - 6px), #261912 calc(100% - 6px), #594336 calc(100% - 4px), #261912 calc(100% - 2px), transparent calc(100% - 2px));
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Tabelanın iç künclərindəki 2 metal şrup/pərçim nöqtəsi */
+.hanging-sign::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 7px;
+  right: 7px;
+  height: 6px;
+  background-image:
+    radial-gradient(circle at 3px 3px, #3A261A 2.5px, transparent 3px),
+    radial-gradient(circle at calc(100% - 3px) 3px, #3A261A 2.5px, transparent 3px);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Daha kiçik göstərici kartları üçün yığcam Asılmış Tabela (.hanging-badge) */
+.hanging-badge {
+  position: relative;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5EFE0 100%);
+  border: 2.5px solid var(--window-wood);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 0 1.5px rgba(200, 90, 50, 0.45),
+    0 4px 0 0 #261912,
+    0 6px 10px rgba(0, 0, 0, 0.22);
+  margin-top: 10px;
+}
+
+.hanging-badge::before {
+  content: '';
+  position: absolute;
+  top: -11px;
+  left: 12px;
+  right: 12px;
+  height: 9px;
+  background-image:
+    radial-gradient(circle at 3px 2.5px, #C85A32 1.8px, #1F1610 2.5px, transparent 3.5px),
+    radial-gradient(circle at calc(100% - 3px) 2.5px, #C85A32 1.8px, #1F1610 2.5px, transparent 3.5px),
+    linear-gradient(90deg, transparent 1.5px, #261912 1.5px, #261912 4.5px, transparent 4.5px),
+    linear-gradient(90deg, transparent calc(100% - 4.5px), #261912 calc(100% - 4.5px), #261912 calc(100% - 1.5px), transparent calc(100% - 1.5px));
+  pointer-events: none;
+  z-index: 3;
 }
 
 /* Kəskin Kərpic Düyməsi */
@@ -80,65 +226,4 @@ body {
 /* Kərpic Hörgü Xətti (Running Bond) */
 .brick-border-t {
   border-top: 3px solid var(--brick-red);
-}
-
-/* Lazer Nivelir Skan Animasiyası */
-@keyframes laserScan {
-  0% {
-    top: 5%;
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    top: 95%;
-    opacity: 0;
-  }
-}
-
-.animate-laserScan {
-  animation: laserScan 9s ease-in-out infinite;
-}
-
-/* Realistik Sement Axını Animasiyası */
-@keyframes cementFlow {
-  0% {
-    stroke-dashoffset: 48;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-.animate-cementFlow {
-  animation: cementFlow 0.55s linear infinite;
-}
-
-/* Tikinti Təsdiq Möhürü (Ştamp) Zərbə Animasiyası */
-@keyframes stampImpact {
-  0% {
-    transform: scale(2.1) rotate(-18deg);
-    opacity: 0;
-  }
-  70% {
-    transform: scale(0.95) rotate(-4deg);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1) rotate(-3deg);
-    opacity: 1;
-  }
-}
-
-/* Kərpic Hörgü Bloku Stili */
-.brick-block-pattern {
-  background-color: #C85A32;
-  background-image: 
-    linear-gradient(to right, rgba(0,0,0,0.2) 2px, transparent 2px),
-    linear-gradient(to bottom, rgba(0,0,0,0.2) 2px, transparent 2px);
-  background-size: 50px 24px;
 }
