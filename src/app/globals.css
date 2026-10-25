@@ -118,6 +118,22 @@ body {
   animation: cementFlow 0.55s linear infinite;
 }
 
+/* Tikinti Təsdiq Möhürü (Ştamp) Zərbə Animasiyası */
+@keyframes stampImpact {
+  0% {
+    transform: scale(2.1) rotate(-18deg);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(0.95) rotate(-4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(-3deg);
+    opacity: 1;
+  }
+}
+
 /* Kərpic Hörgü Bloku Stili */
 .brick-block-pattern {
   background-color: #C85A32;

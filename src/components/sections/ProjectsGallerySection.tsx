@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Plus, ZoomIn, MapPin, Upload } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Plus, ZoomIn, MapPin, Upload, RotateCcw, PaintRoller } from 'lucide-react';
 
 interface ProjectImage {
   id: string;
@@ -79,13 +79,59 @@ const INITIAL_PROJECTS: ProjectImage[] = [
   },
 ];
 
+/**
+ * QALEREYA BÖLMƏSİ ANİMASİYASI (Bölmə 2):
+ * "Tikinti İskələsi (Lesa) Sökülməsi və Mala/Rulon ilə Yuxarıdan Aşağıya Sürətli Açılış"
+ * - İstifadəçi bölməyə çatdıqda və ya filtri dəyişdikdə kartlar 1 -> 2 -> 3 -> 4 ardıcıllığı ilə açılır.
+ * - Hər şəkilin üzərindəki dəmir tikinti iskələsi (lesa) və mala xətti sürətlə aşağı çəkilərək hazır evi üzə çıxarır.
+ */
 export default function ProjectsGallerySection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [projects, setProjects] = useState<ProjectImage[]>(INITIAL_PROJECTS);
   const [filter, setFilter] = useState<'all' | 'full' | 'roof' | 'masonry' | 'user'>('all');
   const [selectedImg, setSelectedImg] = useState<ProjectImage | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newLoc, setNewLoc] = useState('');
+
+  // Animasiya vəziyyəti: false = İskələ (Lesa) bağlıdır, true = Yuxarıdan aşağıya sürətlə açılır
+  const [revealed, setRevealed] = useState(false);
+  const [animCycle, setAnimCycle] = useState(0);
+  const hasTriggeredRef = useRef(false);
+
+  const triggerScaffoldReveal = () => {
+    setRevealed(false);
+    setAnimCycle((prev) => prev + 1);
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        setRevealed(true);
+      }, 60);
+    });
+  };
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasTriggeredRef.current) {
+          hasTriggeredRef.current = true;
+          triggerScaffoldReveal();
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleFilterChange = (newFilter: 'all' | 'full' | 'roof' | 'masonry' | 'user') => {
+    if (newFilter === filter) return;
+    setFilter(newFilter);
+    triggerScaffoldReveal();
+  };
 
   const handleUserAdd = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -106,40 +152,57 @@ export default function ProjectsGallerySection() {
       setIsModalOpen(false);
       setNewTitle('');
       setNewLoc('');
+      triggerScaffoldReveal();
     }
   };
 
   const filtered = projects.filter((p) => (filter === 'all' ? true : p.category === filter));
 
   return (
-    <section id="gallery" className="px-4 sm:px-8 py-16 bg-[#F4F0DB] border-b-2 border-[#262626] relative z-10">
+    <section
+      id="gallery"
+      ref={sectionRef}
+      className="px-3 sm:px-8 py-14 lg:py-20 bg-[#F4F0DB] border-b-2 border-[#262626] relative z-10 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto">
         
-        {/* Başlıq və Əlavə Et Düyməsi */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 border-b-2 border-[#262626] pb-5">
+        {/* Başlıq və Düymələr */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 border-b-2 border-[#262626] pb-4">
           <div>
-            <div className="font-mono text-xs text-[#C85A32] font-bold uppercase tracking-widest mb-1">
-              [Qalereya üst etiketi]
+            <div className="font-mono text-xs text-[#C85A32] font-bold uppercase tracking-widest mb-1 flex items-center gap-2">
+              <PaintRoller className="w-4 h-4" />
+              <span>[Qalereya üst etiketi]</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-black text-[#262626] uppercase tracking-tight">
+            <h2 className="text-xl sm:text-4xl font-black text-[#262626] uppercase tracking-tight">
               [Bura Qalereya bölməsinin başlığı yazılacaq]
             </h2>
           </div>
 
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="brick-btn bg-[#C85A32] text-white hover:bg-[#B84A27] px-5 py-3 text-xs sm:text-sm font-mono flex items-center gap-2 shrink-0"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Yeni Şəkil Əlavə Et</span>
-          </button>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <button
+              onClick={triggerScaffoldReveal}
+              className="brick-btn bg-[#FFFFFF] text-[#262626] hover:bg-[#262626] hover:text-[#F4F0DB] px-3.5 py-2.5 text-xs font-mono flex items-center gap-1.5 cursor-pointer"
+              title="İskələ və Mala açılış animasiyasını təkrar izlə"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Təkrar İzlə</span>
+            </button>
+
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="brick-btn bg-[#C85A32] text-white hover:bg-[#B84A27] px-4 py-2.5 text-xs font-mono flex items-center gap-1.5 shrink-0 cursor-pointer"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Yeni Şəkil Əlavə Et</span>
+            </button>
+          </div>
         </div>
 
         {/* Kateqoriya Filtrləri */}
-        <div className="flex flex-wrap gap-2 mb-8 font-mono text-xs">
+        <div className="flex flex-wrap gap-2 mb-6 font-mono text-xs">
           <button
-            onClick={() => setFilter('all')}
-            className={`px-4 py-2 border-2 border-[#262626] font-bold transition-all ${
+            onClick={() => handleFilterChange('all')}
+            className={`px-3.5 py-1.5 sm:px-4 sm:py-2 border-2 border-[#262626] font-bold transition-all cursor-pointer ${
               filter === 'all'
                 ? 'bg-[#262626] text-[#F4F0DB] shadow-[3px_3px_0px_#C85A32]'
                 : 'bg-[#FFFFFF] text-[#262626] hover:bg-[#F4F0DB]'
@@ -148,8 +211,8 @@ export default function ProjectsGallerySection() {
             HAMISI ({projects.length})
           </button>
           <button
-            onClick={() => setFilter('full')}
-            className={`px-4 py-2 border-2 border-[#262626] font-bold transition-all ${
+            onClick={() => handleFilterChange('full')}
+            className={`px-3.5 py-1.5 sm:px-4 sm:py-2 border-2 border-[#262626] font-bold transition-all cursor-pointer ${
               filter === 'full'
                 ? 'bg-[#C85A32] text-white shadow-[3px_3px_0px_#262626]'
                 : 'bg-[#FFFFFF] text-[#262626] hover:bg-[#F4F0DB]'
@@ -158,8 +221,8 @@ export default function ProjectsGallerySection() {
             [Filtr 1 adı]
           </button>
           <button
-            onClick={() => setFilter('roof')}
-            className={`px-4 py-2 border-2 border-[#262626] font-bold transition-all ${
+            onClick={() => handleFilterChange('roof')}
+            className={`px-3.5 py-1.5 sm:px-4 sm:py-2 border-2 border-[#262626] font-bold transition-all cursor-pointer ${
               filter === 'roof'
                 ? 'bg-[#262626] text-[#F4F0DB] shadow-[3px_3px_0px_#C85A32]'
                 : 'bg-[#FFFFFF] text-[#262626] hover:bg-[#F4F0DB]'
@@ -168,8 +231,8 @@ export default function ProjectsGallerySection() {
             [Filtr 2 adı]
           </button>
           <button
-            onClick={() => setFilter('masonry')}
-            className={`px-4 py-2 border-2 border-[#262626] font-bold transition-all ${
+            onClick={() => handleFilterChange('masonry')}
+            className={`px-3.5 py-1.5 sm:px-4 sm:py-2 border-2 border-[#262626] font-bold transition-all cursor-pointer ${
               filter === 'masonry'
                 ? 'bg-[#C85A32] text-white shadow-[3px_3px_0px_#262626]'
                 : 'bg-[#FFFFFF] text-[#262626] hover:bg-[#F4F0DB]'
@@ -179,47 +242,113 @@ export default function ProjectsGallerySection() {
           </button>
         </div>
 
-        {/* Qalereya Şəbəkəsi */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filtered.map((proj, idx) => (
-            <div
-              key={proj.id}
-              onClick={() => setSelectedImg(proj)}
-              className="brick-card overflow-hidden group cursor-pointer bg-[#FFFFFF] p-2"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden border border-[#262626] bg-[#262626]">
-                <img
-                  src={proj.url}
-                  alt={proj.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/images/projects/house-1.png';
-                  }}
-                />
-                <div className="absolute top-2 left-2 bg-[#262626] text-[#F4F0DB] px-1.5 py-0.5 font-mono text-[9px] font-bold">
-                  #{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
-                </div>
-                <div className="absolute top-2 right-2 bg-[#C85A32] text-white px-2 py-0.5 font-mono text-[9px] font-bold">
-                  {proj.tag}
-                </div>
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <div className="w-9 h-9 bg-white text-[#262626] border-2 border-[#262626] flex items-center justify-center font-bold">
-                    <ZoomIn className="w-4 h-4" />
+        {/* =====================================================================
+            QALEREYA ŞƏBƏKƏSİ (Mobildə 2 sütun yığcam, PC-də 4 sütun):
+            Hər kart 1 -> 2 -> 3 -> 4 ardıcıllığı ilə yuxarıdan aşağıya açılır,
+            üzərindəki "Tikinti İskələsi (Lesa) və Mala" pərdəsi sürətlə aşağı enir!
+           ===================================================================== */}
+        <div
+          key={`gallery-grid-${animCycle}`}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5"
+        >
+          {filtered.map((proj, idx) => {
+            // Yuxarıdan aşağıya ardıcıl gecikmə (0ms, 95ms, 190ms, 285ms...)
+            const staggerMs = idx * 95;
+
+            return (
+              <div
+                key={proj.id}
+                onClick={() => setSelectedImg(proj)}
+                style={{
+                  transform: revealed
+                    ? 'translate3d(0, 0, 0) scale(1)'
+                    : 'translate3d(0, -14px, 0) scale(0.94)',
+                  opacity: revealed ? 1 : 0,
+                  transition: `transform 280ms cubic-bezier(0.2, 0.95, 0.3, 1.04) ${staggerMs}ms, opacity 200ms ease-out ${staggerMs}ms`,
+                }}
+                className="brick-card overflow-hidden group cursor-pointer bg-[#FFFFFF] p-1.5 sm:p-2 will-change-transform"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden border border-[#262626] bg-[#262626]">
+                  <img
+                    src={proj.url}
+                    alt={proj.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/images/projects/house-1.png';
+                    }}
+                  />
+
+                  {/* --- TİKİNTİ İSKƏLƏSİ (LESA) VƏ MALA AÇILIŞ PƏRDƏSİ --- */}
+                  <div
+                    style={{
+                      transform: revealed ? 'translate3d(0, 105%, 0)' : 'translate3d(0, 0%, 0)',
+                      transition: `transform 460ms cubic-bezier(0.22, 1, 0.36, 1) ${staggerMs + 90}ms`,
+                    }}
+                    className="absolute inset-0 z-20 pointer-events-none flex flex-col justify-between bg-[#262626]/95 will-change-transform"
+                  >
+                    {/* Üst narıncı mala / suvaq şeridi */}
+                    <div className="w-full h-2.5 bg-[#C85A32] border-b-2 border-[#1A1A1A] flex items-center justify-between px-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#F4F0DB]" />
+                      <span className="font-mono text-[8px] font-bold text-white tracking-wider">LESA // 0{idx + 1}</span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#F4F0DB]" />
+                    </div>
+
+                    {/* Metal İskələ (Lesa) Çarpaz Konstruksiyası SVG */}
+                    <svg viewBox="0 0 200 120" className="w-full h-full opacity-80" preserveAspectRatio="none">
+                      {/* Üfüqi dəmir borular */}
+                      <line x1="0" y1="40" x2="200" y2="40" stroke="#FACC15" strokeWidth="2.5" />
+                      <line x1="0" y1="80" x2="200" y2="80" stroke="#FACC15" strokeWidth="2.5" />
+                      {/* Şaquli dayaqlar */}
+                      <line x1="12" y1="0" x2="12" y2="120" stroke="#94A3B8" strokeWidth="3" />
+                      <line x1="100" y1="0" x2="100" y2="120" stroke="#94A3B8" strokeWidth="3" />
+                      <line x1="188" y1="0" x2="188" y2="120" stroke="#94A3B8" strokeWidth="3" />
+                      {/* Çarpaz X-bərkidicilər */}
+                      <line x1="12" y1="0" x2="100" y2="60" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
+                      <line x1="100" y1="0" x2="12" y2="60" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
+                      <line x1="100" y1="0" x2="188" y2="60" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
+                      <line x1="188" y1="0" x2="100" y2="60" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
+                      <line x1="12" y1="60" x2="100" y2="120" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
+                      <line x1="100" y1="60" x2="12" y2="120" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
+                      <line x1="100" y1="60" x2="188" y2="120" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
+                      <line x1="188" y1="60" x2="100" y2="120" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
+                    </svg>
+
+                    {/* Alt sarı-qara tikinti xəbərdarlıq zolağı */}
+                    <div
+                      className="w-full h-2"
+                      style={{
+                        backgroundImage:
+                          'repeating-linear-gradient(45deg, #FACC15, #FACC15 6px, #1A1A1A 6px, #1A1A1A 12px)',
+                      }}
+                    />
+                  </div>
+
+                  {/* Şəkil Üstü Nömrə və Kateqoriya Etiketi */}
+                  <div className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-[#262626] text-[#F4F0DB] px-1.5 py-0.5 font-mono text-[8px] sm:text-[9px] font-bold">
+                    #{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
+                  </div>
+                  <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-[#C85A32] text-white px-1.5 sm:px-2 py-0.5 font-mono text-[8px] sm:text-[9px] font-bold">
+                    {proj.tag}
+                  </div>
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 bg-white text-[#262626] border-2 border-[#262626] flex items-center justify-center font-bold">
+                      <ZoomIn className="w-4 h-4" />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="pt-2 px-1 font-mono">
-                <div className="flex items-center gap-1 text-[10px] text-[#C85A32] font-bold mb-0.5">
-                  <MapPin className="w-3 h-3" />
-                  <span>{proj.location}</span>
+                <div className="pt-1.5 sm:pt-2 px-0.5 sm:px-1 font-mono">
+                  <div className="flex items-center gap-1 text-[9px] sm:text-[10px] text-[#C85A32] font-bold mb-0.5 truncate">
+                    <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 shrink-0" />
+                    <span className="truncate">{proj.location}</span>
+                  </div>
+                  <h3 className="font-bold text-[11px] sm:text-xs text-[#262626] truncate">
+                    {proj.title}
+                  </h3>
                 </div>
-                <h3 className="font-bold text-xs text-[#262626] truncate">
-                  {proj.title}
-                </h3>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>
