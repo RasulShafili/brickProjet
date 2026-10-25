@@ -3,6 +3,8 @@
 import React from 'react';
 import { Hammer, Home, Layers, Shield, Grid, PaintBucket, MessageCircle } from 'lucide-react';
 
+const WHATSAPP_NUMBER = '994515480300';
+
 const SERVICES = [
   {
     icon: Home,
@@ -43,14 +45,6 @@ const SERVICES = [
 ];
 
 export default function ServicesSection() {
-  const handleSelectService = (serviceTitle: string) => {
-    window.dispatchEvent(new CustomEvent('select-service', { detail: serviceTitle }));
-    const contactEl = document.getElementById('contact');
-    if (contactEl) {
-      contactEl.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section
       id="services"
@@ -74,6 +68,9 @@ export default function ServicesSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {SERVICES.map((srv, idx) => {
             const IconComponent = srv.icon;
+            const textMsg = `Salam usta, "${srv.title}" xidməti üzrə qiymət öyrənmək istəyirəm.`;
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(textMsg)}`;
+
             return (
               <div
                 key={idx}
@@ -98,14 +95,15 @@ export default function ServicesSection() {
                   </p>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => handleSelectService(srv.title)}
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full min-h-[42px] bg-[#262626] hover:bg-[#C85A32] text-[#FFFFFF] font-bold text-xs px-4 py-2 rounded-[4px] flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />
                   <span>WhatsApp ilə Qiymət Soruş</span>
-                </button>
+                </a>
               </div>
             );
           })}

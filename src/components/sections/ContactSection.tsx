@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Phone, MessageCircle, MapPin, Clock, CheckCircle2 } from 'lucide-react';
+
+const WHATSAPP_NUMBER = '994515480300';
 
 export default function ContactSection() {
   const [senderName, setSenderName] = useState('');
@@ -10,33 +12,27 @@ export default function ContactSection() {
   const [location, setLocation] = useState('');
   const [note, setNote] = useState('');
 
-  // Xidmətlər bölməsindən hər hansı kart seçildikdə avtomatik həmin xidməti seçir
-  useEffect(() => {
-    const handleSelect = (e: Event) => {
-      const customEvent = e as CustomEvent<string>;
-      if (customEvent.detail) {
-        setWorkType(customEvent.detail);
-      }
-    };
-    window.addEventListener('select-service', handleSelect);
-    return () => window.removeEventListener('select-service', handleSelect);
-  }, []);
-
   const handleWhatsAppSend = (e: React.FormEvent) => {
     e.preventDefault();
     const messageLines = [
-      'Salam usta, saytınızdan müraciət edirəm:',
-      `• Müştəri: ${senderName.trim() || 'Qeyd edilməyib'}`,
-      `• Görüləcək iş: ${workType}`,
+      `Salam usta, "${workType}" xidməti üzrə qiymət öyrənmək istəyirəm.`,
+      senderName.trim() ? `• Müştəri: ${senderName.trim()}` : '',
       `• Material: ${materialOption}`,
-      `• Ərazi: ${location.trim() || 'Qeyd edilməyib'}`,
+      location.trim() ? `• Ərazi: ${location.trim()}` : '',
       note.trim() ? `• Qeyd: ${note.trim()}` : '',
     ]
       .filter(Boolean)
       .join('\n');
 
-    window.open(`https://wa.me/?text=${encodeURIComponent(messageLines)}`, '_blank');
+    window.open(
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(messageLines)}`,
+      '_blank'
+    );
   };
+
+  const directWhatsAppUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    `Salam usta, "${workType}" xidməti üzrə qiymət öyrənmək istəyirəm.`
+  )}`;
 
   return (
     <section
@@ -59,7 +55,7 @@ export default function ContactSection() {
 
             <div className="brick-card p-5 bg-[#FFFFFF] space-y-3.5">
               <a
-                href="tel:+994000000000"
+                href="tel:+994515480300"
                 className="min-h-[48px] flex items-center gap-3 text-base sm:text-lg font-black text-[#C85A32] hover:text-[#262626] transition-colors"
               >
                 <div className="w-11 h-11 bg-[#C85A32] text-white flex items-center justify-center border-2 border-[#262626] shadow-[2px_2px_0px_#262626] rounded-[4px] shrink-0">
@@ -67,13 +63,13 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <span className="text-[10px] text-[#262626]/70 uppercase font-bold block">Birbaşa Zəng</span>
-                  <span>[Telefon nömrəsi]</span>
+                  <span>+994 51 548 03 00</span>
                 </div>
               </a>
 
               <div className="border-t border-[#262626]/15 pt-3.5">
                 <a
-                  href="https://wa.me/"
+                  href={directWhatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="min-h-[48px] flex items-center gap-3 text-base sm:text-lg font-black text-[#262626] hover:text-[#15803D] transition-colors"
@@ -83,7 +79,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <span className="text-[10px] text-[#262626]/70 uppercase font-bold block">WhatsApp Xətti</span>
-                    <span>[WhatsApp nömrəsi]</span>
+                    <span>+994 51 548 03 00</span>
                   </div>
                 </a>
               </div>
@@ -101,44 +97,16 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Sağ 7 Sütun: Yalnız WhatsApp İlə Məlumat Göndərmə Modulu */}
+          {/* Sağ 7 Sütun: Seçilən Xidmətin Qiymətini WhatsApp-da Soruşan Modul */}
           <div className="col-span-12 lg:col-span-7 brick-card p-5 sm:p-6 bg-[#FFFFFF]">
             <form onSubmit={handleWhatsAppSend} className="space-y-3.5 text-xs sm:text-sm">
               <h3 className="text-base sm:text-lg font-black text-[#262626] border-b-2 border-[#262626] pb-2.5">
-                WhatsApp ilə Müraciət Göndər
+                WhatsApp ilə Qiymət Soruş
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {/* 1. Kimin göndərdiyi (Ad) */}
-                <div>
-                  <label className="block font-bold text-[#262626] mb-1">Adınız:</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Adınızı yazın"
-                    value={senderName}
-                    onChange={(e) => setSenderName(e.target.value)}
-                    className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
-                  />
-                </div>
-
-                {/* 2. Haradan göndərdiyi (Ərazi) */}
-                <div>
-                  <label className="block font-bold text-[#262626] mb-1">Ərazi / Qəsəbə:</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Məs: Maştağa qəs."
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              {/* 3. Nəyi istədiyi (Xidmət Növü) */}
+              {/* 1. Seçilən Xidmət (Avtomatik mesaj hissəsinə düşür) */}
               <div>
-                <label className="block font-bold text-[#262626] mb-1">Görüləcək İş:</label>
+                <label className="block font-bold text-[#262626] mb-1">Xidməti Seçin:</label>
                 <select
                   value={workType}
                   onChange={(e) => setWorkType(e.target.value)}
@@ -153,7 +121,33 @@ export default function ContactSection() {
                 </select>
               </div>
 
-              {/* 4. Necə istədiyi (Material Seçimi) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* 2. Ad */}
+                <div>
+                  <label className="block font-bold text-[#262626] mb-1">Adınız (İstəyə bağlı):</label>
+                  <input
+                    type="text"
+                    placeholder="Adınızı yazın"
+                    value={senderName}
+                    onChange={(e) => setSenderName(e.target.value)}
+                    className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
+                  />
+                </div>
+
+                {/* 3. Ərazi */}
+                <div>
+                  <label className="block font-bold text-[#262626] mb-1">Ərazi / Qəsəbə (İstəyə bağlı):</label>
+                  <input
+                    type="text"
+                    placeholder="Məs: Maştağa qəs."
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* 4. Material Seçimi */}
               <div className="grid grid-cols-2 gap-2.5">
                 {['Yalnız İşçilik', 'Materiallı Tam Təhvil'].map((opt) => (
                   <button
@@ -176,11 +170,11 @@ export default function ContactSection() {
                 ))}
               </div>
 
-              {/* 5. Əlavə Qeyd */}
+              {/* 5. Qısa Qeyd */}
               <div>
                 <input
                   type="text"
-                  placeholder="Qısa qeyd (məs: 120 m² ev, və ya şəkil göndərəcəyəm)"
+                  placeholder="Əlavə qeyd (məs: 120 m² ev)"
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                   className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
@@ -192,7 +186,7 @@ export default function ContactSection() {
                 className="brick-btn w-full min-h-[48px] bg-[#25D366] hover:bg-[#20BD5A] text-[#1A1A1A] py-3 px-5 text-sm font-black flex items-center justify-center gap-2 cursor-pointer"
               >
                 <MessageCircle className="w-5 h-5 shrink-0" />
-                <span>WhatsApp ilə Göndər</span>
+                <span>WhatsApp-da Qiymət Soruş (+994 51 548 03 00)</span>
               </button>
             </form>
           </div>

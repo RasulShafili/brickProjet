@@ -3,6 +3,10 @@
 import React from 'react';
 import { Phone, MessageCircle, Hammer } from 'lucide-react';
 
+const WHATSAPP_URL =
+  'https://wa.me/994515480300?text=' +
+  encodeURIComponent('Salam usta, tikinti və təmir xidmətləriniz üzrə qiymət öyrənmək istəyirəm.');
+
 export default function Header() {
   return (
     <header className="relative z-40 bg-[#F4F0DB] border-b-2 border-[#262626] px-4 sm:px-8 py-3">
@@ -42,7 +46,9 @@ export default function Header() {
         {/* Birbaşa Düymələr */}
         <div className="flex items-center gap-2">
           <a
-            href="#contact"
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden sm:inline-flex items-center justify-center gap-1.5 min-h-[42px] px-3.5 py-2 bg-[#25D366] text-[#1A1A1A] border-2 border-[#262626] shadow-[2px_2px_0px_#262626] text-xs font-extrabold rounded-[4px]"
           >
             <MessageCircle className="w-4 h-4" />
@@ -50,11 +56,11 @@ export default function Header() {
           </a>
 
           <a
-            href="#contact"
+            href="tel:+994515480300"
             className="brick-btn min-h-[42px] bg-[#C85A32] text-white hover:bg-[#B84A27] px-3.5 py-2 text-xs font-bold"
           >
             <Phone className="w-4 h-4 mr-1.5" />
-            <span>[Nömrə]</span>
+            <span>051 548 03 00</span>
           </a>
         </div>
 
