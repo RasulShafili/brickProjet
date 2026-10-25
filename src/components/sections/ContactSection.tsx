@@ -1,28 +1,39 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Phone, MessageCircle, MapPin, Clock, Camera, CheckCircle2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Phone, MessageCircle, MapPin, Clock, CheckCircle2 } from 'lucide-react';
 
 export default function ContactSection() {
+  const [senderName, setSenderName] = useState('');
   const [workType, setWorkType] = useState('Kubik Hörgü və Suvaq');
   const [materialOption, setMaterialOption] = useState('Yalnız İşçilik');
   const [location, setLocation] = useState('');
-  const [photoCount, setPhotoCount] = useState(0);
+  const [note, setNote] = useState('');
 
-  const handlePhotoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setPhotoCount(e.target.files.length);
-    }
-  };
+  // Xidmətlər bölməsindən hər hansı kart seçildikdə avtomatik həmin xidməti seçir
+  useEffect(() => {
+    const handleSelect = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail) {
+        setWorkType(customEvent.detail);
+      }
+    };
+    window.addEventListener('select-service', handleSelect);
+    return () => window.removeEventListener('select-service', handleSelect);
+  }, []);
 
   const handleWhatsAppSend = (e: React.FormEvent) => {
     e.preventDefault();
     const messageLines = [
-      'Salam usta, qiymət öyrənmək istəyirəm:',
-      `• İş: ${workType}`,
+      'Salam usta, saytınızdan müraciət edirəm:',
+      `• Müştəri: ${senderName.trim() || 'Qeyd edilməyib'}`,
+      `• Görüləcək iş: ${workType}`,
       `• Material: ${materialOption}`,
-      `• Ərazi: ${location || 'Qeyd edilməyib'}`,
-    ].join('\n');
+      `• Ərazi: ${location.trim() || 'Qeyd edilməyib'}`,
+      note.trim() ? `• Qeyd: ${note.trim()}` : '',
+    ]
+      .filter(Boolean)
+      .join('\n');
 
     window.open(`https://wa.me/?text=${encodeURIComponent(messageLines)}`, '_blank');
   };
@@ -35,7 +46,7 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-12 gap-6 sm:gap-8 items-start">
           
-          {/* Sol 5 Sütun: Yığcam Zəng və WhatsApp Kartı */}
+          {/* Sol 5 Sütun: Birbaşa Zəng və WhatsApp Kartı */}
           <div className="col-span-12 lg:col-span-5 space-y-4">
             <div>
               <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-1">
@@ -90,32 +101,28 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Sağ 7 Sütun: Qısa və Aydın WhatsApp Qiymət Modulu */}
+          {/* Sağ 7 Sütun: Yalnız WhatsApp İlə Məlumat Göndərmə Modulu */}
           <div className="col-span-12 lg:col-span-7 brick-card p-5 sm:p-6 bg-[#FFFFFF]">
-            <form onSubmit={handleWhatsAppSend} className="space-y-4 text-xs sm:text-sm">
+            <form onSubmit={handleWhatsAppSend} className="space-y-3.5 text-xs sm:text-sm">
               <h3 className="text-base sm:text-lg font-black text-[#262626] border-b-2 border-[#262626] pb-2.5">
-                WhatsApp ilə Sürətli Qiymət Sorğusu
+                WhatsApp ilə Müraciət Göndər
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {/* 1. İşin Növü */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* 1. Kimin göndərdiyi (Ad) */}
                 <div>
-                  <label className="block font-bold text-[#262626] mb-1">İşin Növü:</label>
-                  <select
-                    value={workType}
-                    onChange={(e) => setWorkType(e.target.value)}
-                    className="w-full min-h-[44px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] font-bold text-[#262626] focus:outline-none"
-                  >
-                    <option value="Sıfırdan Ev Tikintisi">Sıfırdan Ev Tikintisi</option>
-                    <option value="Kubik Hörgü və Suvaq">Kubik Hörgü və Suvaq</option>
-                    <option value="Dam Örtüyü">Dam Örtüyü</option>
-                    <option value="Daxili Təmir və Kafel">Daxili Təmir və Kafel</option>
-                    <option value="Hasar və Həyət İşi">Hasar və Həyət İşi</option>
-                    <option value="Kiçik Ev Təmiri">Kiçik Ev Təmiri</option>
-                  </select>
+                  <label className="block font-bold text-[#262626] mb-1">Adınız:</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Adınızı yazın"
+                    value={senderName}
+                    onChange={(e) => setSenderName(e.target.value)}
+                    className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
+                  />
                 </div>
 
-                {/* 2. Ərazi */}
+                {/* 2. Haradan göndərdiyi (Ərazi) */}
                 <div>
                   <label className="block font-bold text-[#262626] mb-1">Ərazi / Qəsəbə:</label>
                   <input
@@ -124,19 +131,36 @@ export default function ContactSection() {
                     placeholder="Məs: Maştağa qəs."
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="w-full min-h-[44px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
+                    className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
                   />
                 </div>
               </div>
 
-              {/* 3. Material Seçimi */}
+              {/* 3. Nəyi istədiyi (Xidmət Növü) */}
+              <div>
+                <label className="block font-bold text-[#262626] mb-1">Görüləcək İş:</label>
+                <select
+                  value={workType}
+                  onChange={(e) => setWorkType(e.target.value)}
+                  className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] font-bold text-[#262626] focus:outline-none"
+                >
+                  <option value="Sıfırdan Ev Tikintisi">Sıfırdan Ev Tikintisi</option>
+                  <option value="Kubik Hörgü və Suvaq">Kubik Hörgü və Suvaq</option>
+                  <option value="Dam Örtükləri">Dam Örtükləri</option>
+                  <option value="Daxili Təmir və Kafel">Daxili Təmir və Kafel</option>
+                  <option value="Hasar və Həyət İşləri">Hasar və Həyət İşləri</option>
+                  <option value="Kiçik Ev Təmiri">Kiçik Ev Təmiri</option>
+                </select>
+              </div>
+
+              {/* 4. Necə istədiyi (Material Seçimi) */}
               <div className="grid grid-cols-2 gap-2.5">
                 {['Yalnız İşçilik', 'Materiallı Tam Təhvil'].map((opt) => (
                   <button
                     type="button"
                     key={opt}
                     onClick={() => setMaterialOption(opt)}
-                    className={`min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+                    className={`min-h-[42px] p-2 border-2 border-[#262626] rounded-[4px] font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                       materialOption === opt
                         ? 'bg-[#262626] text-[#F4F0DB]'
                         : 'bg-[#F4F0DB] text-[#262626]'
@@ -152,27 +176,23 @@ export default function ContactSection() {
                 ))}
               </div>
 
-              {/* 4. Şəkil Seçimi */}
-              <label className="border-2 border-dashed border-[#262626] rounded-[4px] bg-[#F4F0DB] hover:bg-[#EAE5D0] p-3 flex items-center justify-center gap-2 cursor-pointer transition-colors">
-                <Camera className="w-5 h-5 text-[#C85A32] shrink-0" />
-                <span className="font-bold text-xs text-[#262626]">
-                  {photoCount > 0 ? `${photoCount} şəkil seçildi` : 'İşin şəklini əlavə et (İstəyə bağlı)'}
-                </span>
+              {/* 5. Əlavə Qeyd */}
+              <div>
                 <input
-                  type="file"
-                  accept="image/*,video/*"
-                  multiple
-                  onChange={handlePhotoSelect}
-                  className="hidden"
+                  type="text"
+                  placeholder="Qısa qeyd (məs: 120 m² ev, və ya şəkil göndərəcəyəm)"
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
                 />
-              </label>
+              </div>
 
               <button
                 type="submit"
                 className="brick-btn w-full min-h-[48px] bg-[#25D366] hover:bg-[#20BD5A] text-[#1A1A1A] py-3 px-5 text-sm font-black flex items-center justify-center gap-2 cursor-pointer"
               >
                 <MessageCircle className="w-5 h-5 shrink-0" />
-                <span>WhatsApp-a Göndər</span>
+                <span>WhatsApp ilə Göndər</span>
               </button>
             </form>
           </div>

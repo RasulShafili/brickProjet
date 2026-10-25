@@ -43,6 +43,14 @@ const SERVICES = [
 ];
 
 export default function ServicesSection() {
+  const handleSelectService = (serviceTitle: string) => {
+    window.dispatchEvent(new CustomEvent('select-service', { detail: serviceTitle }));
+    const contactEl = document.getElementById('contact');
+    if (contactEl) {
+      contactEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section
       id="services"
@@ -90,13 +98,14 @@ export default function ServicesSection() {
                   </p>
                 </div>
 
-                <a
-                  href="#contact"
-                  className="w-full min-h-[42px] bg-[#262626] hover:bg-[#C85A32] text-[#FFFFFF] font-bold text-xs px-4 py-2 rounded-[4px] flex items-center justify-center gap-2 transition-colors"
+                <button
+                  type="button"
+                  onClick={() => handleSelectService(srv.title)}
+                  className="w-full min-h-[42px] bg-[#262626] hover:bg-[#C85A32] text-[#FFFFFF] font-bold text-xs px-4 py-2 rounded-[4px] flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />
-                  <span>Qiymət Soruş</span>
-                </a>
+                  <span>WhatsApp ilə Qiymət Soruş</span>
+                </button>
               </div>
             );
           })}
