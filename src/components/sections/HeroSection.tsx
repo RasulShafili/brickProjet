@@ -5,7 +5,7 @@ import { MapPin, MessageCircle, ShieldCheck, UserCheck, Images } from 'lucide-re
 
 export default function HeroSection() {
   return (
-    <section className="px-4 sm:px-8 py-10 lg:py-16 bg-[#F4F0DB] border-b-2 border-[#262626] relative z-10">
+    <section className="px-4 sm:px-8 py-10 lg:py-16 bg-[#F4F0DB]/80 border-b-2 border-[#262626] relative z-10">
       <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 items-center">
         
         {/* Sol 7 Sütun: Qısa, Aydın və Yığcam Giriş */}

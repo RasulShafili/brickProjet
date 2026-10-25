@@ -37,7 +37,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="px-4 sm:px-8 py-12 lg:py-16 bg-[#F4F0DB] relative z-10"
+      className="px-4 sm:px-8 py-12 lg:py-16 bg-[#F4F0DB]/80 relative z-10"
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-12 gap-6 sm:gap-8 items-start">
