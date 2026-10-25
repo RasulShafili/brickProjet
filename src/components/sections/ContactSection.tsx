@@ -44,41 +44,39 @@ export default function ContactSection() {
           
           {/* Sol 5 Sütun: Asılmış Tabela Başlıq + Pəncərə Görünüşlü Əlaqə Kartı */}
           <div className="col-span-12 lg:col-span-5 space-y-5">
-            <div className="hanging-sign px-6 py-3.5">
-              <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-0.5">
-                ƏLAQƏ
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-[#262626]">
+            <div className="hanging-sign px-6 py-4">
+              <div className="sign-kicker">ƏLAQƏ</div>
+              <h2 className="text-2xl sm:text-4xl font-black text-[#1A110B]">
                 Birbaşa Usta İlə Əlaqə
               </h2>
             </div>
 
-            <div className="brick-card p-5 bg-[#FFFFFF] space-y-3.5">
+            <div className="brick-card p-5 sm:p-6 bg-[#FFFDF7] space-y-4">
               <a
                 href="tel:+994515480300"
-                className="min-h-[48px] flex items-center gap-3 text-base sm:text-lg font-black text-[#C85A32] hover:text-[#262626] transition-colors"
+                className="min-h-[48px] flex items-center gap-3.5 text-lg sm:text-xl font-display font-black text-[#C85A32] hover:text-[#1A110B] transition-colors"
               >
-                <div className="w-11 h-11 bg-[#C85A32] text-white flex items-center justify-center border-2 border-[#262626] shadow-[2px_2px_0px_#262626] rounded-[4px] shrink-0">
+                <div className="w-12 h-12 bg-[#C85A32] text-white flex items-center justify-center border-2 border-[#1A110B] shadow-[2px_2px_0px_#1A110B] rounded-[4px] shrink-0">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] text-[#262626]/70 uppercase font-bold block">Birbaşa Zəng</span>
+                  <span className="text-[11px] text-[#1A110B] uppercase font-black block tracking-wider">Birbaşa Zəng</span>
                   <span>+994 51 548 03 00</span>
                 </div>
               </a>
 
-              <div className="border-t border-[#262626]/15 pt-3.5">
+              <div className="border-t-2 border-[#1A110B]/15 pt-4">
                 <a
                   href={directWhatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="min-h-[48px] flex items-center gap-3 text-base sm:text-lg font-black text-[#262626] hover:text-[#15803D] transition-colors"
+                  className="min-h-[48px] flex items-center gap-3.5 text-lg sm:text-xl font-display font-black text-[#1A110B] hover:text-[#15803D] transition-colors"
                 >
-                  <div className="w-11 h-11 bg-[#25D366] text-[#1A1A1A] flex items-center justify-center border-2 border-[#262626] shadow-[2px_2px_0px_#262626] rounded-[4px] shrink-0">
+                  <div className="w-12 h-12 bg-[#25D366] text-[#1A110B] flex items-center justify-center border-2 border-[#1A110B] shadow-[2px_2px_0px_#1A110B] rounded-[4px] shrink-0">
                     <MessageCircle className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-[#262626]/70 uppercase font-bold block">WhatsApp Xətti</span>
+                    <span className="text-[11px] text-[#1A110B] uppercase font-black block tracking-wider">WhatsApp Xətti</span>
                     <span>+994 51 548 03 00</span>
                   </div>
                 </a>
@@ -86,7 +84,7 @@ export default function ContactSection() {
             </div>
 
             {/* 2 Kiçik Asılmış Tabela (İş Saatı və Ərazi) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold text-[#262626]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm font-black text-[#1A110B]">
               <div className="hanging-badge flex items-center gap-2 p-3">
                 <Clock className="w-4 h-4 text-[#C85A32] shrink-0" />
                 <span>Hər gün: 08:00 – 20:00</span>
@@ -99,19 +97,19 @@ export default function ContactSection() {
           </div>
 
           {/* Sağ 7 Sütun: Pəncərə Görünüşlü WhatsApp Sorğu Modulu */}
-          <div className="col-span-12 lg:col-span-7 brick-window p-6 sm:p-7 bg-[#FFFFFF]">
-            <form onSubmit={handleWhatsAppSend} className="space-y-3.5 text-xs sm:text-sm">
-              <h3 className="text-base sm:text-lg font-black text-[#262626] border-b-2 border-[#262626] pb-2.5">
+          <div className="col-span-12 lg:col-span-7 brick-window p-6 sm:p-7 bg-[#FFFDF7]">
+            <form onSubmit={handleWhatsAppSend} className="space-y-4 text-sm">
+              <h3 className="window-title text-lg sm:text-2xl font-black text-[#1A110B] border-b-2 border-[#1A110B] pb-3">
                 WhatsApp ilə Qiymət Soruş
               </h3>
 
               {/* 1. Seçilən Xidmət (Avtomatik mesaj hissəsinə düşür) */}
               <div>
-                <label className="block font-bold text-[#262626] mb-1">Xidməti Seçin:</label>
+                <label className="block font-display font-black text-[#1A110B] mb-1.5">Xidməti Seçin:</label>
                 <select
                   value={workType}
                   onChange={(e) => setWorkType(e.target.value)}
-                  className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] font-bold text-[#262626] focus:outline-none"
+                  className="w-full min-h-[44px] p-2.5 border-2 border-[#1A110B] rounded-[4px] bg-[#F4F0DB] font-bold text-[#1A110B] focus:outline-none"
                 >
                   <option value="Sıfırdan Ev Tikintisi">Sıfırdan Ev Tikintisi</option>
                   <option value="Kubik Hörgü və Suvaq">Kubik Hörgü və Suvaq</option>
@@ -122,28 +120,28 @@ export default function ContactSection() {
                 </select>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {/* 2. Ad */}
                 <div>
-                  <label className="block font-bold text-[#262626] mb-1">Adınız (İstəyə bağlı):</label>
+                  <label className="block font-display font-black text-[#1A110B] mb-1.5">Adınız (İstəyə bağlı):</label>
                   <input
                     type="text"
                     placeholder="Adınızı yazın"
                     value={senderName}
                     onChange={(e) => setSenderName(e.target.value)}
-                    className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
+                    className="w-full min-h-[44px] p-2.5 border-2 border-[#1A110B] rounded-[4px] bg-[#F4F0DB] font-semibold text-[#1A110B] focus:bg-[#FFFFFF] focus:outline-none"
                   />
                 </div>
 
                 {/* 3. Ərazi */}
                 <div>
-                  <label className="block font-bold text-[#262626] mb-1">Ərazi / Kənd (İstəyə bağlı):</label>
+                  <label className="block font-display font-black text-[#1A110B] mb-1.5">Ərazi / Kənd (İstəyə bağlı):</label>
                   <input
                     type="text"
                     placeholder="Məs: Qəbələ, Vəndam"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
+                    className="w-full min-h-[44px] p-2.5 border-2 border-[#1A110B] rounded-[4px] bg-[#F4F0DB] font-semibold text-[#1A110B] focus:bg-[#FFFFFF] focus:outline-none"
                   />
                 </div>
               </div>
@@ -155,18 +153,18 @@ export default function ContactSection() {
                     type="button"
                     key={opt}
                     onClick={() => setMaterialOption(opt)}
-                    className={`min-h-[42px] p-2 border-2 border-[#262626] rounded-[4px] font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+                    className={`font-display min-h-[44px] p-2.5 border-2 border-[#1A110B] rounded-[4px] font-black flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                       materialOption === opt
-                        ? 'bg-[#262626] text-[#F4F0DB]'
-                        : 'bg-[#F4F0DB] text-[#262626]'
+                        ? 'bg-[#1A110B] text-[#F4F0DB]'
+                        : 'bg-[#F4F0DB] text-[#1A110B]'
                     }`}
                   >
                     <CheckCircle2
                       className={`w-4 h-4 shrink-0 ${
-                        materialOption === opt ? 'text-[#25D366]' : 'text-[#262626]/40'
+                        materialOption === opt ? 'text-[#25D366]' : 'text-[#1A110B]/40'
                       }`}
                     />
-                    <span className="text-xs">{opt}</span>
+                    <span className="text-xs sm:text-sm">{opt}</span>
                   </button>
                 ))}
               </div>
@@ -178,13 +176,13 @@ export default function ContactSection() {
                   placeholder="Əlavə qeyd (məs: 120 m² ev)"
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
-                  className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"
+                  className="w-full min-h-[44px] p-2.5 border-2 border-[#1A110B] rounded-[4px] bg-[#F4F0DB] font-semibold text-[#1A110B] focus:bg-[#FFFFFF] focus:outline-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="brick-btn w-full min-h-[48px] bg-[#25D366] hover:bg-[#20BD5A] text-[#1A1A1A] py-3 px-5 text-sm font-black flex items-center justify-center gap-2 cursor-pointer"
+                className="brick-btn w-full min-h-[50px] bg-[#25D366] hover:bg-[#20BD5A] text-[#1A110B] py-3 px-5 text-sm sm:text-base font-black uppercase tracking-wide flex items-center justify-center gap-2 cursor-pointer"
               >
                 <MessageCircle className="w-5 h-5 shrink-0" />
                 <span>WhatsApp-da Qiymət Soruş (+994 51 548 03 00)</span>

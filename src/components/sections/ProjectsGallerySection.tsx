@@ -71,10 +71,10 @@ function BeforeAfterSlider() {
       
       {/* SAĞ TƏRƏF: SONRA */}
       <div className="absolute inset-0 bg-[#E6EFE9] flex flex-col items-center justify-center p-3 text-center">
-        <span className="px-2 py-0.5 bg-emerald-800 text-white text-[10px] font-bold rounded-[2px] mb-1.5">
+        <span className="font-display px-2.5 py-0.5 bg-emerald-800 text-white text-[11px] font-black rounded-[2px] mb-1.5">
           SONRA
         </span>
-        <div className="text-xs font-black text-[#1F2421]">
+        <div className="font-display text-xs sm:text-sm font-black text-[#1A110B]">
           [Hazır Şəkil Yeri]
         </div>
       </div>
@@ -85,10 +85,10 @@ function BeforeAfterSlider() {
         style={{ width: `${sliderPos}%` }}
       >
         <div className="w-[300px] sm:w-[360px] h-full flex flex-col items-center justify-center p-3 text-center">
-          <span className="px-2 py-0.5 bg-[#262626] text-[#F4F0DB] text-[10px] font-bold rounded-[2px] mb-1.5">
+          <span className="font-display px-2.5 py-0.5 bg-[#1A110B] text-[#F4F0DB] text-[11px] font-black rounded-[2px] mb-1.5">
             ƏVVƏL
           </span>
-          <div className="text-xs font-black text-[#262626]">
+          <div className="font-display text-xs sm:text-sm font-black text-[#1A110B]">
             [Əvvəlki Şəkil Yeri]
           </div>
         </div>
@@ -131,16 +131,14 @@ export default function ProjectsGallerySection() {
         
         {/* Asılmış Tabela Başlıq və Filtrlər */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-          <div className="hanging-sign px-6 py-3.5">
-            <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-0.5">
-              QALEREYA
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#262626]">
+          <div className="hanging-sign px-6 py-4">
+            <div className="sign-kicker">QALEREYA</div>
+            <h2 className="text-2xl sm:text-4xl font-black text-[#1A110B]">
               Görülən İşlər (Əvvəl / Sonra)
             </h2>
           </div>
 
-          <div className="flex flex-wrap gap-2.5 text-xs">
+          <div className="flex flex-wrap gap-2.5 text-xs sm:text-sm">
             {[
               { id: 'all', label: 'Hamısı' },
               { id: 'before-after', label: 'Əvvəl / Sonra' },
@@ -150,10 +148,10 @@ export default function ProjectsGallerySection() {
               <button
                 key={tab.id}
                 onClick={() => setFilter(tab.id as typeof filter)}
-                className={`hanging-badge min-h-[38px] px-3.5 py-1.5 font-extrabold transition-all cursor-pointer ${
+                className={`hanging-badge font-display min-h-[40px] px-4 py-1.5 font-black uppercase tracking-wide transition-all cursor-pointer ${
                   filter === tab.id
                     ? '!bg-[#C85A32] !bg-none text-white'
-                    : 'text-[#262626] hover:bg-[#EAE5D0]'
+                    : 'text-[#1A110B] hover:bg-[#EAE5D0]'
                 }`}
               >
                 {tab.label}
@@ -167,29 +165,29 @@ export default function ProjectsGallerySection() {
           {filtered.map((proj) => (
             <div
               key={proj.id}
-              className="brick-card bg-[#FFFFFF] p-4 flex flex-col justify-between"
+              className="brick-card bg-[#FFFDF7] p-4 flex flex-col justify-between"
             >
               {proj.isBeforeAfter ? (
                 <BeforeAfterSlider />
               ) : (
                 <div className="relative aspect-[4/3] overflow-hidden border-[3px] border-[#2D1E16] bg-[#EAE5D0] flex flex-col items-center justify-center p-4 text-center">
-                  <div className="text-xs font-black text-[#262626]">
+                  <div className="font-display text-xs sm:text-sm font-black text-[#1A110B]">
                     [Layihə Şəkli Yeri]
                   </div>
                 </div>
               )}
 
-              <div className="pt-3 px-1">
-                <h3 className="font-black text-sm sm:text-base text-[#262626] mb-1.5">
+              <div className="pt-3.5 px-1">
+                <h3 className="window-title text-base sm:text-lg font-black text-[#1A110B] mb-2">
                   {proj.title}
                 </h3>
-                <div className="flex items-center justify-between text-xs font-bold text-[#262626]/75">
+                <div className="flex items-center justify-between text-xs sm:text-sm font-extrabold text-[#1A110B]">
                   <span className="inline-flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-[#C85A32]" />
+                    <MapPin className="w-4 h-4 text-[#C85A32]" />
                     {proj.location}
                   </span>
                   <span className="inline-flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5 text-[#C85A32]" />
+                    <Clock className="w-4 h-4 text-[#C85A32]" />
                     {proj.duration}
                   </span>
                 </div>

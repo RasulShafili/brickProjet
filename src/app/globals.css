@@ -6,7 +6,7 @@
   --brick-red: #C85A32;
   --brick-dark: #9E3F20;
   --brick-light: #E3C1AA;
-  --cement-dark: #262626;
+  --cement-dark: #1A110B;
   --cement-gray: #4A4A4A;
   --stone-paper: #F4F0DB;
   --stone-card: #FFFFFF;
@@ -31,8 +31,54 @@ body {
   overflow-x: hidden;
   background-color: var(--stone-paper);
   color: var(--cement-dark);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================================
+   MEMARLIQ & USTA TABELASI TİPOQRAFİYASI (Gözəçarpan Qalın Başlıqlar)
+   ============================================================================ */
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #1A110B;
+  /* 3D Tabela Relyef Kölgəsi — yazıların fonda itməsinin qarşısını alır */
+  text-shadow:
+    0 1px 0 #FFFFFF,
+    2px 2px 0 rgba(200, 90, 50, 0.26);
+}
+
+/* Asılmış Tabelaların Üstündəki Qırmızı Metal Etiket (.sign-kicker) */
+.sign-kicker {
+  display: inline-block;
+  font-family: var(--font-display), sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background-color: #C85A32;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border: 1.5px solid #1A110B;
+  border-radius: 2px;
+  box-shadow: 2px 2px 0 #1A110B;
+  margin-bottom: 6px;
+}
+
+/* Pəncərə Daxili Kart Başlığı Xətti (.window-title) */
+.window-title {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 900;
+  color: #1A110B;
+  border-left: 4px solid #C85A32;
+  padding-left: 10px;
+  line-height: 1.2;
 }
 
 /* CAD & Kərpic Fon Toru */
@@ -202,10 +248,11 @@ body {
 
 /* Kəskin Kərpic Düyməsi */
 .brick-btn {
+  font-family: var(--font-display), sans-serif;
   border: 2px solid var(--cement-dark);
   border-radius: 4px;
   box-shadow: 3px 3px 0px 0px var(--cement-dark);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.02em;
   transition: all 0.12s ease;
   display: inline-flex;
