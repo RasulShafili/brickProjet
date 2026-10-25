@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brick-red: #C85A32;
+  --brick-dark: #9E3F20;
+  --brick-light: #E3C1AA;
+  --cement-dark: #262626;
+  --cement-gray: #4A4A4A;
+  --stone-paper: #F4F0DB;
+  --stone-card: #FFFFFF;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--stone-paper);
+  color: var(--cement-dark);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--stone-paper);
+  color: var(--cement-dark);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* CAD & Kərpic Fon Toru */
+.bg-brick-grid {
+  background-image: 
+    linear-gradient(to right, rgba(38, 38, 38, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(38, 38, 38, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Kəskin Kərpic Kartı (Brick Brutalism) */
+.brick-card {
+  background-color: #FFFFFF;
+  border: 2px solid var(--cement-dark);
+  border-radius: 4px;
+  box-shadow: 4px 4px 0px 0px var(--cement-dark);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.brick-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px var(--brick-red);
+}
+
+/* Kəskin Kərpic Düyməsi */
+.brick-btn {
+  border: 2px solid var(--cement-dark);
+  border-radius: 4px;
+  box-shadow: 3px 3px 0px 0px var(--cement-dark);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: all 0.12s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brick-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px 0px var(--cement-dark);
+}
+
+.brick-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px 0px var(--cement-dark);
+}
+
+/* Kərpic Hörgü Xətti (Running Bond) */
+.brick-border-t {
+  border-top: 3px solid var(--brick-red);
+}
+
+/* Lazer Nivelir Skan Animasiyası */
+@keyframes laserScan {
+  0% {
+    top: 5%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 95%;
+    opacity: 0;
+  }
+}
+
+.animate-laserScan {
+  animation: laserScan 9s ease-in-out infinite;
+}
+
+/* Kərpic Hörgü Bloku Stili */
+.brick-block-pattern {
+  background-color: #C85A32;
+  background-image: 
+    linear-gradient(to right, rgba(0,0,0,0.2) 2px, transparent 2px),
+    linear-gradient(to bottom, rgba(0,0,0,0.2) 2px, transparent 2px);
+  background-size: 50px 24px;
+}
