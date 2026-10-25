@@ -2,75 +2,92 @@
 
 import React, { useEffect, useState } from 'react';
 
-const TOTAL_ROWS = 18;
-const COLS_PER_ROW = 8;
+const BRICK_COLORS = ['#C84B28', '#D96B27', '#C85A32', '#B83E1E', '#D0562B'];
 
 /**
- * Səhifənin arxa planında solğun (faded) kərpic hörgü animasiyası:
- * İstifadəçi aşağı scroll etdikcə kərpic sətirləri ardıcıllıqla yerinə oturur və hörülür.
+ * Bütün saytın arxa fonunda Aşağı Scroll Etdikcə Tikilən Kərpic və Sement Divarı:
+ * - Həm Mobildə (5 sütun x 26 sətir), həm də PC-də (11 sütun x 22 sətir) kərpiclər kvadrat deyil,
+ *   əsl üfüqi kubik/kərpic nisbətindədir (~2.5 : 1).
+ * - Hörüldükcə kərpiclərin arasındakı tikişlərə boz sement (#7A828A) dolur.
  */
 export default function ScrollBrickWallBackground() {
-  const [scrollProgress, setScrollProgress] = useState(0.08);
+  const [scrollProgress, setScrollProgress] = useState(0.14);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     let rafId: number | null = null;
 
-    const updateScroll = () => {
+    const updateAll = () => {
+      setIsMobile(window.innerWidth < 768);
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const maxScroll = Math.max(
         1,
         document.documentElement.scrollHeight - window.innerHeight
       );
-      // Başlanğıcda yuxarı hissə (0.12) görünür, aşağı düşdükcə 1.0-a qədər tam hörülür
       const raw = Math.min(1, Math.max(0, scrollTop / maxScroll));
-      const mapped = 0.12 + raw * 0.88;
-      setScrollProgress(mapped);
+      // Səhifə açıldıqda yuxarıdakı 15% hörülü olur, aşağı scroll etdikcə 100% tam hörülür
+      setScrollProgress(0.15 + raw * 0.85);
       rafId = null;
     };
 
-    const onScroll = () => {
+    const onScrollOrResize = () => {
       if (rafId === null) {
-        rafId = requestAnimationFrame(updateScroll);
+        rafId = requestAnimationFrame(updateAll);
       }
     };
 
-    updateScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
+    updateAll();
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize, { passive: true });
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
+      window.removeEventListener('scroll', onScrollOrResize);
+      window.removeEventListener('resize', onScrollOrResize);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, []);
 
-  // Neçə kərpicin artıq hörüldüyünü hesablayırıq
-  const totalBricks = TOTAL_ROWS * COLS_PER_ROW;
+  // Mobildə kvadrat görünməməsi üçün 5 sütun və 26 sətir (üfüqi düzbucaqlı kubik nisbəti)
+  // PC-də 10 sütun və 22 sətir
+  const totalRows = isMobile ? 26 : 22;
+  const colsPerRow = isMobile ? 5 : 10;
+
+  const totalBricks = totalRows * colsPerRow;
   const builtBrickCount = Math.floor(scrollProgress * totalBricks);
 
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none flex flex-col justify-between p-1.5 sm:p-3 opacity-[0.14] sm:opacity-[0.16]"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none flex flex-col justify-stretch opacity-[0.42] sm:opacity-[0.45]"
     >
-      {Array.from({ length: TOTAL_ROWS }).map((_, rIdx) => {
+      {Array.from({ length: totalRows }).map((_, rIdx) => {
         const isOddRow = rIdx % 2 === 1;
+        const rowFirstBrickIndex = rIdx * colsPerRow;
+        const rowLastBrickIndex = rowFirstBrickIndex + colsPerRow - 1;
+        // Bu sətirdəki kərpiclər düzüldükdə aralarına boz sement (#7A828A) dolur
+        const hasCementInRow = builtBrickCount >= rowFirstBrickIndex;
+        const isRowFullyCemented = builtBrickCount >= rowLastBrickIndex;
 
         return (
           <div
             key={rIdx}
-            className="flex-1 w-full flex items-stretch gap-1.5 sm:gap-2 my-[2px] sm:my-[3px]"
+            className="flex-1 w-[108%] -ml-[4%] grid gap-[3px] sm:gap-[4px] px-[2px] py-[1.5px] sm:py-[2px] transition-colors duration-300"
             style={{
-              // Şahmat qaydasında (Running Bond) hörgü sürüşməsi
-              transform: isOddRow ? 'translateX(3%)' : 'translateX(-1%)',
+              gridTemplateColumns: `repeat(${colsPerRow}, minmax(0, 1fr))`,
+              // Şahmat qaydasında (Running Bond) kərpic düzülüşü
+              transform: isOddRow ? 'translateX(4.5%)' : 'translateX(0%)',
+              // Kərpiclərin arasındakı sement təbəqəsi
+              backgroundColor: isRowFullyCemented
+                ? '#788088'
+                : hasCementInRow
+                ? '#8B939B'
+                : 'transparent',
+              borderBottom: hasCementInRow ? '1.5px solid #262626' : 'none',
             }}
           >
-            {Array.from({ length: COLS_PER_ROW }).map((__, cIdx) => {
-              const brickLinearIndex = rIdx * COLS_PER_ROW + cIdx;
+            {Array.from({ length: colsPerRow }).map((__, cIdx) => {
+              const brickLinearIndex = rIdx * colsPerRow + cIdx;
               const isBuilt = brickLinearIndex <= builtBrickCount;
-              const isJustBuilding =
-                brickLinearIndex > builtBrickCount - 4 &&
-                brickLinearIndex <= builtBrickCount;
+              const brickColor = BRICK_COLORS[(rIdx * 3 + cIdx) % BRICK_COLORS.length];
 
               return (
                 <div
@@ -78,20 +95,17 @@ export default function ScrollBrickWallBackground() {
                   style={{
                     transform: isBuilt
                       ? 'translate3d(0, 0px, 0) scale(1)'
-                      : 'translate3d(0, 26px, 0) scale(0.88)',
+                      : 'translate3d(0, -18px, 0) scale(0.85)',
                     opacity: isBuilt ? 1 : 0,
-                    backgroundColor: isJustBuilding
-                      ? '#D96B27'
-                      : (rIdx + cIdx) % 2 === 0
-                      ? '#C85A32'
-                      : '#9E3F20',
+                    backgroundColor: brickColor,
                     transition:
-                      'transform 340ms cubic-bezier(0.22, 1, 0.36, 1), opacity 260ms ease-out, background-color 300ms ease',
+                      'transform 260ms cubic-bezier(0.2, 0.95, 0.3, 1.05), opacity 200ms ease-out',
                   }}
-                  className="flex-1 h-full rounded-[3px] border-2 border-[#262626] shadow-[2px_2px_0px_#262626] relative will-change-transform"
+                  className="w-full h-full rounded-[2px] border-[1.5px] sm:border-[2px] border-[#1A1A1A] relative overflow-hidden will-change-transform"
                 >
-                  {/* Solğun kərpic içi cizgi */}
-                  <div className="absolute top-1 left-1.5 right-1.5 h-[2px] bg-white/30 rounded-full" />
+                  {/* Kərpic üzərindəki işıq və kölgə teksturası */}
+                  <div className="absolute top-[2px] left-1 right-1 h-[2px] bg-white/30 rounded-full" />
+                  <div className="absolute bottom-[2px] left-1 right-1 h-[2px] bg-black/25 rounded-full" />
                 </div>
               );
             })}

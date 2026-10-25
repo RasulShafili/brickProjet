@@ -48,20 +48,18 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="px-4 sm:px-8 py-12 lg:py-16 bg-[#FFFFFF]/82 border-b-2 border-[#262626] relative z-10"
+      className="px-4 sm:px-8 py-12 lg:py-16 bg-[#FFFFFF]/45 border-b-2 border-[#262626] relative z-10"
     >
       <div className="max-w-7xl mx-auto">
         
         {/* Qısa Başlıq */}
-        <div className="flex items-center justify-between gap-4 mb-8 border-b-2 border-[#262626] pb-4">
-          <div>
-            <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-1">
-              XİDMƏTLƏRİMİZ
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#262626]">
-              Gördüyümüz Əsas İşlər
-            </h2>
+        <div className="inline-block bg-[#FFFFFF] border-2 border-[#262626] shadow-[4px_4px_0px_#262626] rounded-[4px] px-5 py-3 mb-8">
+          <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-0.5">
+            XİDMƏTLƏRİMİZ
           </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-[#262626]">
+            Gördüyümüz Əsas İşlər
+          </h2>
         </div>
 
         {/* 6 Yığcam və Aydın Xidmət Kartı */}
@@ -74,7 +72,7 @@ export default function ServicesSection() {
             return (
               <div
                 key={idx}
-                className="brick-card bg-[#F4F0DB]/60 hover:bg-[#FFFFFF] p-5 flex flex-col justify-between transition-colors"
+                className="brick-card bg-[#FFFFFF] p-5 flex flex-col justify-between transition-colors"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">

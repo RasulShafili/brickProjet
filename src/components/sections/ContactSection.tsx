@@ -37,15 +37,15 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="px-4 sm:px-8 py-12 lg:py-16 bg-[#F4F0DB]/80 relative z-10"
+      className="px-4 sm:px-8 py-12 lg:py-16 bg-[#F4F0DB]/45 relative z-10"
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-12 gap-6 sm:gap-8 items-start">
           
           {/* Sol 5 Sütun: Birbaşa Zəng və WhatsApp Kartı */}
           <div className="col-span-12 lg:col-span-5 space-y-4">
-            <div>
-              <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-1">
+            <div className="inline-block bg-[#FFFFFF] border-2 border-[#262626] shadow-[4px_4px_0px_#262626] rounded-[4px] px-5 py-3">
+              <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-0.5">
                 ƏLAQƏ
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-[#262626]">

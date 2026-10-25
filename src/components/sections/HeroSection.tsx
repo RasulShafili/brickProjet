@@ -5,11 +5,11 @@ import { MapPin, MessageCircle, ShieldCheck, UserCheck, Images } from 'lucide-re
 
 export default function HeroSection() {
   return (
-    <section className="px-4 sm:px-8 py-10 lg:py-16 bg-[#F4F0DB]/80 border-b-2 border-[#262626] relative z-10">
+    <section className="px-4 sm:px-8 py-10 lg:py-16 bg-[#F4F0DB]/45 border-b-2 border-[#262626] relative z-10">
       <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 items-center">
         
         {/* Sol 7 Sütun: Qısa, Aydın və Yığcam Giriş */}
-        <div className="col-span-12 lg:col-span-7 space-y-5">
+        <div className="col-span-12 lg:col-span-7 space-y-5 bg-[#F4F0DB]/95 p-5 sm:p-7 border-2 border-[#262626] shadow-[5px_5px_0px_#262626] rounded-[4px]">
           
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#262626] text-[#F4F0DB] text-xs font-bold shadow-[3px_3px_0px_#C85A32] rounded-[4px]">
             <ShieldCheck className="w-4 h-4 text-[#25D366]" />

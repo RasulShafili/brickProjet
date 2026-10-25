@@ -125,12 +125,12 @@ export default function ProjectsGallerySection() {
   return (
     <section
       id="gallery"
-      className="px-4 sm:px-8 py-12 lg:py-16 bg-[#F4F0DB]/80 border-b-2 border-[#262626] relative z-10"
+      className="px-4 sm:px-8 py-12 lg:py-16 bg-[#F4F0DB]/45 border-b-2 border-[#262626] relative z-10"
     >
       <div className="max-w-7xl mx-auto">
         
         {/* Qısa Başlıq və Filtrlər */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-7 border-b-2 border-[#262626] pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7 bg-[#FFFFFF] border-2 border-[#262626] shadow-[4px_4px_0px_#262626] rounded-[4px] p-4">
           <div>
             <div className="text-xs text-[#C85A32] font-extrabold uppercase tracking-wider mb-1">
               QALEREYA
