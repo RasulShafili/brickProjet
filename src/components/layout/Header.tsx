@@ -36,11 +36,8 @@ export default function Header() {
           <a href="#gallery" className="hover:text-[#C85A32] transition-colors text-[#C85A32]">
             02. QALEREYA
           </a>
-          <a href="#process" className="hover:text-[#C85A32] transition-colors">
-            03. İŞ PROSESİ
-          </a>
           <a href="#contact" className="hover:text-[#C85A32] transition-colors">
-            04. ƏLAQƏ
+            03. ƏLAQƏ
           </a>
         </nav>
 
