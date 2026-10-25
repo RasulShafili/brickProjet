@@ -69,31 +69,47 @@ interface BrickItem {
   buildDelayMs: number;
 }
 
+/**
+ * PC üçün sıx və bir-birinə yapışıq hörgü divarı (uzun taxta kimi deyil, yığcam kubik nisbətində):
+ * 13 sətir, hər sətirdə 11-12 kubik (şahmat qaydasında növbələşir).
+ */
 const DESKTOP_ROWS: { cols: number; widthRatio: number }[] = [
-  { cols: 8, widthRatio: 0.86 },
-  { cols: 9, widthRatio: 0.93 },
-  { cols: 10, widthRatio: 0.98 },
-  { cols: 9, widthRatio: 0.95 },
-  { cols: 10, widthRatio: 0.98 },
-  { cols: 9, widthRatio: 0.95 },
-  { cols: 10, widthRatio: 0.98 },
-  { cols: 9, widthRatio: 0.95 },
-  { cols: 10, widthRatio: 0.98 },
-  { cols: 9, widthRatio: 0.95 },
-  { cols: 9, widthRatio: 0.93 },
-  { cols: 8, widthRatio: 0.86 },
+  { cols: 10, widthRatio: 0.90 },
+  { cols: 11, widthRatio: 0.96 },
+  { cols: 12, widthRatio: 1.00 },
+  { cols: 11, widthRatio: 0.98 },
+  { cols: 12, widthRatio: 1.00 },
+  { cols: 11, widthRatio: 0.98 },
+  { cols: 12, widthRatio: 1.00 },
+  { cols: 11, widthRatio: 0.98 },
+  { cols: 12, widthRatio: 1.00 },
+  { cols: 11, widthRatio: 0.98 },
+  { cols: 12, widthRatio: 1.00 },
+  { cols: 11, widthRatio: 0.96 },
+  { cols: 10, widthRatio: 0.90 },
 ];
 
+/**
+ * Mobil üçün sıx və bir-birinə yapışıq hörgü divarı:
+ * Kubiklər uzun taxta kimi görünməsin deyə hər sətirdə 7-8 ədəd yığcam kubik var
+ * və 15 sətir bir-birinə tam yapışıq şəkildə düzülür (aralarında boşluq qalmır).
+ */
 const MOBILE_ROWS: { cols: number; widthRatio: number }[] = [
-  { cols: 3, widthRatio: 0.84 },
-  { cols: 3, widthRatio: 0.92 },
-  { cols: 4, widthRatio: 0.98 },
-  { cols: 3, widthRatio: 0.94 },
-  { cols: 4, widthRatio: 0.98 },
-  { cols: 3, widthRatio: 0.94 },
-  { cols: 4, widthRatio: 0.98 },
-  { cols: 3, widthRatio: 0.92 },
-  { cols: 2, widthRatio: 0.78 },
+  { cols: 6, widthRatio: 0.88 },
+  { cols: 7, widthRatio: 0.95 },
+  { cols: 8, widthRatio: 1.00 },
+  { cols: 7, widthRatio: 0.97 },
+  { cols: 8, widthRatio: 1.00 },
+  { cols: 7, widthRatio: 0.97 },
+  { cols: 8, widthRatio: 1.00 },
+  { cols: 7, widthRatio: 0.97 },
+  { cols: 8, widthRatio: 1.00 },
+  { cols: 7, widthRatio: 0.97 },
+  { cols: 8, widthRatio: 1.00 },
+  { cols: 7, widthRatio: 0.97 },
+  { cols: 8, widthRatio: 1.00 },
+  { cols: 7, widthRatio: 0.95 },
+  { cols: 6, widthRatio: 0.88 },
 ];
 
 function generateBricks(rowsConfig: { cols: number; widthRatio: number }[], isMobile: boolean): BrickItem[] {
@@ -110,18 +126,21 @@ function generateBricks(rowsConfig: { cols: number; widthRatio: number }[], isMo
       const rand4 = pseudoRandom(id * 17 + 4);
       const rand5 = pseudoRandom(id * 23 + 5);
 
-      const spreadX = isMobile ? 82 : 175;
-      const offsetNorm = (rand1 - 0.5) * 2;
+      // Tökülən kubiklər maşınların üstünə çıxmasın deyə yalnız iki maşının arasındakı açıq sahəyə yığılır
+      const spreadX = isMobile ? 42 : 110;
+      const offsetNorm = (rand1 - 0.5) * 2; // -1 .. +1
       const pileOffsetX = offsetNorm * (spreadX / 2);
 
-      const maxHeapHeight = isMobile ? 36 : 58;
-      const heightFactor = Math.max(0.15, 1 - Math.abs(offsetNorm) * 0.82);
-      const pileOffsetY = -8 - rand2 * maxHeapHeight * heightFactor;
+      // Təpəcik hündürlüyü alçaq və yığcam saxlanılır ki, maşınların təkər səviyyəsini keçməsin
+      const maxHeapHeight = isMobile ? 16 : 32;
+      const heightFactor = Math.max(0.18, 1 - Math.abs(offsetNorm) * 0.82);
+      const pileOffsetY = -4 - rand2 * maxHeapHeight * heightFactor;
 
-      const pileRot = (rand3 - 0.5) * 115;
+      // Qarışıq bucaq altında tökülmə (-50 dərəcə .. +50 dərəcə)
+      const pileRot = (rand3 - 0.5) * 100;
 
-      const dumpDelayMs = 100 + Math.floor(rand4 * 480);
-      const buildDelayMs = Math.floor(rand5 * 480);
+      const dumpDelayMs = 80 + Math.floor(rand4 * 440);
+      const buildDelayMs = Math.floor(rand5 * 450);
 
       list.push({
         id,
@@ -144,9 +163,9 @@ function generateBricks(rowsConfig: { cols: number; widthRatio: number }[], isMo
 /**
  * Ardıcıl 5 Mərhələli Tikinti Xoreoqrafiyası:
  * 0 = Gözləmə
- * 1 = Hər iki maşın arxa-arxa yaxınlaşır (40ms - 880ms)
- * 2 = Sol maşın kuzasını qaldırır və 1/4 ölçüdə xırda kubiklər yerə qarışıq tökülür (880ms - 2050ms)
- * 3 = Tökülən kubiklər qalxıb divar kimi SƏLİQƏLİ DÜZÜLÜR (2050ms - 3150ms)
+ * 1 = Hər iki maşın (75-80% yığcam ölçüdə) arxa-arxaya yaxınlaşır (40ms - 880ms)
+ * 2 = Sol maşın kuzasını qaldırır və balaca kubiklər iki maşının arasına qarışıq tökülür (880ms - 2050ms)
+ * 3 = Tökülən kubiklər qalxıb bir-birinə tam yapışıq DİVAR kimi düzülür (2050ms - 3150ms)
  * 4 = Kubiklər düzüləndən SONRA sağdakı Sement Maşınından sement tökülür və kubiklərin arasına dolur (3150ms - 4350ms)
  * 5 = Bərkidilmiş divarın üzərində Xidmət Pəncərələri açılır (4350ms+)
  */
@@ -157,7 +176,7 @@ export default function ServicesSection() {
   const [stage, setStage] = useState<0 | 1 | 2 | 3 | 4 | 5>(0);
   const [animKey, setAnimKey] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [wallSize, setWallSize] = useState({ width: 1100, height: 480 });
+  const [wallSize, setWallSize] = useState({ width: 360, height: 420 });
   const hasTriggeredRef = useRef(false);
 
   useEffect(() => {
@@ -181,6 +200,8 @@ export default function ServicesSection() {
   const bricks = useMemo(() => generateBricks(rowsConfig, isMobile), [rowsConfig, isMobile]);
 
   const runAnimationSequence = () => {
+    const mobile = window.innerWidth < 768;
+    setIsMobile(mobile);
     if (wallContainerRef.current) {
       const rect = wallContainerRef.current.getBoundingClientRect();
       if (rect.width > 0 && rect.height > 0) {
@@ -193,8 +214,8 @@ export default function ServicesSection() {
 
     requestAnimationFrame(() => {
       setTimeout(() => setStage(1), 40);     // 1. Soldan Kubik maşını, Sağdan Sement maşını yaxınlaşır
-      setTimeout(() => setStage(2), 880);    // 2. 1/4 ölçüdə kubiklər maşının arxasına qarışıq tökülür
-      setTimeout(() => setStage(3), 2050);   // 3. Kubiklər təpəcikdən qalxıb divar kimi düzülür
+      setTimeout(() => setStage(2), 880);    // 2. Xırda kubiklər maşının arxasına qarışıq tökülür
+      setTimeout(() => setStage(3), 2050);   // 3. Kubiklər bir-birinə yapışıq divar kimi düzülür
       setTimeout(() => setStage(4), 3150);   // 4. Kubiklər düzüləndən SONRA sement tökülür və aralarına dolur
       setTimeout(() => setStage(5), 4350);   // 5. Xidmət pəncərələri açılır
     });
@@ -219,31 +240,33 @@ export default function ServicesSection() {
     return () => observer.disconnect();
   }, []);
 
-  const tailgateX = isMobile ? 130 : 300;
-  const tailgateY = isMobile ? -55 : -88;
+  // Maşınlar 75-80% ölçüyə salındığı üçün kuzanın arxa nöqtəsi və tökülmə mərkəzi:
+  // Mobildə sol maşın 115px enindədir, kubiklər düz iki maşının arasındakı boşluğa (x ≈ 140px) tökülür
+  const tailgateX = isMobile ? 102 : 230;
+  const tailgateY = isMobile ? -38 : -68;
 
-  const pileCenterX = isMobile ? 175 : 415;
-  const pileBaseY = isMobile ? -12 : -18;
+  const pileCenterX = isMobile ? Math.min(142, wallSize.width * 0.42) : 315;
+  const pileBaseY = isMobile ? -10 : -14;
 
-  // Sement YALNIZ kubiklər düzüləndən sonra (Stage 4-də) tökülür!
+  // Sement YALNIZ kubiklər düzüləndən sonra (Stage 4-də) tökülür
   const isPouringCement = stage === 4;
 
   return (
     <section
       id="services"
       ref={sectionRef}
-      className="px-3 sm:px-8 py-14 lg:py-20 bg-[#FFFFFF] border-b-2 border-[#262626] relative z-10 overflow-hidden"
+      className="px-3 sm:px-8 py-12 lg:py-20 bg-[#FFFFFF] border-b-2 border-[#262626] relative z-10 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
         
         {/* Bölmə Başlığı və Təkrar İzlə Düyməsi */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 border-b-2 border-[#262626] pb-5">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4 mb-5 border-b-2 border-[#262626] pb-4">
           <div>
             <div className="font-mono text-xs text-[#C85A32] font-bold uppercase tracking-widest mb-1 flex items-center gap-2">
               <Truck className="w-4 h-4" />
               <span>[Bölmə üst etiketi]</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-black text-[#262626] uppercase tracking-tight">
+            <h2 className="text-xl sm:text-4xl font-black text-[#262626] uppercase tracking-tight">
               [Bura Xidmətlər bölməsinin başlığı yazılacaq]
             </h2>
           </div>
@@ -261,33 +284,33 @@ export default function ServicesSection() {
         </div>
 
         {/* =====================================================================
-            1. İKİ TƏRƏFLİ MAŞIN SƏHNƏSİ:
-               SOLDA: Kubik Samosvalı (kuzası qalxır, 1/4 kubiklər tökülür)
-               SAĞDA: Sement Maşını (kubiklər düzüləndən sonra sement tökür)
+            1. İKİ TƏRƏFLİ MAŞIN SƏHNƏSİ (75-80% YIĞCAM ÖLÇÜDƏ):
+               SOLDA: Kubik Samosvalı (w-[115px] sm:w-[250px])
+               SAĞDA: Sement Maşını (w-[135px] sm:w-[290px])
            ===================================================================== */}
         <div
           key={`truck-scene-${animKey}`}
-          className="relative w-full h-36 sm:h-56 mb-4 border-b-4 border-dashed border-[#262626]/30 flex items-end justify-between overflow-visible select-none"
+          className="relative w-full h-28 sm:h-44 mb-3 sm:mb-4 border-b-4 border-dashed border-[#262626]/30 flex items-end justify-between overflow-visible select-none"
         >
           {/* Yol / Tikinti Meydançası Xətti */}
-          <div className="absolute bottom-0 left-0 right-0 h-2.5 bg-[#262626]" />
-          <div className="absolute bottom-2.5 left-0 right-0 h-1 bg-[#C85A32]" />
+          <div className="absolute bottom-0 left-0 right-0 h-2 bg-[#262626]" />
+          <div className="absolute bottom-2 left-0 right-0 h-1 bg-[#C85A32]" />
 
           {/* -----------------------------------------------------------------
-              SOL TƏRƏF: KUBİK GƏTİRƏN MAŞIN (SAMOSVAL)
+              SOL TƏRƏF: KUBİK GƏTİRƏN MAŞIN (SAMOSVAL — 77% ÖLÇÜDƏ)
              ----------------------------------------------------------------- */}
           <div
             className="relative z-20 transition-transform duration-[850ms] ease-out will-change-transform"
             style={{
               transform:
                 stage === 0
-                  ? 'translate3d(-420px, 0px, 0px)'
-                  : 'translate3d(4px, 0px, 0px)',
+                  ? 'translate3d(-340px, 0px, 0px)'
+                  : 'translate3d(2px, 0px, 0px)',
             }}
           >
             <svg
               viewBox="0 0 520 300"
-              className="w-[150px] sm:w-[325px] h-auto overflow-visible drop-shadow-[3px_3px_0px_rgba(38,38,38,1)]"
+              className="w-[115px] sm:w-[250px] h-auto overflow-visible drop-shadow-[2px_2px_0px_rgba(38,38,38,1)] sm:drop-shadow-[3px_3px_0px_rgba(38,38,38,1)]"
             >
               {/* Hidravlik Piston */}
               <g>
@@ -385,38 +408,37 @@ export default function ServicesSection() {
           </div>
 
           {/* Mərkəzi Mərhələ İnfo Etiketi */}
-          <div className="hidden xl:flex mb-6 bg-[#262626] text-[#F4F0DB] px-3 py-1.5 border-2 border-[#262626] shadow-[3px_3px_0px_#C85A32] font-mono text-[11px] items-center gap-2 z-20">
+          <div className="hidden xl:flex mb-5 bg-[#262626] text-[#F4F0DB] px-3 py-1.5 border-2 border-[#262626] shadow-[3px_3px_0px_#C85A32] font-mono text-[11px] items-center gap-2 z-20">
             <span className="w-2 h-2 rounded-full bg-[#C85A32] animate-ping" />
             <span>
               {stage === 0 && 'GÖZLƏMƏ REJİMİ...'}
               {stage === 1 && '01 // KUBİK VƏ SEMENT MAŞINLARI YAXINLAŞIR...'}
-              {stage === 2 && '02 // XIRDA KUBİKLƏR YERƏ QARIŞIQ TÖKÜLÜR...'}
-              {stage === 3 && '03 // KUBİKLƏR SƏLİQƏLİ ŞƏKİLDƏ DÜZÜLÜR...'}
+              {stage === 2 && '02 // KİÇİK KUBİKLƏR YERƏ QARIŞIQ TÖKÜLÜR...'}
+              {stage === 3 && '03 // KUBİKLƏR BİR-BİRİNƏ YAPIŞIQ DİVAR KİMİ DÜZÜLÜR...'}
               {stage === 4 && '04 // KUBİKLƏR DÜZÜLDÜ — İNDİ SEMENT TÖKÜLÜR...'}
               {stage === 5 && '05 // HÖRGÜ VƏ SEMENT TAMAMLANDI — XİDMƏTLƏR AKTİVDİR'}
             </span>
           </div>
 
           {/* -----------------------------------------------------------------
-              SAĞ TƏRƏF: SEMENT MAŞINI (BETONQARIŞDIRAN MİKSER)
-              Kubiklər düzüləndən sonra (Stage 4-də) novundan sement tökülür!
+              SAĞ TƏRƏF: SEMENT MAŞINI (BETONQARIŞDIRAN MİKSER — 77% ÖLÇÜDƏ)
              ----------------------------------------------------------------- */}
           <div
             className="relative z-20 transition-transform duration-[880ms] ease-out will-change-transform"
             style={{
               transform:
                 stage === 0
-                  ? 'translate3d(440px, 0px, 0px)'
-                  : 'translate3d(-4px, 0px, 0px)',
+                  ? 'translate3d(360px, 0px, 0px)'
+                  : 'translate3d(-2px, 0px, 0px)',
             }}
           >
             <svg
               viewBox="0 28 600 242"
-              className="w-[175px] sm:w-[375px] h-auto overflow-visible drop-shadow-[3px_3px_0px_rgba(38,38,38,1)]"
+              className="w-[135px] sm:w-[290px] h-auto overflow-visible drop-shadow-[2px_2px_0px_rgba(38,38,38,1)] sm:drop-shadow-[3px_3px_0px_rgba(38,38,38,1)]"
             >
               {/* --- ARXA SEMENT TÖKÜLƏN NOV (CHUTE) VƏ REALİSTİK SEMENT AXINI --- */}
               <g>
-                {/* Novun ucundan (x=17, y=224) yalnız kubiklər düzüləndən sonra (Stage 4) tökülən sement şırnağı */}
+                {/* Novun ucundan yalnız kubiklər düzüləndən sonra (Stage 4) tökülən sement şırnağı */}
                 <g
                   style={{
                     transformOrigin: '16px 224px',
@@ -425,7 +447,6 @@ export default function ServicesSection() {
                     transition: 'transform 380ms ease-out, opacity 250ms ease-in-out',
                   }}
                 >
-                  {/* 1. Əsas tökülən boz sement kütləsi */}
                   <path
                     d="M 13 222 L 22 222 L 28 310 L 2 310 Z"
                     fill="#788088"
@@ -433,8 +454,6 @@ export default function ServicesSection() {
                     strokeWidth="2"
                     strokeLinejoin="round"
                   />
-
-                  {/* 2. Daxili hərəkətli sement axını teksturası */}
                   <line
                     x1="17"
                     y1="224"
@@ -457,8 +476,6 @@ export default function ServicesSection() {
                     strokeDasharray="10 14"
                     className="animate-cementFlow"
                   />
-
-                  {/* 3. Yol səthinə dəyən hissədə düz oturmuş təbii sement yığını */}
                   <path
                     d="M -8 265 Q 5 250 16 250 Q 27 250 38 265 Z"
                     fill="#6C747C"
@@ -467,7 +484,6 @@ export default function ServicesSection() {
                   />
                 </g>
 
-                {/* Maşının arxasındakı maili dəmir sement novu (Chute) */}
                 <path
                   d="M 80 186 L 12 218 L 18 228 L 86 196 Z"
                   fill="#2B2E33"
@@ -512,7 +528,6 @@ export default function ServicesSection() {
                   fill="#D97706"
                 />
 
-                {/* Çənin seqment xətləri */}
                 <line
                   x1={isPouringCement ? '195' : '185'}
                   y1="57"
@@ -532,7 +547,6 @@ export default function ServicesSection() {
                   className="transition-all duration-300"
                 />
 
-                {/* Çənin arxa halqası */}
                 <line x1="124" y1="52" x2="106" y2="165" stroke="#1E2022" strokeWidth="6" strokeLinecap="round" />
                 <line x1="120" y1="52" x2="102" y2="165" stroke="#FACC15" strokeWidth="2.5" />
               </g>
@@ -554,7 +568,7 @@ export default function ServicesSection() {
                 <path d="M 452 88 L 452 62 Q 452 52 442 50" fill="none" stroke="#94A3B8" strokeWidth="5" strokeLinecap="round" />
               </g>
 
-              {/* --- ŞASSİ, TƏKƏR QANADLARI (KRİLOLAR) VƏ AVADANLIQ QUTUSU --- */}
+              {/* --- ŞASSİ, TƏKƏR QANADLARI VƏ AVADANLIQ QUTUSU --- */}
               <g>
                 <rect x="85" y="175" width="350" height="12" fill="#F59E0B" stroke="#262626" strokeWidth="2" />
                 <rect x="78" y="186" width="388" height="32" fill="#2B2E33" stroke="#111" strokeWidth="2.5" />
@@ -624,26 +638,29 @@ export default function ServicesSection() {
         </div>
 
         {/* =====================================================================
-            2. HÖRÜLƏN KUBİKLƏR, ARALARINA SONRADAN DOLAN SEMENT VƏ XİDMƏT PƏNCƏRƏLƏRİ
+            2. BİR-BİRİNƏ TAM YAPIŞIQ HÖRÜLƏN KUBİK DİVAR VƏ ARALARINA DOLAN SEMENT
            ===================================================================== */}
         <div
           key={`wall-scene-${animKey}`}
           ref={wallContainerRef}
-          className="relative py-4 sm:py-8 px-1 sm:px-6 overflow-visible"
+          className="relative py-2.5 sm:py-5 px-1 sm:px-5 overflow-visible"
         >
-          {/* Şəkil 1-dəki Halftone (Nöqtəli) Kölgə Effekti */}
+          {/* Halftone (Nöqtəli) Kölgə Effekti */}
           <div
-            className="absolute inset-2 sm:inset-5 pointer-events-none transition-opacity duration-500"
+            className="absolute inset-1.5 sm:inset-4 pointer-events-none transition-opacity duration-500"
             style={{
-              opacity: stage >= 3 ? 0.32 : 0,
+              opacity: stage >= 3 ? 0.28 : 0,
               backgroundImage: 'radial-gradient(#1A1A1A 2px, transparent 2px)',
-              backgroundSize: '11px 11px',
-              transform: 'translate(10px, 10px)',
+              backgroundSize: '10px 10px',
+              transform: 'translate(8px, 8px)',
             }}
           />
 
-          {/* ARXA FONDA YIĞILAN KUBİK DİVAR VƏ DÜZÜLƏNDƏN SONRA (Stage >= 4) ARALARINA DOLAN SEMENT */}
-          <div className="absolute inset-0 z-30 pointer-events-none select-none flex flex-col justify-between items-center gap-1 sm:gap-1.5 py-1 overflow-visible">
+          {/* ARXA FONDA YIĞILAN KUBİK DİVAR:
+              - Sətirlər arasında boşluq YOXDUR (gap-0, sətir daxilində yalnız 2px tikiş xətti).
+              - Kubiklər taxta kimi uzun deyil, əsl kubik nisbətində və bir-birinə tam yapışıqdır.
+              - Stage 4-də həmin sıx tikişlərin arasına boz sement rəngi (#7A828A) dolur. */}
+          <div className="absolute inset-0 z-30 pointer-events-none select-none flex flex-col items-center justify-stretch gap-0 overflow-visible">
             {rowsConfig.map((rowCfg, rowIndex) => {
               const rowBricks = bricks.filter((b) => b.row === rowIndex);
               const totalRows = rowsConfig.length;
@@ -651,15 +668,14 @@ export default function ServicesSection() {
               return (
                 <div
                   key={rowIndex}
-                  className="flex-1 max-h-[38px] sm:max-h-[42px] grid gap-1 sm:gap-1.5 overflow-visible relative rounded-[4px] p-[2px] sm:p-[3px]"
+                  className="flex-1 w-full grid gap-[1.5px] sm:gap-[2.5px] px-[1.5px] sm:px-[2.5px] py-[0.75px] sm:py-[1.25px] overflow-visible relative"
                   style={{
                     width: `${rowCfg.widthRatio * 100}%`,
                     gridTemplateColumns: `repeat(${rowCfg.cols}, minmax(0, 1fr))`,
-                    // Kubiklər Stage 3-də düzülür, Sement isə Stage 4-də kubiklərin arasına dolur!
-                    backgroundColor: stage >= 4 ? '#7D858D' : 'transparent',
-                    border: stage >= 4 ? '2.5px solid #1A1A1A' : '2.5px solid transparent',
-                    boxShadow: stage >= 4 ? 'inset 0 2px 4px rgba(255,255,255,0.35), 0 3px 0 #1A1A1A' : 'none',
-                    transition: `background-color 550ms ease-in-out ${120 + rowIndex * 55}ms, border-color 400ms ease ${120 + rowIndex * 55}ms, box-shadow 400ms ease ${120 + rowIndex * 55}ms`,
+                    // Stage 3-də kubiklər bir-birinə sıx yapışıq düzülür, Stage 4-də aradakı tikişlərə boz sement dolur
+                    backgroundColor: stage >= 4 ? '#788088' : 'transparent',
+                    boxShadow: stage >= 4 ? '0 0 0 2px #1A1A1A' : 'none',
+                    transition: `background-color 450ms ease-in-out ${80 + rowIndex * 35}ms, box-shadow 400ms ease ${80 + rowIndex * 35}ms`,
                   }}
                 >
                   {rowBricks.map((brick) => {
@@ -674,15 +690,19 @@ export default function ServicesSection() {
                     const toPileX = pileCenterX + brick.pileOffsetX - finalX;
                     const toPileY = pileBaseY + brick.pileOffsetY - finalY;
 
-                    let transformStr = `translate3d(${toTruckX}px, ${toTruckY}px, 0px) rotate(-15deg) scale(0.28)`;
+                    // Stage 0 & 1: Maşının kuzası daxilində çox kiçik (scale 0.18)
+                    let transformStr = `translate3d(${toTruckX}px, ${toTruckY}px, 0px) rotate(-15deg) scale(0.18)`;
                     let opacityVal = 0;
                     let transitionStr = 'none';
 
                     if (stage === 2) {
-                      transformStr = `translate3d(${toPileX}px, ${toPileY}px, 0px) rotate(${brick.pileRot}deg) scale(0.46)`;
+                      // Stage 2: Yerə tökülən kubiklər kiçik ölçüdədir (scale 0.25), maşınların üstünə çıxmır
+                      const dumpScale = isMobile ? 0.26 : 0.28;
+                      transformStr = `translate3d(${toPileX}px, ${toPileY}px, 0px) rotate(${brick.pileRot}deg) scale(${dumpScale})`;
                       opacityVal = 1;
                       transitionStr = `transform 460ms cubic-bezier(0.22, 0.85, 0.36, 1) ${brick.dumpDelayMs}ms, opacity 120ms ease-out ${brick.dumpDelayMs}ms`;
                     } else if (stage >= 3) {
+                      // Stage 3+: Divarda bir-birinə tam yapışıq şəkildə yerini alır
                       transformStr = 'translate3d(0px, 0px, 0px) rotate(0deg) scale(1)';
                       opacityVal = 1;
                       transitionStr = `transform 540ms cubic-bezier(0.2, 0.92, 0.28, 1.08) ${brick.buildDelayMs}ms, opacity 150ms ease-out`;
@@ -691,17 +711,17 @@ export default function ServicesSection() {
                     return (
                       <div
                         key={brick.id}
-                        className="w-full h-full min-h-[22px] max-h-[34px] sm:min-h-[28px] sm:max-h-[38px] rounded-[3px] border-[2px] border-[#1A1A1A] relative overflow-hidden will-change-transform"
+                        className="w-full h-full rounded-[2px] border-[1.5px] sm:border-[2px] border-[#1A1A1A] relative overflow-hidden will-change-transform"
                         style={{
                           backgroundColor: brick.color,
-                          boxShadow: '0 2px 0 #1A1A1A',
                           transform: transformStr,
                           opacity: opacityVal,
                           transition: transitionStr,
                         }}
                       >
-                        <div className="absolute top-0.5 left-1 right-1.5 h-1 bg-white/25 rounded-full" />
-                        <div className="absolute bottom-0.5 left-1.5 right-1 h-1 bg-black/25 rounded-full" />
+                        {/* Kubik üzərindəki işıq və kölgə cizgiləri */}
+                        <div className="absolute top-[2px] left-1 right-1 h-[2px] bg-white/25 rounded-full" />
+                        <div className="absolute bottom-[2px] left-1 right-1 h-[2px] bg-black/25 rounded-full" />
                       </div>
                     );
                   })}
@@ -713,7 +733,7 @@ export default function ServicesSection() {
           {/* =====================================================================
               3. SEMENT DOLANDAN SONRA (Stage 5) AÇILAN XİDMƏT PƏNCƏRƏLƏRİ (6 KART)
              ===================================================================== */}
-          <div className="relative z-40 grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5 px-1 sm:px-5 py-1">
+          <div className="relative z-40 grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 px-1.5 sm:px-5 py-1.5 sm:py-2">
             {SERVICES.map((srv, idx) => {
               const isVisible = stage >= 5;
               return (
@@ -722,26 +742,26 @@ export default function ServicesSection() {
                   style={{
                     transform: isVisible
                       ? 'translate3d(0, 0, 0) scale(1)'
-                      : 'translate3d(0, 18px, 0) scale(0.9)',
+                      : 'translate3d(0, 16px, 0) scale(0.92)',
                     opacity: isVisible ? 1 : 0,
                     transition: `all 420ms cubic-bezier(0.16, 1, 0.3, 1) ${idx * 75}ms`,
                     pointerEvents: isVisible ? 'auto' : 'none',
                   }}
-                  className="bg-[#FFFFFF]/95 backdrop-blur-sm border-[2px] sm:border-[2.5px] border-[#1A1A1A] rounded-[4px] shadow-[4px_4px_0px_#1A1A1A] sm:shadow-[5px_5px_0px_#1A1A1A] p-3 sm:p-5 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-[7px_7px_0px_#C85A32] transition-all"
+                  className="bg-[#FFFFFF]/95 backdrop-blur-sm border-[2px] sm:border-[2.5px] border-[#1A1A1A] rounded-[4px] shadow-[3px_3px_0px_#1A1A1A] sm:shadow-[5px_5px_0px_#1A1A1A] p-2.5 sm:p-5 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-[7px_7px_0px_#C85A32] transition-all"
                 >
                   <div>
-                    <div className="flex items-center justify-between font-mono text-[10px] sm:text-xs mb-1.5 sm:mb-2.5 border-b border-[#262626]/20 pb-1.5">
+                    <div className="flex items-center justify-between font-mono text-[9px] sm:text-xs mb-1 sm:mb-2 border-b border-[#262626]/20 pb-1">
                       <span className="font-black text-[#C85A32]">{srv.code} //</span>
-                      <span className="px-1.5 py-0.5 bg-[#262626] text-[#F4F0DB] text-[8px] sm:text-[10px] font-bold truncate max-w-[90px] sm:max-w-none">
+                      <span className="px-1.5 py-0.5 bg-[#262626] text-[#F4F0DB] text-[8px] sm:text-[10px] font-bold truncate max-w-[80px] sm:max-w-none">
                         {srv.tag}
                       </span>
                     </div>
 
-                    <h3 className="text-xs sm:text-lg font-black text-[#262626] mb-1 sm:mb-1.5 group-hover:text-[#C85A32] transition-colors leading-snug">
+                    <h3 className="text-[11px] sm:text-lg font-black text-[#262626] mb-1 sm:mb-1.5 group-hover:text-[#C85A32] transition-colors leading-tight sm:leading-snug">
                       {srv.title}
                     </h3>
 
-                    <p className="text-[10px] sm:text-xs text-[#262626]/80 leading-relaxed mb-2.5 sm:mb-3.5 line-clamp-2 sm:line-clamp-none">
+                    <p className="text-[10px] sm:text-xs text-[#262626]/80 leading-snug sm:leading-relaxed mb-2 sm:mb-3 line-clamp-2 sm:line-clamp-none">
                       {srv.desc}
                     </p>
 
@@ -757,10 +777,10 @@ export default function ServicesSection() {
 
                   <a
                     href="#contact"
-                    className="pt-1.5 sm:pt-2.5 border-t border-[#262626]/15 font-mono text-[10px] sm:text-xs font-bold text-[#C85A32] hover:text-[#262626] flex items-center justify-between"
+                    className="pt-1 sm:pt-2 border-t border-[#262626]/15 font-mono text-[9px] sm:text-xs font-bold text-[#C85A32] hover:text-[#262626] flex items-center justify-between"
                   >
                     <span>[Keçid mətni]</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   </a>
                 </div>
               );
