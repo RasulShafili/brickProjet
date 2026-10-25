@@ -47,20 +47,9 @@ h4 {
   color: #1F1915;
 }
 
-/* CAD & Kərpic Fon Toru */
-.bg-brick-grid {
-  background-image: 
-    linear-gradient(to right, rgba(38, 38, 38, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(38, 38, 38, 0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
 /* ============================================================================
    1. EV PƏNCƏRƏSİ ÇƏRÇİVƏSİ (.brick-card & .brick-window)
-   Böyük bloklar kərpic divarın üzərində həqiqi ev pəncərəsi kimi görünür:
-   - Üst hissədə Pəncərə Kəməri (Lintel / Karniz)
-   - İkiqat taxta/metal pəncərə çərçivəsi (Рама)
-   - Alt hissədə çıxıntılı daş Pəncərə Altlığı (Podokonnik)
+   GPU skrol sürəti üçün bulanıq (blur) kölgələr əvəzinə kəskin bərk kölgələr
    ============================================================================ */
 .brick-card,
 .brick-window {
@@ -70,11 +59,10 @@ h4 {
   border-radius: 2px;
   box-shadow:
     inset 0 0 0 2px var(--window-trim),
-    inset 0 0 0 3.5px var(--window-wood),
-    0 10px 0 0 rgba(30, 20, 14, 0.8);
+    0 9px 0 0 #221610;
   margin-top: 8px;
   margin-bottom: 12px;
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
+  transition: transform 0.15s ease;
 }
 
 /* Pəncərə Üst Kəməri (Lintel / Karniz) */
@@ -86,17 +74,9 @@ h4 {
   left: -7px;
   right: -7px;
   height: 7px;
-  background: linear-gradient(
-    90deg,
-    #3D281D 0%,
-    #5A3A28 15%,
-    #C85A32 50%,
-    #5A3A28 85%,
-    #3D281D 100%
-  );
+  background-color: #4A2E20;
   border: 2px solid var(--window-wood);
   border-radius: 2px 2px 0 0;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
   pointer-events: none;
   z-index: 2;
 }
@@ -110,96 +90,80 @@ h4 {
   left: -9px;
   right: -9px;
   height: 9px;
-  background: linear-gradient(180deg, #EAE2D3 0%, #CFC3AF 65%, #A89B87 100%);
+  background-color: #D6C9B5;
   border: 2px solid var(--window-wood);
   border-radius: 1px 1px 3px 3px;
-  box-shadow: 0 4px 0 rgba(28, 18, 12, 0.7);
+  box-shadow: 0 3px 0 #221610;
   pointer-events: none;
   z-index: 2;
 }
 
 .brick-card:hover {
   transform: translateY(-2px);
-  box-shadow:
-    inset 0 0 0 2px #C85A32,
-    inset 0 0 0 3.5px var(--window-wood),
-    0 12px 0 0 var(--brick-dark);
 }
 
 /* ============================================================================
    2. KƏRPİC DİVARDAN ASILMIŞ TABELA (.hanging-sign & .hanging-badge)
-   Kiçik başlıqlar və göstərici qutuları divara mıxlanmış / zəncirlə asılmış
-   taxta-metal tabela kimi görünür.
    ============================================================================ */
 .hanging-sign {
   position: relative;
   display: inline-block;
-  background: linear-gradient(180deg, #FFFDF9 0%, #F6EFE2 100%);
+  background-color: #FFFDF8;
   border: 2.5px solid var(--window-wood);
   border-radius: 3px;
   box-shadow:
-    inset 0 0 0 1.5px rgba(200, 90, 50, 0.5),
-    0 5px 0 0 #261912,
-    0 8px 12px rgba(0, 0, 0, 0.22);
+    inset 0 0 0 1.5px #C85A32,
+    0 5px 0 0 #261912;
   margin-top: 14px;
 }
 
-/* Tabelanı divara bağlayan 2 dəmir halqa/zəncir dirəyi (sol və sağ üst küncdə) */
+/* Tabelanı divara bağlayan 2 dəmir asqı dirəyi */
 .hanging-sign::before {
   content: '';
   position: absolute;
-  top: -15px;
+  top: -13px;
   left: 18px;
   right: 18px;
-  height: 13px;
-  background-image:
-    radial-gradient(circle at 4px 3px, #C85A32 2.2px, #1F1610 3px, #1F1610 4.2px, transparent 4.8px),
-    radial-gradient(circle at calc(100% - 4px) 3px, #C85A32 2.2px, #1F1610 3px, #1F1610 4.2px, transparent 4.8px),
-    linear-gradient(90deg, transparent 2.5px, #261912 2.5px, #594336 4px, #261912 5.5px, transparent 5.5px),
-    linear-gradient(90deg, transparent calc(100% - 5.5px), #261912 calc(100% - 5.5px), #594336 calc(100% - 4px), #261912 calc(100% - 2.5px), transparent calc(100% - 2.5px));
+  height: 11px;
+  border-left: 4px solid #261912;
+  border-right: 4px solid #261912;
   pointer-events: none;
   z-index: 3;
 }
 
-/* Tabelanın iç künclərindəki 2 metal şrup/pərçim nöqtəsi */
+/* Divar mıxlarının başlıqları */
 .hanging-sign::after {
   content: '';
   position: absolute;
-  top: 5px;
-  left: 7px;
-  right: 7px;
+  top: -15px;
+  left: 16px;
+  right: 16px;
   height: 6px;
   background-image:
-    radial-gradient(circle at 3px 3px, #3A261A 2px, transparent 2.5px),
-    radial-gradient(circle at calc(100% - 3px) 3px, #3A261A 2px, transparent 2.5px);
+    linear-gradient(90deg, #C85A32 0, #C85A32 8px, transparent 8px, transparent calc(100% - 8px), #C85A32 calc(100% - 8px), #C85A32 100%);
   pointer-events: none;
-  z-index: 3;
+  z-index: 4;
 }
 
 /* Daha kiçik göstərici kartları üçün yığcam Asılmış Tabela (.hanging-badge) */
 .hanging-badge {
   position: relative;
-  background: linear-gradient(180deg, #FFFFFF 0%, #F7F2E7 100%);
+  background-color: #FFFDF9;
   border: 2px solid var(--window-wood);
   border-radius: 3px;
-  box-shadow:
-    0 3px 0 0 #261912,
-    0 5px 8px rgba(0, 0, 0, 0.16);
-  margin-top: 9px;
+  box-shadow: 0 3px 0 0 #261912;
+  margin-top: 8px;
 }
 
 .hanging-badge::before {
   content: '';
   position: absolute;
-  top: -10px;
+  top: -9px;
   left: 12px;
   right: 12px;
-  height: 8px;
-  background-image:
-    radial-gradient(circle at 3px 2px, #C85A32 1.6px, #1F1610 2.3px, transparent 3px),
-    radial-gradient(circle at calc(100% - 3px) 2px, #C85A32 1.6px, #1F1610 2.3px, transparent 3px),
-    linear-gradient(90deg, transparent 2px, #261912 2px, #261912 4px, transparent 4px),
-    linear-gradient(90deg, transparent calc(100% - 4px), #261912 calc(100% - 4px), #261912 calc(100% - 2px), transparent calc(100% - 2px));
+  height: 7px;
+  border-left: 3px solid #261912;
+  border-right: 3px solid #261912;
   pointer-events: none;
   z-index: 3;
 }
@@ -210,7 +174,7 @@ h4 {
   border-radius: 4px;
   box-shadow: 3px 3px 0px 0px var(--cement-dark);
   font-weight: 600;
-  transition: all 0.12s ease;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
