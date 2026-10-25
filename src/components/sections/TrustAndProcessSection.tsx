@@ -40,14 +40,14 @@ const REVIEWS = [
   {
     name: '[Müştəri Adı 2]',
     location: '[Ərazi]',
-    workType: 'Dam Təmiri',
-    comment: 'Köhnə damı 8 günə söküb yeni çerepitsa ilə əvəz etdi, işçiliyi əladır.',
+    workType: 'Pol, Alçipan və Laminat',
+    comment: 'Evin bütün pol, patalok-alçipan və laminat işlərini çox səliqəli görüb təhvil verdi.',
   },
   {
     name: '[Müştəri Adı 3]',
     location: '[Ərazi]',
-    workType: 'Daxili Təmir',
-    comment: 'Material siyahısını dəqiq çıxartdı, heç bir israf olmadı və təmiz işlədi.',
+    workType: 'Oboy və Daxili Təmir',
+    comment: 'Material siyahısını dəqiq çıxartdı, oboy və daxili təmiri təmiz işlədi.',
   },
 ];
 

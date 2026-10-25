@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Hammer, Home, Layers, Shield, Wrench, PaintBucket, MessageCircle } from 'lucide-react';
+import { Hammer, Home, Layers, Shield, Grid, PaintBucket, MessageCircle } from 'lucide-react';
 
 const SERVICES = [
   {
@@ -18,27 +18,27 @@ const SERVICES = [
   },
   {
     icon: Shield,
-    title: 'Dam Örtükləri',
-    badge: 'Quraşdırma və Təmir',
-    desc: 'Taxta karkasın yığılması, çerepitsa, şifer vurulması və dam sızmalarının təmiri.',
+    title: 'Dam Örtüklərinin Yığılması',
+    badge: 'Sıfırdan Quraşdırma',
+    desc: 'Taxta karkasın sıfırdan qurulması, çerepitsa, profnastil və şifer dam örtüklərinin vurulması.',
+  },
+  {
+    icon: Grid,
+    title: 'Pol, Patalok, Alçipan və Laminat',
+    badge: 'Döşəmə və Tavan',
+    desc: 'İstənilən növ taxta pol, patalok, sadə və fiqurlu alçipan vurulması, laminat döşənməsi.',
   },
   {
     icon: PaintBucket,
-    title: 'Daxili Təmir və Kafel',
-    badge: 'Təmiz İşçilik',
-    desc: 'Otaqların əsaslı təmiri, döşəmə styajkası, hamam-mətbəx kafel və metlax işləri.',
+    title: 'Oboy, Boya və Kafel-Metlax',
+    badge: 'Daxili Təmir',
+    desc: 'Divarların şpaklyovkası, oboy (divar kağızı) vurulması, rəngləmə və kafel-metlax işləri.',
   },
   {
     icon: Hammer,
     title: 'Hasar və Həyət İşləri',
     badge: 'Xarici Görünüş',
     desc: 'Daş hasarların hörülməsi, fasad suvağı və həyətə tamet-beton döşənməsi.',
-  },
-  {
-    icon: Wrench,
-    title: 'Kiçik Ev Təmiri',
-    badge: 'Sürətli Bərpa',
-    desc: 'Divar çatlarının bərpası, otaq bölmə və digər xırda təmir-bərpa işləri.',
   },
 ];
 

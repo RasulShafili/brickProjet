@@ -21,7 +21,7 @@ export default function HeroSection() {
           </h1>
 
           <p className="text-sm sm:text-base font-medium text-[#262626]/85 max-w-xl leading-relaxed">
-            Bünövrədən dama qədər ev tikintisi, kubik hörgüsü, suvaq, dam örtüyü və daxili təmir işləri.
+            Bünövrədən dama ev tikintisi, kubik hörgüsü, suvaq, pol-patalok, alçipan, laminat və oboy işləri.
           </p>
 
           {/* 4 Qısa Göstərici */}

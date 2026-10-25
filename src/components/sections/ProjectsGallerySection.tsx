@@ -23,7 +23,7 @@ const PROJECTS: ProjectItem[] = [
   },
   {
     id: 'p2',
-    title: 'Köhnə Damın Sökülüb Yenilənməsi',
+    title: 'Alçipan Patalok, Pol və Laminat İşi',
     category: 'before-after',
     location: '[Ərazi adı]',
     duration: '9 Gün',
@@ -31,7 +31,7 @@ const PROJECTS: ProjectItem[] = [
   },
   {
     id: 'p3',
-    title: 'Daxili Təmir və Kafel-Metlax',
+    title: 'Oboy, Boya və Daxili Təmir',
     category: 'before-after',
     location: '[Ərazi adı]',
     duration: '12 Gün',
@@ -55,7 +55,7 @@ const PROJECTS: ProjectItem[] = [
   },
   {
     id: 'p6',
-    title: 'Mansard Dam Konstruksiyası',
+    title: 'Yeni Dam Konstruksiyasının Yığılması',
     category: 'roof',
     location: '[Ərazi adı]',
     duration: '11 Gün',

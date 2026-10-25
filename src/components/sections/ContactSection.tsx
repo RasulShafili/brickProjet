@@ -146,10 +146,10 @@ export default function ContactSection() {
                 >
                   <option value="Sıfırdan Ev Tikintisi">Sıfırdan Ev Tikintisi</option>
                   <option value="Kubik Hörgü və Suvaq">Kubik Hörgü və Suvaq</option>
-                  <option value="Dam Örtükləri">Dam Örtükləri</option>
-                  <option value="Daxili Təmir və Kafel">Daxili Təmir və Kafel</option>
+                  <option value="Dam Örtüklərinin Yığılması">Dam Örtüklərinin Yığılması</option>
+                  <option value="Pol, Patalok, Alçipan və Laminat">Pol, Patalok, Alçipan və Laminat</option>
+                  <option value="Oboy, Boya və Kafel-Metlax">Oboy, Boya və Kafel-Metlax</option>
                   <option value="Hasar və Həyət İşləri">Hasar və Həyət İşləri</option>
-                  <option value="Kiçik Ev Təmiri">Kiçik Ev Təmiri</option>
                 </select>
               </div>
 
