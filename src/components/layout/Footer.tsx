@@ -3,7 +3,7 @@ import { Phone, MapPin, Hammer, Clock, MessageCircle } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1F2421] text-[#E6E2D8] border-t border-[#343C37] text-xs">
+    <footer className="bg-[#1F2421] text-[#E6E2D8] border-t border-[#343C37] text-xs relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         
         {/* Kolon 1 */}
@@ -13,38 +13,33 @@ export default function Footer() {
               <Hammer className="w-4 h-4" />
             </div>
             <span className="font-bold text-base text-white">
-              Usta & Mühəndis Briqadası
+              [Usta / Şirkət Adı]
             </span>
           </div>
           <p className="text-[#A4AAA6] leading-relaxed text-xs">
-            18 illik inşaat təcrübəsi. Hər bir layihə peşəkar daimi briqadamız və 
-            10 illik rəsmi müqavilə zəmanəti ilə icra olunur.
+            [Bura fəaliyyətiniz və təcrübəniz haqqında qısa yekun mətn yazılacaq.]
           </p>
         </div>
 
         {/* Kolon 2 */}
         <div>
-          <h3 className="font-bold text-sm text-white mb-3">XİDMƏT ƏRAZİLƏRİMİZ</h3>
+          <h3 className="font-bold text-sm text-white mb-3">[SÜTUN 1 BAŞLIĞI — Məs: Ərazilər]</h3>
           <ul className="space-y-1.5 text-[#A4AAA6]">
-            <li>• Mərdəkan & Şüvəlan Qəsəbələri</li>
-            <li>• Bilgəh & Zaqulba Bağları</li>
-            <li>• Novxanı, Goradil & Pirşağı</li>
-            <li>• Badamdar & Səbail Ərazisi</li>
-            <li>• Xırdalan, Masazır & Saray</li>
-            <li>• Bütün Bakı və Abşeron</li>
+            <li>• [Ərazi / Bölgə 1]</li>
+            <li>• [Ərazi / Bölgə 2]</li>
+            <li>• [Ərazi / Bölgə 3]</li>
+            <li>• [Ərazi / Bölgə 4]</li>
           </ul>
         </div>
 
         {/* Kolon 3 */}
         <div>
-          <h3 className="font-bold text-sm text-white mb-3">NƏ EDİRİK?</h3>
+          <h3 className="font-bold text-sm text-white mb-3">[SÜTUN 2 BAŞLIĞI — Məs: Xidmətlər]</h3>
           <ul className="space-y-1.5 text-[#A4AAA6]">
-            <li>• Bütöv Fərdi Evlər (Açar təhvili)</li>
-            <li>• Dəmir-Beton Bünövrə və Kürsülük</li>
-            <li>• Qoşa Kərpic və Daş Hörgü Divarları</li>
-            <li>• Dam Stropil Karkası və Mansard</li>
-            <li>• Monolit Pilləkənlər və Otaq Artırmaları</li>
-            <li>• Memarlıq Cizgiləri və Layihələndirmə</li>
+            <li>• [Xidmət istiqaməti 1]</li>
+            <li>• [Xidmət istiqaməti 2]</li>
+            <li>• [Xidmət istiqaməti 3]</li>
+            <li>• [Xidmət istiqaməti 4]</li>
           </ul>
         </div>
 
@@ -52,21 +47,21 @@ export default function Footer() {
         <div>
           <h3 className="font-bold text-sm text-white mb-3">BİRBAŞA ƏLAQƏ</h3>
           <div className="space-y-2.5 text-[#A4AAA6]">
-            <a href="tel:+994502345678" className="flex items-center gap-2 hover:text-[#C85A32] transition-colors font-bold text-white">
+            <a href="#contact" className="flex items-center gap-2 hover:text-[#C85A32] transition-colors font-bold text-white">
               <Phone className="w-4 h-4 text-[#C85A32]" />
-              <span>+994 (50) 234-56-78</span>
+              <span>[Telefon nömrəsi]</span>
             </a>
-            <a href="https://wa.me/994502345678" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#25D366] transition-colors">
+            <a href="#contact" className="flex items-center gap-2 hover:text-[#25D366] transition-colors">
               <MessageCircle className="w-4 h-4 text-[#25D366]" />
-              <span>WhatsApp ilə əlaqə</span>
+              <span>[WhatsApp əlaqə]</span>
             </a>
             <div className="flex items-center gap-2 text-xs">
               <Clock className="w-4 h-4 text-[#C85A32]" />
-              <span>Hər gün: 08:00 – 20:00</span>
+              <span>[İş saatları]</span>
             </div>
             <div className="flex items-center gap-2 text-xs">
               <MapPin className="w-4 h-4 text-[#C85A32]" />
-              <span>Bakı şəhəri və Abşeron rayonu</span>
+              <span>[Ünvan]</span>
             </div>
           </div>
         </div>
@@ -75,10 +70,10 @@ export default function Footer() {
 
       <div className="border-t border-[#343C37] px-4 sm:px-8 py-4 text-[#7A827E] text-[11px] max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
         <div>
-          © {new Date().getFullYear()} Usta & Mühəndis Briqadası. Bütün hüquqlar qorunur.
+          © {new Date().getFullYear()} [Şirkət / Usta adı yazılacaq]. Bütün hüquqlar qorunur.
         </div>
         <div>
-          Fərdi Ev Tikintisi və Konstruksiya İşləri
+          [Alt qeyd / sloqan yazılacaq]
         </div>
       </div>
     </footer>

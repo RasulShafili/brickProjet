@@ -1,28 +1,27 @@
 'use client';
 
 import React from 'react';
-import { Ruler, FileCheck, Layers, ShieldCheck } from 'lucide-react';
 
 const STEPS = [
   {
     num: '01',
-    title: 'Sahəyə Lazer Baxışı',
-    desc: 'Usta şəxsən sahəyə gəlir. Nivelirlə qruntun mailliyi və torpaq sıxlığı ölçülür.',
+    title: '[1-ci Mərhələnin Başlığı]',
+    desc: '[Bura 1-ci iş mərhələsi haqqında qısa açıqlama yazılacaq.]',
   },
   {
     num: '02',
-    title: 'Sxem & Razılaşma',
-    desc: 'Otaq bölgüləri, daşıyıcı kərpic və bünövrə armaturunun dəqiq sxemi çəkilir.',
+    title: '[2-ci Mərhələnin Başlığı]',
+    desc: '[Bura 2-ci iş mərhələsi haqqında qısa açıqlama yazılacaq.]',
   },
   {
     num: '03',
-    title: 'Bünövrə & Termohörgü',
-    desc: 'B25 monolit tökülür, hidroizolyasiya vurulur və 380mm kərpic lazerlə hörülür.',
+    title: '[3-cü Mərhələnin Başlığı]',
+    desc: '[Bura 3-cü iş mərhələsi haqqında qısa açıqlama yazılacaq.]',
   },
   {
     num: '04',
-    title: 'Dam & Zəmanətli Təhvil',
-    desc: 'Antiseptikli stropil fermaları yığılır, dam vurulur və 10 il zəmanətlə təhvil verilir.',
+    title: '[4-cü Mərhələnin Başlığı]',
+    desc: '[Bura 4-cü iş mərhələsi haqqında qısa açıqlama yazılacaq.]',
   },
 ];
 
@@ -35,14 +34,14 @@ export default function WorkProcessSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 border-b-2 border-[#262626] pb-5">
           <div>
             <div className="font-mono text-xs text-[#C85A32] font-bold uppercase tracking-widest mb-1">
-              [İCRA STANDARTI // İŞ QAYDASI]
+              [İş prosesi üst etiketi]
             </div>
             <h2 className="text-2xl sm:text-4xl font-black text-[#262626] uppercase tracking-tight">
-              İşi Necə Təşkil Edirik?
+              [Bura İş Prosesi bölməsinin başlığı yazılacaq]
             </h2>
           </div>
           <p className="font-mono text-xs text-[#262626]/80 max-w-md">
-            Hər mərhələdə foto-video hesabat. Sifarişçidən gizli heç bir qüsur qalmır.
+            [Bura iş prosesiniz haqqında qısa alt açıqlama yazılacaq.]
           </p>
         </div>
 

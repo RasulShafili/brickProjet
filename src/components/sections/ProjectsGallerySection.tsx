@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Plus, X, ZoomIn, MapPin, Upload, Image as ImageIcon } from 'lucide-react';
+import { Plus, ZoomIn, MapPin, Upload } from 'lucide-react';
 
 interface ProjectImage {
   id: string;
@@ -16,66 +16,66 @@ const INITIAL_PROJECTS: ProjectImage[] = [
   {
     id: 'h1',
     url: '/images/projects/house-1.png',
-    title: 'Mərdəkan Müasir Bağ Evi',
+    title: '[1-ci Layihənin adı yazılacaq]',
     category: 'full',
-    location: 'Mərdəkan Qəsəbəsi',
-    tag: 'AÇAR TƏHVİLİ',
+    location: '[Ərazi / Ünvan yazılacaq]',
+    tag: '[Kateqoriya]',
   },
   {
     id: 'h2',
     url: '/images/projects/house-2.png',
-    title: 'Şüvəlan Mansard Villa',
+    title: '[2-ci Layihənin adı yazılacaq]',
     category: 'roof',
-    location: 'Şüvəlan Bağları',
-    tag: 'DAM FERMALARI',
+    location: '[Ərazi / Ünvan yazılacaq]',
+    tag: '[Kateqoriya]',
   },
   {
     id: 'h3',
     url: '/images/projects/house-3.png',
-    title: 'Bilgəh Monolit Kürsülü Ev',
+    title: '[3-cü Layihənin adı yazılacaq]',
     category: 'masonry',
-    location: 'Bilgəh Ərazisi',
-    tag: 'B25 BÜNÖVRƏ',
+    location: '[Ərazi / Ünvan yazılacaq]',
+    tag: '[Kateqoriya]',
   },
   {
     id: 'h4',
     url: '/images/projects/house-4.png',
-    title: 'Novxanı Həyət Evi & Terras',
+    title: '[4-cü Layihənin adı yazılacaq]',
     category: 'full',
-    location: 'Novxanı Bağları',
-    tag: 'QOŞA KƏRPİC',
+    location: '[Ərazi / Ünvan yazılacaq]',
+    tag: '[Kateqoriya]',
   },
   {
     id: 'h5',
     url: '/images/projects/house-5.png',
-    title: 'Badamdar Fərdi Yaşayış Evi',
+    title: '[5-ci Layihənin adı yazılacaq]',
     category: 'full',
-    location: 'Badamdar Qəsəbəsi',
-    tag: 'KƏRPİC TAĞLAR',
+    location: '[Ərazi / Ünvan yazılacaq]',
+    tag: '[Kateqoriya]',
   },
   {
     id: 'h6',
     url: '/images/projects/house-6.png',
-    title: 'Xırdalan Otaq & Dam Artırması',
+    title: '[6-cı Layihənin adı yazılacaq]',
     category: 'roof',
-    location: 'Xırdalan Ərazisi',
-    tag: 'ÇATSIZ CALAQ',
+    location: '[Ərazi / Ünvan yazılacaq]',
+    tag: '[Kateqoriya]',
   },
   {
     id: 'h7',
     url: '/images/projects/house-7.png',
-    title: 'Masazır Daşıyıcı Termos Hörgü',
+    title: '[7-ci Layihənin adı yazılacaq]',
     category: 'masonry',
-    location: 'Masazır Bağları',
-    tag: '380MM HÖRGÜ',
+    location: '[Ərazi / Ünvan yazılacaq]',
+    tag: '[Kateqoriya]',
   },
   {
     id: 'h8',
     url: '/images/projects/house-8.png',
-    title: 'Mərdəkan Qonaq Evi & Pilləkən',
+    title: '[8-ci Layihənin adı yazılacaq]',
     category: 'full',
-    location: 'Mərdəkan Ərazisi',
-    tag: 'MONOLİT PİLLƏ',
+    location: '[Ərazi / Ünvan yazılacaq]',
+    tag: '[Kateqoriya]',
   },
 ];
 
@@ -85,7 +85,7 @@ export default function ProjectsGallerySection() {
   const [selectedImg, setSelectedImg] = useState<ProjectImage | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newTitle, setNewTitle] = useState('');
-  const [newLoc, setNewLoc] = useState('Bakı');
+  const [newLoc, setNewLoc] = useState('');
 
   const handleUserAdd = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -95,16 +95,17 @@ export default function ProjectsGallerySection() {
       const newItem: ProjectImage = {
         id: `usr-${Date.now()}`,
         url,
-        title: newTitle.trim() || 'Yeni Əlavə Edilmiş Ev',
+        title: newTitle.trim() || '[Layihənin adı]',
         category: 'user',
-        location: newLoc.trim() || 'Bakı',
-        tag: 'YENİ LAYİHƏ',
+        location: newLoc.trim() || '[Ərazi]',
+        tag: '[Yeni Şəkil]',
       };
 
       setProjects((prev) => [newItem, ...prev]);
       setFilter('all');
       setIsModalOpen(false);
       setNewTitle('');
+      setNewLoc('');
     }
   };
 
@@ -118,10 +119,10 @@ export default function ProjectsGallerySection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 border-b-2 border-[#262626] pb-5">
           <div>
             <div className="font-mono text-xs text-[#C85A32] font-bold uppercase tracking-widest mb-1">
-              [FOTOQALEREYA // TİKİNTİ ARXİVİ]
+              [Qalereya üst etiketi]
             </div>
             <h2 className="text-2xl sm:text-4xl font-black text-[#262626] uppercase tracking-tight">
-              Tikdiyimiz Evlərin Şəkilləri
+              [Bura Qalereya bölməsinin başlığı yazılacaq]
             </h2>
           </div>
 
@@ -130,11 +131,11 @@ export default function ProjectsGallerySection() {
             className="brick-btn bg-[#C85A32] text-white hover:bg-[#B84A27] px-5 py-3 text-xs sm:text-sm font-mono flex items-center gap-2 shrink-0"
           >
             <Plus className="w-4 h-4" />
-            <span>Öz Ev Şəklini Əlavə Et</span>
+            <span>Yeni Şəkil Əlavə Et</span>
           </button>
         </div>
 
-        {/* Kateqoriya Filtrləri (Kəskin Kərpic Tabları) */}
+        {/* Kateqoriya Filtrləri */}
         <div className="flex flex-wrap gap-2 mb-8 font-mono text-xs">
           <button
             onClick={() => setFilter('all')}
@@ -144,7 +145,7 @@ export default function ProjectsGallerySection() {
                 : 'bg-[#FFFFFF] text-[#262626] hover:bg-[#F4F0DB]'
             }`}
           >
-            BÜTÜN İŞLƏR ({projects.length})
+            HAMISI ({projects.length})
           </button>
           <button
             onClick={() => setFilter('full')}
@@ -154,7 +155,7 @@ export default function ProjectsGallerySection() {
                 : 'bg-[#FFFFFF] text-[#262626] hover:bg-[#F4F0DB]'
             }`}
           >
-            TAM EVLƏR & VİLLALAR
+            [Filtr 1 adı]
           </button>
           <button
             onClick={() => setFilter('roof')}
@@ -164,7 +165,7 @@ export default function ProjectsGallerySection() {
                 : 'bg-[#FFFFFF] text-[#262626] hover:bg-[#F4F0DB]'
             }`}
           >
-            DAM & MANSARD
+            [Filtr 2 adı]
           </button>
           <button
             onClick={() => setFilter('masonry')}
@@ -174,7 +175,7 @@ export default function ProjectsGallerySection() {
                 : 'bg-[#FFFFFF] text-[#262626] hover:bg-[#F4F0DB]'
             }`}
           >
-            KƏRPİC HÖRGÜ & BÜNÖVRƏ
+            [Filtr 3 adı]
           </button>
         </div>
 
@@ -219,27 +220,6 @@ export default function ProjectsGallerySection() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Daimi Şəkil Bələdçisi */}
-        <div className="mt-10 p-4 border-2 border-[#262626] bg-[#FFFFFF] shadow-[4px_4px_0px_#262626] flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-[#C85A32] text-white flex items-center justify-center font-bold shrink-0 border border-[#262626]">
-              !
-            </div>
-            <div>
-              <span className="font-bold text-[#262626] block">Şəkilləri daimi qovluğa necə qoymaq olar?</span>
-              <span className="text-[#262626]/70 text-[11px]">
-                Kompüterinizdə <strong>brick app \ public \ images \ projects</strong> qovluğuna öz şəkillərinizi atın.
-              </span>
-            </div>
-          </div>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="brick-btn bg-[#262626] text-white hover:bg-[#C85A32] px-4 py-2 text-xs shrink-0"
-          >
-            İndi Brauzerdən Şəkil Seç
-          </button>
         </div>
 
       </div>
@@ -303,15 +283,15 @@ export default function ProjectsGallerySection() {
               [YENİ EV ŞƏKLİ ƏLAVƏ ET]
             </h3>
             <p className="text-[#262626]/70 mb-4 text-[11px]">
-              Telefon və ya kompüterinizdən şəkli seçin, dərhal qalereyada görünsün.
+              [Bura şəkil yükləmə pəncərəsi izahı yazılacaq]
             </p>
 
             <div className="space-y-3">
               <div>
-                <label className="block font-bold text-[#262626] mb-1">EVİN ADI / BAŞLIQ:</label>
+                <label className="block font-bold text-[#262626] mb-1">LAYİHƏNİN ADI:</label>
                 <input
                   type="text"
-                  placeholder="Məs: Şüvəlanda 2 mərtəbəli kərpic villa"
+                  placeholder="[Layihənin adını daxil edin]"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   className="w-full p-2.5 border-2 border-[#262626] bg-[#F4F0DB] focus:outline-none"
@@ -319,10 +299,10 @@ export default function ProjectsGallerySection() {
               </div>
 
               <div>
-                <label className="block font-bold text-[#262626] mb-1">ƏRAZİ:</label>
+                <label className="block font-bold text-[#262626] mb-1">ƏRAZİ / ÜNVAN:</label>
                 <input
                   type="text"
-                  placeholder="Məs: Mərdəkan Qəsəbəsi"
+                  placeholder="[Ərazini daxil edin]"
                   value={newLoc}
                   onChange={(e) => setNewLoc(e.target.value)}
                   className="w-full p-2.5 border-2 border-[#262626] bg-[#F4F0DB] focus:outline-none"

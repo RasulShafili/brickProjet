@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Phone, MessageCircle, MapPin, Send, CheckCircle2, Clock, Shield } from 'lucide-react';
+import { Phone, MessageCircle, MapPin, CheckCircle2, Clock, Shield } from 'lucide-react';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    location: 'Mərdəkan',
+    location: '',
     notes: '',
   });
   const [done, setDone] = useState(false);
@@ -27,13 +27,13 @@ export default function ContactSection() {
           <div className="col-span-12 lg:col-span-5 space-y-6">
             <div>
               <div className="font-mono text-xs text-[#C85A32] font-bold uppercase tracking-widest mb-1">
-                [BİRBAŞA ƏLAQƏ]
+                [Əlaqə üst etiketi]
               </div>
               <h2 className="text-2xl sm:text-4xl font-black text-[#262626] uppercase tracking-tight mb-2">
-                Usta ilə Birbaşa Danışın
+                [Bura Əlaqə bölməsinin başlığı yazılacaq]
               </h2>
               <p className="font-mono text-xs text-[#262626]/80 leading-relaxed">
-                Vasitəçi yoxdur. Birbaşa briqadir və mühəndislə əlaqə saxlayaraq tikinti sahəsinə baxış təyin edin.
+                [Bura əlaqə və müraciət üçün qısa açıqlama mətni yazılacaq.]
               </p>
             </div>
 
@@ -43,26 +43,24 @@ export default function ContactSection() {
                 BİRBAŞA ZƏNG XƏTTİ:
               </span>
               <a
-                href="tel:+994502345678"
+                href="#contact"
                 className="flex items-center gap-3 text-lg sm:text-xl font-black text-[#C85A32] hover:text-[#262626] transition-colors"
               >
                 <div className="w-10 h-10 bg-[#C85A32] text-white flex items-center justify-center border-2 border-[#262626] shadow-[2px_2px_0px_#262626] shrink-0">
                   <Phone className="w-5 h-5" />
                 </div>
-                <span>+994 (50) 234-56-78</span>
+                <span>[Bura telefon nömrəniz yazılacaq]</span>
               </a>
 
               <div className="border-t-2 border-[#262626]/20 pt-3">
                 <a
-                  href="https://wa.me/994502345678"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#contact"
                   className="flex items-center gap-3 text-sm font-bold text-[#262626] hover:text-[#25D366] transition-colors"
                 >
                   <div className="w-10 h-10 bg-[#25D366] text-[#262626] flex items-center justify-center border-2 border-[#262626] shadow-[2px_2px_0px_#262626] shrink-0">
                     <MessageCircle className="w-5 h-5" />
                   </div>
-                  <span>WhatsApp ilə Eskiz və Şəkil Göndər</span>
+                  <span>[Bura WhatsApp əlaqə mətni / linki yazılacaq]</span>
                 </a>
               </div>
             </div>
@@ -71,15 +69,15 @@ export default function ContactSection() {
             <div className="space-y-2 font-mono text-xs text-[#262626]">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#C85A32]" />
-                <span>İş saatları: 08:00 – 20:00 (Hər gün)</span>
+                <span>[Bura iş saatlarınız yazılacaq]</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#C85A32]" />
-                <span>Bakı, Mərdəkan, Şüvəlan, Bilgəh, Novxanı və bütün Abşeron</span>
+                <span>[Bura ünvan və ya xidmət əraziləri yazılacaq]</span>
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="w-4 h-4 text-emerald-700" />
-                <span className="font-bold">10 il rəsmi müqavilə zəmanəti</span>
+                <span className="font-bold">[Bura zəmanət və ya əlavə qeyd yazılacaq]</span>
               </div>
             </div>
           </div>
@@ -91,9 +89,9 @@ export default function ContactSection() {
                 <div className="w-12 h-12 bg-[#262626] text-white border-2 border-[#262626] flex items-center justify-center mx-auto mb-3 shadow-[3px_3px_0px_#C85A32]">
                   <CheckCircle2 className="w-6 h-6 text-[#C85A32]" />
                 </div>
-                <h3 className="text-xl font-black text-[#262626] uppercase mb-1">MÜRACİƏTİNİZ ALINDI!</h3>
+                <h3 className="text-xl font-black text-[#262626] uppercase mb-1">[Təsdiq başlığı]</h3>
                 <p className="text-xs text-[#262626]/80 mb-4">
-                  Hörmətli <strong>{formData.name || 'Sifarişçi'}</strong>, usta ən qısa müddətdə sizinlə əlaqə saxlayacaq.
+                  [Bura müraciət göndərildikdən sonra çıxacaq təsdiq mətni yazılacaq.]
                 </p>
                 <button
                   onClick={() => setDone(false)}
@@ -105,7 +103,7 @@ export default function ContactSection() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4 font-mono text-xs">
                 <h3 className="text-base font-black text-[#262626] uppercase mb-2 border-b-2 border-[#262626] pb-2">
-                  [USTA İLƏ GÖRÜŞ TƏYİN ET]
+                  [Bura müraciət formasının başlığı yazılacaq]
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -114,7 +112,7 @@ export default function ContactSection() {
                     <input
                       type="text"
                       required
-                      placeholder="Məs: Rauf bəy"
+                      placeholder="[Müştərinin adı daxil ediləcək yer]"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full p-2.5 border-2 border-[#262626] bg-[#F4F0DB] focus:outline-none"
@@ -126,7 +124,7 @@ export default function ContactSection() {
                     <input
                       type="tel"
                       required
-                      placeholder="+994 (50) 000-00-00"
+                      placeholder="[Müştərinin telefon nömrəsi daxil ediləcək yer]"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="w-full p-2.5 border-2 border-[#262626] bg-[#F4F0DB] focus:outline-none"
@@ -136,26 +134,20 @@ export default function ContactSection() {
 
                 <div>
                   <label className="block font-bold text-[#262626] mb-1">TİKİNTİ ƏRAZİSİ:</label>
-                  <select
+                  <input
+                    type="text"
+                    placeholder="[Tikinti ərazisi / ünvan daxil ediləcək yer]"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     className="w-full p-2.5 border-2 border-[#262626] bg-[#F4F0DB] focus:outline-none"
-                  >
-                    <option value="Mərdəkan">Mərdəkan Qəsəbəsi</option>
-                    <option value="Şüvəlan">Şüvəlan Bağları</option>
-                    <option value="Bilgəh">Bilgəh & Zaqulba</option>
-                    <option value="Novxanı">Novxanı & Goradil</option>
-                    <option value="Badamdar">Badamdar & Səbail</option>
-                    <option value="Xırdalan">Xırdalan, Masazır & Saray</option>
-                    <option value="Digər">Digər Bakı və Abşeron Ərazisi</option>
-                  </select>
+                  />
                 </div>
 
                 <div>
                   <label className="block font-bold text-[#262626] mb-1">GÖRÜLƏCƏK İŞ QEYDİ:</label>
                   <textarea
                     rows={3}
-                    placeholder="Məsələn: Sıfırdan fərdi ev tikintisi və ya dam karkası..."
+                    placeholder="[Müştərinin görüləcək iş barədə qeydi daxil ediləcək yer]"
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     className="w-full p-2.5 border-2 border-[#262626] bg-[#F4F0DB] focus:outline-none"
@@ -166,7 +158,7 @@ export default function ContactSection() {
                   type="submit"
                   className="brick-btn w-full bg-[#C85A32] text-white hover:bg-[#B84A27] py-3 text-xs font-bold"
                 >
-                  MÜRACİƏTİ BİRBAŞA USTAYA GÖNDƏR
+                  [Göndər düyməsinin mətni]
                 </button>
               </form>
             )}
