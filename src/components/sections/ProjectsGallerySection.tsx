@@ -67,14 +67,14 @@ function BeforeAfterSlider() {
   const [sliderPos, setSliderPos] = useState(50);
 
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden border-[3px] border-[#2D1E16] bg-[#262626] select-none">
+    <div className="relative aspect-[4/3] w-full overflow-hidden border-2 border-[#2D1E16] bg-[#262626] select-none">
       
       {/* SAĞ TƏRƏF: SONRA */}
       <div className="absolute inset-0 bg-[#E6EFE9] flex flex-col items-center justify-center p-3 text-center">
-        <span className="font-display px-2.5 py-0.5 bg-emerald-800 text-white text-[11px] font-black rounded-[2px] mb-1.5">
+        <span className="px-2 py-0.5 bg-emerald-800 text-white text-[10px] font-medium rounded-[2px] mb-1.5">
           SONRA
         </span>
-        <div className="font-display text-xs sm:text-sm font-black text-[#1A110B]">
+        <div className="text-xs font-medium text-[#1F2421]">
           [Hazır Şəkil Yeri]
         </div>
       </div>
@@ -85,10 +85,10 @@ function BeforeAfterSlider() {
         style={{ width: `${sliderPos}%` }}
       >
         <div className="w-[300px] sm:w-[360px] h-full flex flex-col items-center justify-center p-3 text-center">
-          <span className="font-display px-2.5 py-0.5 bg-[#1A110B] text-[#F4F0DB] text-[11px] font-black rounded-[2px] mb-1.5">
+          <span className="px-2 py-0.5 bg-[#26211D] text-[#F4F0DB] text-[10px] font-medium rounded-[2px] mb-1.5">
             ƏVVƏL
           </span>
-          <div className="font-display text-xs sm:text-sm font-black text-[#1A110B]">
+          <div className="text-xs font-medium text-[#26211D]">
             [Əvvəlki Şəkil Yeri]
           </div>
         </div>
@@ -99,7 +99,7 @@ function BeforeAfterSlider() {
         className="absolute inset-y-0 w-0.5 bg-[#C85A32] pointer-events-none"
         style={{ left: `${sliderPos}%` }}
       >
-        <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#C85A32] text-white border-2 border-[#262626] shadow-[2px_2px_0px_#262626] flex items-center justify-center">
+        <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#C85A32] text-white border-2 border-[#26211D] shadow-[2px_2px_0px_#26211D] flex items-center justify-center">
           <MoveHorizontal className="w-4 h-4" />
         </div>
       </div>
@@ -125,15 +125,17 @@ export default function ProjectsGallerySection() {
   return (
     <section
       id="gallery"
-      className="px-4 sm:px-8 py-12 lg:py-16 bg-transparent border-b-2 border-[#262626] relative z-10"
+      className="px-4 sm:px-8 py-12 lg:py-16 bg-transparent border-b-2 border-[#26211D] relative z-10"
     >
       <div className="max-w-7xl mx-auto">
         
         {/* Asılmış Tabela Başlıq və Filtrlər */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-          <div className="hanging-sign px-6 py-4">
-            <div className="sign-kicker">QALEREYA</div>
-            <h2 className="text-2xl sm:text-4xl font-black text-[#1A110B]">
+          <div className="hanging-sign px-6 py-3.5">
+            <div className="text-[11px] text-[#C85A32] font-semibold uppercase tracking-wider mb-0.5">
+              Qalereya
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#1F1915]">
               Görülən İşlər (Əvvəl / Sonra)
             </h2>
           </div>
@@ -148,10 +150,10 @@ export default function ProjectsGallerySection() {
               <button
                 key={tab.id}
                 onClick={() => setFilter(tab.id as typeof filter)}
-                className={`hanging-badge font-display min-h-[40px] px-4 py-1.5 font-black uppercase tracking-wide transition-all cursor-pointer ${
+                className={`hanging-badge min-h-[38px] px-3.5 py-1.5 font-medium transition-all cursor-pointer ${
                   filter === tab.id
                     ? '!bg-[#C85A32] !bg-none text-white'
-                    : 'text-[#1A110B] hover:bg-[#EAE5D0]'
+                    : 'text-[#3A322C] hover:bg-[#EAE5D0]'
                 }`}
               >
                 {tab.label}
@@ -165,29 +167,29 @@ export default function ProjectsGallerySection() {
           {filtered.map((proj) => (
             <div
               key={proj.id}
-              className="brick-card bg-[#FFFDF7] p-4 flex flex-col justify-between"
+              className="brick-card bg-[#FFFDF9] p-4 flex flex-col justify-between"
             >
               {proj.isBeforeAfter ? (
                 <BeforeAfterSlider />
               ) : (
-                <div className="relative aspect-[4/3] overflow-hidden border-[3px] border-[#2D1E16] bg-[#EAE5D0] flex flex-col items-center justify-center p-4 text-center">
-                  <div className="font-display text-xs sm:text-sm font-black text-[#1A110B]">
+                <div className="relative aspect-[4/3] overflow-hidden border-2 border-[#2D1E16] bg-[#EAE5D0] flex flex-col items-center justify-center p-4 text-center">
+                  <div className="text-xs font-medium text-[#3A322C]">
                     [Layihə Şəkli Yeri]
                   </div>
                 </div>
               )}
 
-              <div className="pt-3.5 px-1">
-                <h3 className="window-title text-base sm:text-lg font-black text-[#1A110B] mb-2">
+              <div className="pt-3 px-1">
+                <h3 className="text-base font-bold text-[#1F1915] mb-1.5">
                   {proj.title}
                 </h3>
-                <div className="flex items-center justify-between text-xs sm:text-sm font-extrabold text-[#1A110B]">
+                <div className="flex items-center justify-between text-xs font-normal text-[#574E47]">
                   <span className="inline-flex items-center gap-1">
-                    <MapPin className="w-4 h-4 text-[#C85A32]" />
+                    <MapPin className="w-3.5 h-3.5 text-[#C85A32]" />
                     {proj.location}
                   </span>
                   <span className="inline-flex items-center gap-1">
-                    <Clock className="w-4 h-4 text-[#C85A32]" />
+                    <Clock className="w-3.5 h-3.5 text-[#C85A32]" />
                     {proj.duration}
                   </span>
                 </div>

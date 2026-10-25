@@ -55,16 +55,18 @@ export default function TrustAndProcessSection() {
   return (
     <section
       id="trust"
-      className="px-4 sm:px-8 py-12 lg:py-16 bg-transparent border-b-2 border-[#262626] relative z-10"
+      className="px-4 sm:px-8 py-12 lg:py-16 bg-transparent border-b-2 border-[#26211D] relative z-10"
     >
       <div className="max-w-7xl mx-auto space-y-12">
         
         {/* 1. 4 Qısa Addımda İş Prosesi */}
         <div>
           {/* Asılmış Tabela Başlıq */}
-          <div className="hanging-sign px-6 py-4 mb-7">
-            <div className="sign-kicker">İŞ PROSESİ</div>
-            <h2 className="text-2xl sm:text-4xl font-black text-[#1A110B]">
+          <div className="hanging-sign px-6 py-3.5 mb-7">
+            <div className="text-[11px] text-[#C85A32] font-semibold uppercase tracking-wider mb-0.5">
+              İş Prosesi
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#1F1915]">
               4 Addımda Rahat Tikinti
             </h2>
           </div>
@@ -75,21 +77,21 @@ export default function TrustAndProcessSection() {
               return (
                 <div
                   key={idx}
-                  className="brick-card bg-[#FFFDF7] p-5 flex flex-col justify-between"
+                  className="brick-card bg-[#FFFDF9] p-5 flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-3.5">
-                      <span className="font-display w-9 h-9 rounded-full bg-[#C85A32] text-white border-2 border-[#1A110B] font-black text-sm flex items-center justify-center shadow-[2px_2px_0px_#1A110B]">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="w-8 h-8 rounded-full bg-[#C85A32] text-white border-2 border-[#26211D] font-bold text-xs flex items-center justify-center">
                         {step.num}
                       </span>
-                      <StepIcon className="w-5 h-5 text-[#1A110B]" />
+                      <StepIcon className="w-4 h-4 text-[#574E47]" />
                     </div>
 
-                    <h3 className="window-title text-base sm:text-lg font-black text-[#1A110B] mb-2">
+                    <h3 className="text-base font-bold text-[#1F1915] mb-1.5">
                       {step.title}
                     </h3>
 
-                    <p className="text-sm font-semibold text-[#221710] leading-relaxed">
+                    <p className="text-sm font-normal text-[#4E443C] leading-relaxed">
                       {step.desc}
                     </p>
                   </div>
@@ -102,9 +104,11 @@ export default function TrustAndProcessSection() {
         {/* 2. Qısa Müştəri Rəyləri */}
         <div>
           {/* Asılmış Tabela Başlıq */}
-          <div className="hanging-sign px-6 py-4 mb-6">
-            <div className="sign-kicker">MÜŞTƏRİ RƏYLƏRİ</div>
-            <h3 className="text-2xl sm:text-3xl font-black text-[#1A110B]">
+          <div className="hanging-sign px-6 py-3.5 mb-6">
+            <div className="text-[11px] text-[#C85A32] font-semibold uppercase tracking-wider mb-0.5">
+              Müştəri Rəyləri
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-bold text-[#1F1915]">
               Ev Sahiplərinin Fikirləri
             </h3>
           </div>
@@ -113,22 +117,22 @@ export default function TrustAndProcessSection() {
             {REVIEWS.map((rev, i) => (
               <div
                 key={i}
-                className="brick-card bg-[#FFFDF7] p-5 flex flex-col justify-between"
+                className="brick-card bg-[#FFFDF9] p-5 flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center gap-0.5 text-[#F59E0B] mb-2.5">
+                  <div className="flex items-center gap-0.5 text-[#F59E0B] mb-2">
                     {[...Array(5)].map((_, sIdx) => (
-                      <Star key={sIdx} className="w-4 h-4 fill-[#F59E0B] text-[#1A110B]" />
+                      <Star key={sIdx} className="w-3.5 h-3.5 fill-[#F59E0B] text-[#26211D]" />
                     ))}
                   </div>
-                  <p className="text-sm font-bold text-[#1A110B] leading-relaxed mb-3.5">
+                  <p className="text-sm font-normal text-[#3A322C] leading-relaxed mb-3.5">
                     &ldquo;{rev.comment}&rdquo;
                   </p>
                 </div>
 
-                <div className="pt-2.5 border-t-2 border-[#1A110B]/15 flex items-center justify-between text-xs sm:text-sm">
-                  <span className="font-display font-black text-[#1A110B]">{rev.name}</span>
-                  <span className="font-display text-xs font-black text-[#C85A32] uppercase">{rev.workType}</span>
+                <div className="pt-2.5 border-t border-[#26211D]/15 flex items-center justify-between text-xs">
+                  <span className="font-bold text-[#1F1915]">{rev.name}</span>
+                  <span className="text-[#C85A32] font-medium">{rev.workType}</span>
                 </div>
               </div>
             ))}

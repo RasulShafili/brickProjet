@@ -48,14 +48,16 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="px-4 sm:px-8 py-12 lg:py-16 bg-transparent border-b-2 border-[#262626] relative z-10"
+      className="px-4 sm:px-8 py-12 lg:py-16 bg-transparent border-b-2 border-[#26211D] relative z-10"
     >
       <div className="max-w-7xl mx-auto">
         
         {/* Kərpic Divardan Asılmış Başlıq Tabelası */}
-        <div className="hanging-sign px-6 py-4 mb-8">
-          <div className="sign-kicker">XİDMƏTLƏRİMİZ</div>
-          <h2 className="text-2xl sm:text-4xl font-black text-[#1A110B]">
+        <div className="hanging-sign px-6 py-3.5 mb-8">
+          <div className="text-[11px] text-[#C85A32] font-semibold uppercase tracking-wider mb-0.5">
+            Xidmətlərimiz
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#1F1915]">
             Gördüyümüz Əsas İşlər
           </h2>
         </div>
@@ -70,23 +72,23 @@ export default function ServicesSection() {
             return (
               <div
                 key={idx}
-                className="brick-card bg-[#FFFDF7] p-5 sm:p-6 flex flex-col justify-between transition-colors"
+                className="brick-card bg-[#FFFDF9] p-5 sm:p-6 flex flex-col justify-between transition-colors"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3.5">
-                    <div className="w-11 h-11 bg-[#C85A32] text-white border-2 border-[#1A110B] shadow-[2px_2px_0px_#1A110B] flex items-center justify-center rounded-[4px] shrink-0">
+                    <div className="w-10 h-10 bg-[#C85A32] text-white border-2 border-[#26211D] shadow-[2px_2px_0px_#26211D] flex items-center justify-center rounded-[4px] shrink-0">
                       <IconComponent className="w-5 h-5" />
                     </div>
-                    <span className="hanging-badge px-2.5 py-1 text-[#1A110B] font-display text-[11px] font-black uppercase">
+                    <span className="hanging-badge px-2.5 py-0.5 text-[#4E443C] text-[11px] font-medium">
                       {srv.badge}
                     </span>
                   </div>
 
-                  <h3 className="window-title text-lg sm:text-xl font-black text-[#1A110B] mb-2.5">
+                  <h3 className="text-lg font-bold text-[#1F1915] mb-1.5">
                     {srv.title}
                   </h3>
 
-                  <p className="text-sm font-semibold text-[#221710] leading-relaxed mb-5">
+                  <p className="text-sm font-normal text-[#4E443C] leading-relaxed mb-5">
                     {srv.desc}
                   </p>
                 </div>
@@ -95,7 +97,7 @@ export default function ServicesSection() {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="brick-btn w-full min-h-[44px] bg-[#1A110B] hover:bg-[#C85A32] text-[#FFFFFF] text-xs sm:text-sm font-black px-4 py-2.5 uppercase tracking-wide flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  className="w-full min-h-[42px] bg-[#26211D] hover:bg-[#C85A32] text-[#FFFFFF] font-medium text-xs sm:text-sm px-4 py-2 rounded-[4px] flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />
                   <span>WhatsApp ilə Qiymət Soruş</span>

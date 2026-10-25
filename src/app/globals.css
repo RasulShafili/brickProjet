@@ -6,8 +6,8 @@
   --brick-red: #C85A32;
   --brick-dark: #9E3F20;
   --brick-light: #E3C1AA;
-  --cement-dark: #1A110B;
-  --cement-gray: #4A4A4A;
+  --cement-dark: #26211D;
+  --cement-gray: #574E47;
   --stone-paper: #F4F0DB;
   --stone-card: #FFFFFF;
   --window-wood: #2D1E16;
@@ -32,53 +32,19 @@ body {
   background-color: var(--stone-paper);
   color: var(--cement-dark);
   font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-weight: 500;
+  font-weight: 400;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ============================================================================
-   MEMARLIQ & USTA TABELASI TİPOQRAFİYASI (Gözəçarpan Qalın Başlıqlar)
-   ============================================================================ */
+/* Başlıqlar: Yalnız başlıqlar vurğuludur, mətnlər isə incə və təmizdir */
 h1,
 h2,
 h3,
-h4,
-.font-display {
-  font-family: var(--font-display), sans-serif;
-  font-weight: 900;
+h4 {
+  font-family: var(--font-sans), sans-serif;
   letter-spacing: -0.02em;
-  color: #1A110B;
-  /* 3D Tabela Relyef Kölgəsi — yazıların fonda itməsinin qarşısını alır */
-  text-shadow:
-    0 1px 0 #FFFFFF,
-    2px 2px 0 rgba(200, 90, 50, 0.26);
-}
-
-/* Asılmış Tabelaların Üstündəki Qırmızı Metal Etiket (.sign-kicker) */
-.sign-kicker {
-  display: inline-block;
-  font-family: var(--font-display), sans-serif;
-  font-size: 11px;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background-color: #C85A32;
-  color: #FFFFFF;
-  padding: 2px 8px;
-  border: 1.5px solid #1A110B;
-  border-radius: 2px;
-  box-shadow: 2px 2px 0 #1A110B;
-  margin-bottom: 6px;
-}
-
-/* Pəncərə Daxili Kart Başlığı Xətti (.window-title) */
-.window-title {
-  font-family: var(--font-display), sans-serif;
-  font-weight: 900;
-  color: #1A110B;
-  border-left: 4px solid #C85A32;
-  padding-left: 10px;
-  line-height: 1.2;
+  color: #1F1915;
 }
 
 /* CAD & Kərpic Fon Toru */
@@ -100,14 +66,12 @@ h4,
 .brick-window {
   position: relative;
   background-color: #FFFFFF;
-  border: 4px solid var(--window-wood);
+  border: 3px solid var(--window-wood);
   border-radius: 2px;
-  /* İkiqat daxili pəncərə çərçivəsi + kərpic divara düşən dərin kölgə */
   box-shadow:
-    inset 0 0 0 3px var(--window-trim),
-    inset 0 0 0 5px var(--window-wood),
-    inset 0 3px 8px rgba(0, 0, 0, 0.08),
-    0 12px 0 0 rgba(30, 20, 14, 0.85);
+    inset 0 0 0 2px var(--window-trim),
+    inset 0 0 0 3.5px var(--window-wood),
+    0 10px 0 0 rgba(30, 20, 14, 0.8);
   margin-top: 8px;
   margin-bottom: 12px;
   transition: transform 0.16s ease, box-shadow 0.16s ease;
@@ -118,10 +82,10 @@ h4,
 .brick-window::before {
   content: '';
   position: absolute;
-  top: -10px;
-  left: -8px;
-  right: -8px;
-  height: 8px;
+  top: -9px;
+  left: -7px;
+  right: -7px;
+  height: 7px;
   background: linear-gradient(
     90deg,
     #3D281D 0%,
@@ -132,7 +96,7 @@ h4,
   );
   border: 2px solid var(--window-wood);
   border-radius: 2px 2px 0 0;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
   pointer-events: none;
   z-index: 2;
 }
@@ -142,14 +106,14 @@ h4,
 .brick-window::after {
   content: '';
   position: absolute;
-  bottom: -12px;
-  left: -10px;
-  right: -10px;
-  height: 10px;
+  bottom: -11px;
+  left: -9px;
+  right: -9px;
+  height: 9px;
   background: linear-gradient(180deg, #EAE2D3 0%, #CFC3AF 65%, #A89B87 100%);
   border: 2px solid var(--window-wood);
   border-radius: 1px 1px 3px 3px;
-  box-shadow: 0 5px 0 rgba(28, 18, 12, 0.75);
+  box-shadow: 0 4px 0 rgba(28, 18, 12, 0.7);
   pointer-events: none;
   z-index: 2;
 }
@@ -157,10 +121,9 @@ h4,
 .brick-card:hover {
   transform: translateY(-2px);
   box-shadow:
-    inset 0 0 0 3px #C85A32,
-    inset 0 0 0 5px var(--window-wood),
-    inset 0 3px 8px rgba(0, 0, 0, 0.08),
-    0 14px 0 0 var(--brick-dark);
+    inset 0 0 0 2px #C85A32,
+    inset 0 0 0 3.5px var(--window-wood),
+    0 12px 0 0 var(--brick-dark);
 }
 
 /* ============================================================================
@@ -171,33 +134,29 @@ h4,
 .hanging-sign {
   position: relative;
   display: inline-block;
-  background: linear-gradient(180deg, #FFFDF7 0%, #F4ECDD 100%);
-  border: 3px solid var(--window-wood);
+  background: linear-gradient(180deg, #FFFDF9 0%, #F6EFE2 100%);
+  border: 2.5px solid var(--window-wood);
   border-radius: 3px;
   box-shadow:
-    inset 0 0 0 2px #C85A32,
-    0 6px 0 0 #261912,
-    0 9px 14px rgba(0, 0, 0, 0.28);
-  margin-top: 16px;
+    inset 0 0 0 1.5px rgba(200, 90, 50, 0.5),
+    0 5px 0 0 #261912,
+    0 8px 12px rgba(0, 0, 0, 0.22);
+  margin-top: 14px;
 }
 
 /* Tabelanı divara bağlayan 2 dəmir halqa/zəncir dirəyi (sol və sağ üst küncdə) */
 .hanging-sign::before {
   content: '';
   position: absolute;
-  top: -16px;
+  top: -15px;
   left: 18px;
   right: 18px;
-  height: 14px;
+  height: 13px;
   background-image:
-    /* Sol divar mıxı (dairəvi başlıq) */
-    radial-gradient(circle at 4px 3px, #C85A32 2.5px, #1F1610 3px, #1F1610 4.5px, transparent 5px),
-    /* Sağ divar mıxı (dairəvi başlıq) */
-    radial-gradient(circle at calc(100% - 4px) 3px, #C85A32 2.5px, #1F1610 3px, #1F1610 4.5px, transparent 5px),
-    /* Sol asqı dəmiri */
-    linear-gradient(90deg, transparent 2px, #261912 2px, #594336 4px, #261912 6px, transparent 6px),
-    /* Sağ asqı dəmiri */
-    linear-gradient(90deg, transparent calc(100% - 6px), #261912 calc(100% - 6px), #594336 calc(100% - 4px), #261912 calc(100% - 2px), transparent calc(100% - 2px));
+    radial-gradient(circle at 4px 3px, #C85A32 2.2px, #1F1610 3px, #1F1610 4.2px, transparent 4.8px),
+    radial-gradient(circle at calc(100% - 4px) 3px, #C85A32 2.2px, #1F1610 3px, #1F1610 4.2px, transparent 4.8px),
+    linear-gradient(90deg, transparent 2.5px, #261912 2.5px, #594336 4px, #261912 5.5px, transparent 5.5px),
+    linear-gradient(90deg, transparent calc(100% - 5.5px), #261912 calc(100% - 5.5px), #594336 calc(100% - 4px), #261912 calc(100% - 2.5px), transparent calc(100% - 2.5px));
   pointer-events: none;
   z-index: 3;
 }
@@ -211,8 +170,8 @@ h4,
   right: 7px;
   height: 6px;
   background-image:
-    radial-gradient(circle at 3px 3px, #3A261A 2.5px, transparent 3px),
-    radial-gradient(circle at calc(100% - 3px) 3px, #3A261A 2.5px, transparent 3px);
+    radial-gradient(circle at 3px 3px, #3A261A 2px, transparent 2.5px),
+    radial-gradient(circle at calc(100% - 3px) 3px, #3A261A 2px, transparent 2.5px);
   pointer-events: none;
   z-index: 3;
 }
@@ -220,40 +179,37 @@ h4,
 /* Daha kiçik göstərici kartları üçün yığcam Asılmış Tabela (.hanging-badge) */
 .hanging-badge {
   position: relative;
-  background: linear-gradient(180deg, #FFFFFF 0%, #F5EFE0 100%);
-  border: 2.5px solid var(--window-wood);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F7F2E7 100%);
+  border: 2px solid var(--window-wood);
   border-radius: 3px;
   box-shadow:
-    inset 0 0 0 1.5px rgba(200, 90, 50, 0.45),
-    0 4px 0 0 #261912,
-    0 6px 10px rgba(0, 0, 0, 0.22);
-  margin-top: 10px;
+    0 3px 0 0 #261912,
+    0 5px 8px rgba(0, 0, 0, 0.16);
+  margin-top: 9px;
 }
 
 .hanging-badge::before {
   content: '';
   position: absolute;
-  top: -11px;
+  top: -10px;
   left: 12px;
   right: 12px;
-  height: 9px;
+  height: 8px;
   background-image:
-    radial-gradient(circle at 3px 2.5px, #C85A32 1.8px, #1F1610 2.5px, transparent 3.5px),
-    radial-gradient(circle at calc(100% - 3px) 2.5px, #C85A32 1.8px, #1F1610 2.5px, transparent 3.5px),
-    linear-gradient(90deg, transparent 1.5px, #261912 1.5px, #261912 4.5px, transparent 4.5px),
-    linear-gradient(90deg, transparent calc(100% - 4.5px), #261912 calc(100% - 4.5px), #261912 calc(100% - 1.5px), transparent calc(100% - 1.5px));
+    radial-gradient(circle at 3px 2px, #C85A32 1.6px, #1F1610 2.3px, transparent 3px),
+    radial-gradient(circle at calc(100% - 3px) 2px, #C85A32 1.6px, #1F1610 2.3px, transparent 3px),
+    linear-gradient(90deg, transparent 2px, #261912 2px, #261912 4px, transparent 4px),
+    linear-gradient(90deg, transparent calc(100% - 4px), #261912 calc(100% - 4px), #261912 calc(100% - 2px), transparent calc(100% - 2px));
   pointer-events: none;
   z-index: 3;
 }
 
 /* Kəskin Kərpic Düyməsi */
 .brick-btn {
-  font-family: var(--font-display), sans-serif;
   border: 2px solid var(--cement-dark);
   border-radius: 4px;
   box-shadow: 3px 3px 0px 0px var(--cement-dark);
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-weight: 600;
   transition: all 0.12s ease;
   display: inline-flex;
   align-items: center;
@@ -268,9 +224,4 @@ h4,
 .brick-btn:active {
   transform: translate(2px, 2px);
   box-shadow: 1px 1px 0px 0px var(--cement-dark);
-}
-
-/* Kərpic Hörgü Xətti (Running Bond) */
-.brick-border-t {
-  border-top: 3px solid var(--brick-red);
 }
