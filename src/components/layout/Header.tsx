@@ -5,7 +5,7 @@ import { Phone, MessageCircle } from 'lucide-react';
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-[#F4F0DB]/95 backdrop-blur-md border-b-2 border-[#262626] px-4 sm:px-8 py-3">
+    <header className="relative z-40 bg-[#F4F0DB] border-b-2 border-[#262626] px-4 sm:px-8 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         
         {/* Loqo & Kərpic Nişanı */}

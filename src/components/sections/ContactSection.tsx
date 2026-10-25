@@ -68,49 +68,6 @@ export default function ContactSection() {
       className="px-3 sm:px-8 py-14 lg:py-20 bg-brick-grid relative z-10 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
-        
-        {/* =====================================================================
-            ÜST SARI-QARA TİKİNTİ RULETKASI (ÖLÇÜ LENTİ) ANİMASİYASI
-           ===================================================================== */}
-        <div
-          key={`contact-tape-${animCycle}`}
-          className="mb-6 bg-[#262626] p-2 sm:p-2.5 border-2 border-[#262626] shadow-[4px_4px_0px_#C85A32]"
-        >
-          <div className="flex items-center justify-between font-mono text-[10px] sm:text-xs text-[#F4F0DB] mb-1.5 px-1">
-            <span className="font-bold text-[#FACC15] flex items-center gap-1.5">
-              <span className="w-2 h-2 bg-[#C85A32] inline-block" />
-              <span>04 // TİKİNTİ QƏRARGAHI ÖLÇÜ XƏTTİ</span>
-            </span>
-            <button
-              onClick={triggerContactReveal}
-              className="text-[10px] font-mono font-bold text-[#F4F0DB] hover:text-[#FACC15] flex items-center gap-1 cursor-pointer"
-            >
-              <RotateCcw className="w-3 h-3" />
-              <span>Təkrar İzlə</span>
-            </button>
-          </div>
-
-          {/* Uzanan Sarı-Qara Ölçü Lenti */}
-          <div className="relative w-full h-5 sm:h-6 bg-[#1A1A1A] border border-[#F4F0DB]/40 overflow-hidden">
-            <div
-              style={{
-                width: revealed ? '100%' : '0%',
-                transition: 'width 480ms cubic-bezier(0.22, 1, 0.36, 1)',
-              }}
-              className="h-full bg-[#FACC15] relative flex items-end justify-between overflow-hidden border-r-[6px] border-[#C85A32]"
-            >
-              {/* Santimetr şkalası */}
-              <div
-                className="w-full h-2.5"
-                style={{
-                  backgroundImage:
-                    'repeating-linear-gradient(to right, #1A1A1A 0px, #1A1A1A 2px, transparent 2px, transparent 12px)',
-                }}
-              />
-            </div>
-          </div>
-        </div>
-
         <div
           key={`contact-grid-${animCycle}`}
           className="grid grid-cols-12 gap-6 sm:gap-8 items-start"
