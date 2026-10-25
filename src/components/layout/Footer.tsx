@@ -17,7 +17,7 @@ export default function Footer() {
           </div>
           <div>
             <span className="font-black text-sm text-white block">
-              [Ustanın Adı] — Fərdi Tikinti Ustası
+              Zəfər Usta — Qəbələ və ətraf ərazilər
             </span>
             <span className="text-[11px] text-[#A4AAA6]">
               Ev Tikintisi • Hörgü • Dam Örtüyü • Pol-Patalok • Alçipan • Laminat • Oboy

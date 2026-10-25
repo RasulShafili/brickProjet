@@ -19,10 +19,10 @@ export default function Header() {
           </div>
           <div>
             <div className="text-[10px] font-extrabold text-[#C85A32] uppercase tracking-wider">
-              Fərdi Tikinti Ustası
+              Qəbələ və ətraf ərazilər
             </div>
             <div className="text-sm sm:text-base font-black text-[#262626]">
-              [Ustanın Adı]
+              Zəfər Usta
             </div>
           </div>
         </a>

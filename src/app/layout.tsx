@@ -5,9 +5,9 @@ import Footer from '@/components/layout/Footer';
 import MobileStickyBar from '@/components/layout/MobileStickyBar';
 
 export const metadata: Metadata = {
-  title: 'Usta & Mühəndis Briqadası | Fərdi Ev Tikintisi, Kərpic Hörgü və Dam İşləri',
+  title: 'Zəfər Usta | Qəbələ və Ətraf Ərazilərdə Fərdi Ev Tikintisi, Hörgü və Təmir',
   description:
-    'Bakı və Abşeronda sıfırdan fərdi evlərin tikintisi, dəmir-beton bünövrə, 380mm qoşa kərpic və daş hörgü, mansard dam karkasları və monolit pilləkənlər. 18 illik təcrübə, 10 il rəsmi zəmanət.',
+    'Qəbələ və ətraf ərazilərdə sıfırdan fərdi evlərin tikintisi, kubik hörgüsü, suvaq, dam örtüyü, pol-patalok, alçipan, laminat və oboy işləri. Əlaqə: +994 51 548 03 00',
 };
 
 export const viewport: Viewport = {

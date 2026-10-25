@@ -92,7 +92,7 @@ export default function ContactSection() {
               </div>
               <div className="flex items-center gap-2 bg-[#FFFFFF] p-2.5 border-2 border-[#262626] rounded-[4px]">
                 <MapPin className="w-4 h-4 text-[#C85A32] shrink-0" />
-                <span>[Şəhər / Ərazilər]</span>
+                <span>Qəbələ və ətraf ərazilər</span>
               </div>
             </div>
           </div>
@@ -136,10 +136,10 @@ export default function ContactSection() {
 
                 {/* 3. Ərazi */}
                 <div>
-                  <label className="block font-bold text-[#262626] mb-1">Ərazi / Qəsəbə (İstəyə bağlı):</label>
+                  <label className="block font-bold text-[#262626] mb-1">Ərazi / Kənd (İstəyə bağlı):</label>
                   <input
                     type="text"
-                    placeholder="Məs: Maştağa qəs."
+                    placeholder="Məs: Qəbələ, Vəndam"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     className="w-full min-h-[42px] p-2.5 border-2 border-[#262626] rounded-[4px] bg-[#F4F0DB] focus:bg-[#FFFFFF] focus:outline-none"

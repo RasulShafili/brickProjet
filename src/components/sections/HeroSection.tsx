@@ -47,7 +47,7 @@ export default function HeroSection() {
           {/* Ərazi */}
           <div className="inline-flex items-center gap-2 text-xs font-bold text-[#262626] bg-[#FFFFFF] px-3 py-2 border-2 border-[#262626] rounded-[4px]">
             <MapPin className="w-4 h-4 text-[#C85A32] shrink-0" />
-            <span>[Xidmət göstərilən şəhər və rayonlar]</span>
+            <span>Xidmət ərazisi: Qəbələ və ətraf ərazilər</span>
           </div>
 
           {/* 2 Əsas Düymə */}
@@ -78,12 +78,12 @@ export default function HeroSection() {
                 <UserCheck className="w-7 h-7" />
               </div>
               <div className="font-black text-sm sm:text-base text-[#262626]">
-                [Ustanın və ya Tikdiyi Evin Şəkli]
+                [Zəfər Ustanın və ya Tikdiyi Evin Şəkli]
               </div>
             </div>
 
             <div className="mt-2.5 px-3 py-2.5 bg-[#F4F0DB] border-2 border-[#262626] rounded-[4px] flex items-center justify-between text-xs font-bold">
-              <span className="text-[#262626]">[Ustanın Adı və Soyadı]</span>
+              <span className="text-[#262626]">Zəfər Usta — Qəbələ</span>
               <span className="text-emerald-800 bg-emerald-100 px-2 py-0.5 border border-emerald-700 rounded-[2px]">
                 Birbaşa İcraçı
               </span>
