@@ -50,7 +50,6 @@ const SERVICES = [
 
 const BRICK_COLORS = ['#C84B28', '#D96B27', '#C84B28', '#B83E1E', '#D96B27'];
 
-// Deterministik psevdo-təsadüfi funksiya (qarışıq tökülmə üçün)
 function pseudoRandom(seed: number): number {
   const x = Math.sin(seed * 9999.91) * 10000;
   return x - Math.floor(x);
@@ -63,7 +62,6 @@ interface BrickItem {
   colsInRow: number;
   rowWidthRatio: number;
   color: string;
-  // Qarışıq tökülmə (təpəcik) parametrləri
   pileOffsetX: number;
   pileOffsetY: number;
   pileRot: number;
@@ -71,7 +69,6 @@ interface BrickItem {
   buildDelayMs: number;
 }
 
-// Hörülmə hissəsindəki kubik düzülüşü (PC üçün)
 const DESKTOP_ROWS: { cols: number; widthRatio: number }[] = [
   { cols: 8, widthRatio: 0.86 },
   { cols: 9, widthRatio: 0.93 },
@@ -87,7 +84,6 @@ const DESKTOP_ROWS: { cols: number; widthRatio: number }[] = [
   { cols: 8, widthRatio: 0.86 },
 ];
 
-// Mobil üçün PC-dən ~4 dəfə az (29 ədəd) və 100% üfüqi kubik düzülüşü
 const MOBILE_ROWS: { cols: number; widthRatio: number }[] = [
   { cols: 3, widthRatio: 0.84 },
   { cols: 3, widthRatio: 0.92 },
@@ -114,16 +110,15 @@ function generateBricks(rowsConfig: { cols: number; widthRatio: number }[], isMo
       const rand4 = pseudoRandom(id * 17 + 4);
       const rand5 = pseudoRandom(id * 23 + 5);
 
-      // Tökülən kubiklər 1/4 ölçüdə olduğu üçün sıx və təbii təpəcik yaradır
       const spreadX = isMobile ? 82 : 175;
-      const offsetNorm = (rand1 - 0.5) * 2; // -1 .. +1
+      const offsetNorm = (rand1 - 0.5) * 2;
       const pileOffsetX = offsetNorm * (spreadX / 2);
 
       const maxHeapHeight = isMobile ? 36 : 58;
       const heightFactor = Math.max(0.15, 1 - Math.abs(offsetNorm) * 0.82);
       const pileOffsetY = -8 - rand2 * maxHeapHeight * heightFactor;
 
-      const pileRot = (rand3 - 0.5) * 115; // -57 deg .. +57 deg qarışıq bucaq
+      const pileRot = (rand3 - 0.5) * 115;
 
       const dumpDelayMs = 100 + Math.floor(rand4 * 480);
       const buildDelayMs = Math.floor(rand5 * 520);
@@ -146,14 +141,6 @@ function generateBricks(rowsConfig: { cols: number; widthRatio: number }[], isMo
   return list;
 }
 
-/**
- * 5 Mərhələli Sinxron Tikinti Xoreoqrafiyası (Stages):
- * 0 = Gözləmə (hər iki maşın kənardadır)
- * 1 = Soldan Kubik Maşını, Sağdan Sement Maşını arxa-arxa yaxınlaşır (0ms - 880ms)
- * 2 = Kubik maşını kuzasını qaldırır, 1/4 ölçüdə xırda kubiklər yerə qarışıq tökülür; Sement maşınının kuzası qalxmır, mikseri fırlanır (880ms - 2200ms)
- * 3 = Kubiklər divar kimi hörülür VƏ Sement maşınının novundan axan sement kubiklərin arasına dolur (2200ms - 3450ms)
- * 4 = Sementlə bərkidilmiş kərpic divarın üzərində Xidmət Pəncərələri açılır (3450ms+)
- */
 export default function ServicesSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const wallContainerRef = useRef<HTMLDivElement>(null);
@@ -222,12 +209,13 @@ export default function ServicesSection() {
     return () => observer.disconnect();
   }, []);
 
-  // Sol maşının (Kubik samosvalı) arxa kuza çıxışı və tökülmə mərkəzi
   const tailgateX = isMobile ? 130 : 300;
   const tailgateY = isMobile ? -55 : -88;
 
-  const pileCenterX = isMobile ? 175 : 415; // Sol maşının düz arxası
-  const pileBaseY = isMobile ? -12 : -18;   // Yolun üzəri
+  const pileCenterX = isMobile ? 175 : 415;
+  const pileBaseY = isMobile ? -12 : -18;
+
+  const isPouringCement = stage === 2 || stage === 3;
 
   return (
     <section
@@ -264,7 +252,7 @@ export default function ServicesSection() {
         {/* =====================================================================
             1. İKİ TƏRƏFLİ MAŞIN SƏHNƏSİ:
                SOLDA: Kubik Samosvalı (kuzası qalxır, 1/4 kubiklər tökülür)
-               SAĞDA: Sement Maşını (kuzası qalxmır, novundan sement tökülür)
+               SAĞDA: Sement Maşını (təkərləri gövdəyə bitişik, novundan realistik sement axır)
            ===================================================================== */}
         <div
           key={`truck-scene-${animKey}`}
@@ -399,7 +387,7 @@ export default function ServicesSection() {
 
           {/* -----------------------------------------------------------------
               SAĞ TƏRƏF: SEMENT MAŞINI (BETONQARIŞDIRAN MİKSER)
-              Sağdan arxa-arxa yaxınlaşır, kuzası (çəni) QALXMIR, novundan sement tökülür!
+              Təkərləri gövdəyə bitişikdir, novundan sadə və realistik sement axır!
              ----------------------------------------------------------------- */}
           <div
             className="relative z-20 transition-transform duration-[880ms] ease-out will-change-transform"
@@ -410,71 +398,85 @@ export default function ServicesSection() {
                   : 'translate3d(-4px, 0px, 0px)',
             }}
           >
-            {/* Sement Maşını SVG (Göndərdiyiniz şəklin dəqiq vektorial modeli - arxası mərkəzə baxır) */}
             <svg
-              viewBox="0 0 600 300"
+              viewBox="0 28 600 242"
               className="w-[175px] sm:w-[375px] h-auto overflow-visible drop-shadow-[3px_3px_0px_rgba(38,38,38,1)]"
             >
-              {/* --- ARXA SEMENT TÖKÜLƏN NOV (CHUTE) VƏ AXAN SEMENT --- */}
+              {/* --- ARXA SEMENT TÖKÜLƏN NOV (CHUTE) VƏ REALİSTİK SEMENT AXINI --- */}
               <g>
-                {/* Sement novundan (olukdan) aşağı kubiklərin arasına axan boz sement axını */}
+                {/* Novun ucundan (x=17, y=224) düz aşağı yerə və divara tökülən realistik sement şırnağı */}
                 <g
                   style={{
-                    opacity: stage === 2 || stage === 3 ? 1 : 0,
-                    transition: 'opacity 300ms ease-in-out',
+                    transformOrigin: '16px 224px',
+                    transform: isPouringCement ? 'scaleY(1)' : 'scaleY(0)',
+                    opacity: isPouringCement ? 1 : 0,
+                    transition: 'transform 380ms ease-out, opacity 250ms ease-in-out',
                   }}
                 >
-                  {/* Əsas axan sement şırnağı */}
+                  {/* 1. Əsas tökülən boz sement kütləsi (yuxarıda dar, aşağıda bir az genişlənən təbii şırnaq) */}
                   <path
-                    d="M 18 228 Q 6 265 -12 325 L 12 325 Q 22 268 28 228 Z"
-                    fill="#7C858E"
+                    d="M 13 222 L 22 222 L 28 310 L 2 310 Z"
+                    fill="#788088"
                     stroke="#262626"
                     strokeWidth="2"
+                    strokeLinejoin="round"
                   />
-                  {/* Sement axını üzərində hərəkətli açıq-boz dalğa xətləri */}
+
+                  {/* 2. Daxili hərəkətli sement axını teksturası (yuxarıdan aşağıya kəsilməz axan məhlul) */}
                   <line
-                    x1="20"
-                    y1="235"
-                    x2="0"
-                    y2="315"
-                    stroke="#CBD5E1"
-                    strokeWidth="3.5"
-                    strokeDasharray="10 8"
-                    className="animate-pulse"
+                    x1="17"
+                    y1="224"
+                    x2="15"
+                    y2="308"
+                    stroke="#9CA3AF"
+                    strokeWidth="6"
+                    strokeLinecap="round"
+                    strokeDasharray="14 10"
+                    className="animate-cementFlow"
                   />
-                  {/* Yerdə yaranan təzə sement qarışığı */}
-                  <ellipse
-                    cx="-2"
-                    cy="292"
-                    rx={stage >= 3 ? '36' : '22'}
-                    ry={stage >= 3 ? '10' : '7'}
-                    fill="#6E7680"
+                  <line
+                    x1="13"
+                    y1="228"
+                    x2="9"
+                    y2="308"
+                    stroke="#525860"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    strokeDasharray="10 14"
+                    className="animate-cementFlow"
+                  />
+
+                  {/* 3. Yol səthinə dəyən hissədə düz oturmuş təbii sement yığını (dairəvi deyil, yerə yayılmış formada) */}
+                  <path
+                    d="M -8 265 Q 5 250 16 250 Q 27 250 38 265 Z"
+                    fill="#6C747C"
                     stroke="#262626"
                     strokeWidth="2"
-                    className="transition-all duration-500"
                   />
                 </g>
 
-                {/* Maşının arxasındakı maili dəmir sement novu (Chute - şəkildəki sağ-aşağı çıxıntı) */}
+                {/* Maşının arxasındakı maili dəmir sement novu (Chute) */}
                 <path
-                  d="M 78 192 L 14 224 L 20 233 L 84 202 Z"
+                  d="M 80 186 L 12 218 L 18 228 L 86 196 Z"
                   fill="#2B2E33"
                   stroke="#111"
                   strokeWidth="2.5"
+                  strokeLinejoin="round"
                 />
-                <circle cx="17" cy="228" r="4" fill="#1F2421" stroke="#111" strokeWidth="1.5" />
+                {/* Novun asqı qolu */}
+                <line x1="48" y1="206" x2="72" y2="195" stroke="#64748B" strokeWidth="3" />
               </g>
 
               {/* --- ARXA DAYAQ KONSTRUKSİYASI (A-FRAME) --- */}
               <g>
                 <polygon
-                  points="64,62 94,62 128,195 64,195"
+                  points="64,62 94,62 128,192 64,192"
                   fill="#2B2E33"
                   stroke="#111"
                   strokeWidth="2.5"
                 />
                 <polygon
-                  points="95,125 148,165 148,195 95,195"
+                  points="95,125 148,162 148,192 95,192"
                   fill="#26282C"
                   stroke="#111"
                   strokeWidth="2"
@@ -483,7 +485,6 @@ export default function ServicesSection() {
 
               {/* --- BÖYÜK SARI-NARINCI SEMENT ÇƏNİ (MİKSER BARABANI — KUZASI QALXMIR!) --- */}
               <g>
-                {/* Mikser çəninin əsas armudvari həndəsi gövdəsi */}
                 <path
                   d="M 68 82 L 155 58 Q 275 48 415 102 L 420 158 Q 285 198 150 165 L 68 135 Z"
                   fill="#F59E0B"
@@ -491,43 +492,41 @@ export default function ServicesSection() {
                   strokeWidth="3.5"
                   strokeLinejoin="round"
                 />
-                {/* Çənin üst parlaq sarı işıq hissəsi */}
                 <path
                   d="M 72 86 L 156 62 Q 275 52 412 105 L 414 128 Q 275 88 155 102 L 72 106 Z"
                   fill="#FACC15"
                 />
-                {/* Çənin alt tünd narıncı kölgə hissəsi */}
                 <path
                   d="M 70 124 L 152 148 Q 285 182 418 145 L 420 158 Q 285 198 150 165 L 68 135 Z"
                   fill="#D97706"
                 />
 
-                {/* Çən fırlanarkən görünən daxili spiral seqment xətləri */}
+                {/* Çənin seqment xətləri */}
                 <line
-                  x1={stage === 2 || stage === 3 ? '195' : '185'}
+                  x1={isPouringCement ? '195' : '185'}
                   y1="57"
-                  x2={stage === 2 || stage === 3 ? '170' : '160'}
+                  x2={isPouringCement ? '170' : '160'}
                   y2="166"
                   stroke="#B45309"
                   strokeWidth="3"
                   className="transition-all duration-300"
                 />
                 <line
-                  x1={stage === 2 || stage === 3 ? '295' : '282'}
+                  x1={isPouringCement ? '295' : '282'}
                   y1="65"
-                  x2={stage === 2 || stage === 3 ? '268' : '255'}
+                  x2={isPouringCement ? '268' : '255'}
                   y2="176"
                   stroke="#B45309"
                   strokeWidth="3"
                   className="transition-all duration-300"
                 />
 
-                {/* Çənin arxa hissəsindəki qara/sarı fırlanma halqası (Ring Band) */}
+                {/* Çənin arxa halqası */}
                 <line x1="124" y1="52" x2="106" y2="165" stroke="#1E2022" strokeWidth="6" strokeLinecap="round" />
                 <line x1="120" y1="52" x2="102" y2="165" stroke="#FACC15" strokeWidth="2.5" />
               </g>
 
-              {/* --- ARXA GÜMÜŞÜ NƏRDİVAN (LADDER) --- */}
+              {/* --- ARXA GÜMÜŞÜ NƏRDİVAN --- */}
               <g>
                 <rect x="74" y="68" width="22" height="118" fill="none" stroke="#94A3B8" strokeWidth="3.5" />
                 {[82, 98, 114, 130, 146, 162, 178].map((ry) => (
@@ -535,80 +534,86 @@ export default function ServicesSection() {
                 ))}
               </g>
 
-              {/* --- KABİNA ARXASI SU ÇƏNİ VƏ REDUKTOR (NARINCI BLOK) --- */}
+              {/* --- KABİNA ARXASI SU ÇƏNİ VƏ REDUKTOR --- */}
               <g>
                 <rect x="415" y="132" width="36" height="48" rx="3" fill="#EA580C" stroke="#262626" strokeWidth="2.5" />
                 <circle cx="430" cy="112" r="18" fill="#F97316" stroke="#262626" strokeWidth="2.5" />
                 <line x1="430" y1="98" x2="430" y2="126" stroke="#262626" strokeWidth="3" />
-                {/* Egzoz borusu (Exhaust Stack) */}
                 <rect x="448" y="88" width="9" height="105" fill="#1E2022" stroke="#111" strokeWidth="2" />
                 <path d="M 452 88 L 452 62 Q 452 52 442 50" fill="none" stroke="#94A3B8" strokeWidth="5" strokeLinecap="round" />
               </g>
 
-              {/* --- ŞASSİ, YAN QORUYUCULAR VƏ 4 TƏKƏR QANADI --- */}
+              {/* --- ŞASSİ, TƏKƏR QANADLARI (KRİLOLAR) VƏ AVADANLIQ QUTUSU --- */}
               <g>
-                {/* Uzun sarı şassi zolağı */}
-                <rect x="85" y="176" width="350" height="12" fill="#F59E0B" stroke="#262626" strokeWidth="2" />
-                {/* Tünd boz əsas şassi */}
-                <rect x="78" y="188" width="385" height="24" fill="#2B2E33" stroke="#111" strokeWidth="2.5" />
-                {/* Orta alət qutusu */}
-                <rect x="275" y="206" width="62" height="36" rx="2" fill="#374151" stroke="#111" strokeWidth="2.5" />
+                {/* Uzun sarı alt rama */}
+                <rect x="85" y="175" width="350" height="12" fill="#F59E0B" stroke="#262626" strokeWidth="2" />
+                {/* Əsas tünd şassi */}
+                <rect x="78" y="186" width="388" height="32" fill="#2B2E33" stroke="#111" strokeWidth="2.5" />
+                {/* 4 Təkərin üstünü sıx örtən qövsvarı krilolar (arada boşluq qalmaması üçün) */}
+                {[135, 218, 385, 495].map((wx, idx) => (
+                  <path
+                    key={idx}
+                    d={`M ${wx - 40} 232 A 40 40 0 0 1 ${wx + 40} 232 Z`}
+                    fill="#1E2022"
+                    stroke="#374151"
+                    strokeWidth="3"
+                  />
+                ))}
+                {/* Orta alət qutusu və yan barmaqlıqlar */}
+                <rect x="268" y="198" width="68" height="36" rx="2" fill="#374151" stroke="#111" strokeWidth="2.5" />
+                <rect x="430" y="202" width="28" height="30" rx="2" fill="#64748B" stroke="#111" strokeWidth="2" />
+                <line x1="432" y1="212" x2="456" y2="212" stroke="#1E2022" strokeWidth="2.5" />
+                <line x1="432" y1="222" x2="456" y2="222" stroke="#1E2022" strokeWidth="2.5" />
+
                 {/* Təkər üstü narıncı-sarı qoruyucu bloklar */}
-                <rect x="128" y="155" width="54" height="24" rx="2" fill="#F59E0B" stroke="#262626" strokeWidth="2" />
-                <rect x="205" y="155" width="54" height="24" rx="2" fill="#F59E0B" stroke="#262626" strokeWidth="2" />
+                <rect x="122" y="156" width="54" height="22" rx="2" fill="#F59E0B" stroke="#262626" strokeWidth="2" />
+                <rect x="200" y="156" width="54" height="22" rx="2" fill="#F59E0B" stroke="#262626" strokeWidth="2" />
               </g>
 
-              {/* --- SAĞDAKI SARI KABİNA (Şəkildəki müasir yük maşını kabinası) --- */}
+              {/* --- SAĞDAKI SARI KABİNA --- */}
               <g>
                 <path
-                  d="M 460 88 L 532 88 Q 545 88 552 105 L 564 162 L 564 222 L 460 222 Z"
+                  d="M 460 88 L 532 88 Q 545 88 552 105 L 564 162 L 564 226 L 460 226 Z"
                   fill="#FACC15"
                   stroke="#262626"
                   strokeWidth="3.5"
                   strokeLinejoin="round"
                 />
-                {/* Kabina alt narıncı-qızılı kölgə hissəsi */}
-                <path d="M 460 165 L 564 165 L 564 222 L 460 222 Z" fill="#EAB308" stroke="#262626" strokeWidth="2.5" />
-                {/* Kabina yan pəncərəsi (Mavi-boz şüşə) */}
+                <path d="M 460 165 L 564 165 L 564 226 L 460 226 Z" fill="#EAB308" stroke="#262626" strokeWidth="2.5" />
+                {/* Kabina içində təkər qövsü */}
+                <path d="M 455 232 A 40 40 0 0 1 535 232 Z" fill="#1E2022" stroke="#262626" strokeWidth="2.5" />
+                {/* Kabina pəncərəsi */}
                 <path
                   d="M 482 102 L 538 102 L 548 150 L 482 150 Z"
                   fill="#1E3A5F"
                   stroke="#262626"
                   strokeWidth="3"
                 />
-                {/* Şüşə parıltısı */}
                 <polygon points="490,106 515,106 498,146 486,146" fill="#38BDF8" opacity="0.35" />
-                {/* Yan güzgü */}
                 <rect x="544" y="102" width="8" height="34" rx="2" fill="#1E2022" stroke="#111" strokeWidth="1.5" />
-                {/* Qapı tutacağı */}
                 <rect x="488" y="168" width="16" height="5" rx="1" fill="#1E2022" />
-                {/* Ön fara və gümüşü bamper */}
                 <rect x="554" y="182" width="12" height="24" rx="2" fill="#E2E8F0" stroke="#262626" strokeWidth="2" />
-                <rect x="536" y="212" width="32" height="28" rx="2" fill="#CBD5E1" stroke="#262626" strokeWidth="2.5" />
-                {/* Yan pillələr */}
-                <rect x="442" y="210" width="28" height="28" fill="#475569" stroke="#111" strokeWidth="2" />
-                <line x1="445" y1="220" x2="467" y2="220" stroke="#CBD5E1" strokeWidth="3" />
-                <line x1="445" y1="230" x2="467" y2="230" stroke="#CBD5E1" strokeWidth="3" />
+                <rect x="536" y="208" width="32" height="26" rx="2" fill="#CBD5E1" stroke="#262626" strokeWidth="2.5" />
               </g>
 
-              {/* --- 4 ƏDƏD FIRLANAN TƏKƏR (Şəkildəki 4 oxlu şassi) --- */}
+              {/* --- 4 ƏDƏD FIRLANAN TƏKƏR (Maşın gövdəsinə sıx bitişik: cy=232) --- */}
               {[135, 218, 385, 495].map((cx, i) => (
                 <g
                   key={i}
                   style={{
-                    transformOrigin: `${cx}px 252px`,
+                    transformOrigin: `${cx}px 232px`,
                     transform: stage === 0 ? 'rotate(360deg)' : 'rotate(0deg)',
                     transition: 'transform 880ms ease-out',
                   }}
                 >
-                  <circle cx={cx} cy={252} r={34} fill="#1E2022" stroke="#111" strokeWidth="4" strokeDasharray="9 4" />
-                  <circle cx={cx} cy={252} r={28} fill="#25282A" />
-                  <circle cx={cx} cy={252} r={18} fill="#D1D5DB" stroke="#4B5563" strokeWidth="2" />
-                  <circle cx={cx} cy={239} r={2.5} fill="#1E2022" />
-                  <circle cx={cx} cy={265} r={2.5} fill="#1E2022" />
-                  <circle cx={cx - 13} cy={252} r={2.5} fill="#1E2022" />
-                  <circle cx={cx + 13} cy={252} r={2.5} fill="#1E2022" />
-                  <circle cx={cx} cy={252} r={8} fill="#64748B" stroke="#1E2022" strokeWidth="2" />
+                  <circle cx={cx} cy={232} r={34} fill="#1E2022" stroke="#111" strokeWidth="4" strokeDasharray="9 4" />
+                  <circle cx={cx} cy={232} r={28} fill="#25282A" />
+                  <circle cx={cx} cy={232} r={18} fill="#D1D5DB" stroke="#4B5563" strokeWidth="2" />
+                  <circle cx={cx} cy={219} r={2.5} fill="#1E2022" />
+                  <circle cx={cx} cy={245} r={2.5} fill="#1E2022" />
+                  <circle cx={cx - 13} cy={232} r={2.5} fill="#1E2022" />
+                  <circle cx={cx + 13} cy={232} r={2.5} fill="#1E2022" />
+                  <circle cx={cx} cy={232} r={8} fill="#64748B" stroke="#1E2022" strokeWidth="2" />
                 </g>
               ))}
             </svg>
@@ -647,8 +652,6 @@ export default function ServicesSection() {
                   style={{
                     width: `${rowCfg.widthRatio * 100}%`,
                     gridTemplateColumns: `repeat(${rowCfg.cols}, minmax(0, 1fr))`,
-                    // SEMENTİN KUBİKLƏRİN ARASINA DOLMASI:
-                    // Mərhələ 3-də sağdakı sement maşınından axan boz sement kubiklərin arasındakı bütün boşluqlara (tikişlərə) dolur!
                     backgroundColor: stage >= 3 ? '#7D858D' : 'transparent',
                     border: stage >= 3 ? '2.5px solid #1A1A1A' : '2.5px solid transparent',
                     boxShadow: stage >= 3 ? 'inset 0 2px 4px rgba(255,255,255,0.35), 0 3px 0 #1A1A1A' : 'none',
@@ -661,11 +664,9 @@ export default function ServicesSection() {
                     const finalX = rowLeftPx + ((brick.col + 0.5) / brick.colsInRow) * rowWidthPx;
                     const finalY = ((brick.row + 0.5) / totalRows) * wallSize.height;
 
-                    // 1) Sol maşının kuzasının içindəki başlanğıc nöqtə
                     const toTruckX = tailgateX - finalX;
                     const toTruckY = tailgateY - finalY;
 
-                    // 2) Sol maşının arxasında 1/4 ölçüdə QARIŞIQ TÖKÜLMƏ nöqtəsi
                     const toPileX = pileCenterX + brick.pileOffsetX - finalX;
                     const toPileY = pileBaseY + brick.pileOffsetY - finalY;
 
@@ -674,12 +675,10 @@ export default function ServicesSection() {
                     let transitionStr = 'none';
 
                     if (stage === 2) {
-                      // Mərhələ 2: Tökülən hissədəki kubiklər DÖRDDƏ BİR (1/4) ölçüdədir (scale(0.46) => sahəsi ~1/4)
                       transformStr = `translate3d(${toPileX}px, ${toPileY}px, 0px) rotate(${brick.pileRot}deg) scale(0.46)`;
                       opacityVal = 1;
                       transitionStr = `transform 460ms cubic-bezier(0.22, 0.85, 0.36, 1) ${brick.dumpDelayMs}ms, opacity 120ms ease-out ${brick.dumpDelayMs}ms`;
                     } else if (stage >= 3) {
-                      // Mərhələ 3 & 4: Hörülmə hissəsindəki kubiklər öz bəyəndiyiniz ölçüsündə (scale(1)) yerinə oturur
                       transformStr = 'translate3d(0px, 0px, 0px) rotate(0deg) scale(1)';
                       opacityVal = 1;
                       transitionStr = `transform 580ms cubic-bezier(0.2, 0.92, 0.28, 1.08) ${brick.buildDelayMs}ms, opacity 150ms ease-out`;

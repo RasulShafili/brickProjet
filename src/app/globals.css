@@ -104,6 +104,20 @@ body {
   animation: laserScan 9s ease-in-out infinite;
 }
 
+/* Realistik Sement Axını Animasiyası */
+@keyframes cementFlow {
+  0% {
+    stroke-dashoffset: 48;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-cementFlow {
+  animation: cementFlow 0.55s linear infinite;
+}
+
 /* Kərpic Hörgü Bloku Stili */
 .brick-block-pattern {
   background-color: #C85A32;
