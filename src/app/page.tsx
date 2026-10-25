@@ -1,25 +1,25 @@
 import HeroSection from '@/components/sections/HeroSection';
 import ServicesSection from '@/components/sections/ServicesSection';
 import ProjectsGallerySection from '@/components/sections/ProjectsGallerySection';
+import TrustAndProcessSection from '@/components/sections/TrustAndProcessSection';
 import ContactSection from '@/components/sections/ContactSection';
-import FloatingBricksBackground from '@/components/canvas/FloatingBricksBackground';
 
 export default function HomePage() {
   return (
     <div className="flex flex-col w-full relative">
-      {/* Kənarlarda süzülən kərpic blokları, lazer şüası və tikinti koordinatları animasiyası */}
-      <FloatingBricksBackground />
-
-      {/* 1. Kəskin Kərpic Hero Bölməsi */}
+      {/* 1. Birbaşa Usta Güvəni və Giriş Bölməsi */}
       <HeroSection />
 
-      {/* 2. Nə Edirik? Tikinti Xidmətlərimiz */}
+      {/* 2. Fərdi Ev Tikintisi və Təmir Xidmətləri (6 Aydın İstiqamət) */}
       <ServicesSection />
 
-      {/* 3. Tikdiyimiz Evlərin Şəkilləri (Fotoqalereya & Şəkil Əlavə Etmə) */}
+      {/* 3. Əvvəl / Sonra Müqayisəli Qalereya və Real Şantiye Sübutları */}
       <ProjectsGallerySection />
 
-      {/* 4. Usta ilə Birbaşa Əlaqə */}
+      {/* 4. 4 Addımlı Şəffaf İş Prosesi, Müştəri Rəyləri və Tez-tez Verilən Suallar */}
+      <TrustAndProcessSection />
+
+      {/* 5. WhatsApp ilə 3 Addımda Sürətli Qiymət Al və Birbaşa Əlaqə */}
       <ContactSection />
     </div>
   );

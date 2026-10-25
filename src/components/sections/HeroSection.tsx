@@ -1,206 +1,113 @@
 'use client';
 
 import React from 'react';
-import { MapPin, ArrowRight, Image as ImageIcon } from 'lucide-react';
-
-/**
- * Paint-də çəkilmiş kimi sadə 2D eskiz ev şəkli (Mokap şəkil əvəzləyicisi)
- */
-function Paint2DHousePlaceholder({ label = '[Bura Ev Şəkli Qoyulacaq]' }: { label?: string }) {
-  return (
-    <div className="w-full h-full bg-[#FFFFFF] flex flex-col items-center justify-center p-3 select-none relative">
-      <svg
-        viewBox="0 0 320 220"
-        className="w-full h-full max-h-[220px]"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {/* Sadə Paint Günəşi */}
-        <circle cx="52" cy="40" r="16" fill="#FDE047" stroke="#111111" strokeWidth="2.5" />
-        <line x1="52" y1="16" x2="52" y2="8" stroke="#111111" strokeWidth="2.5" />
-        <line x1="52" y1="64" x2="52" y2="72" stroke="#111111" strokeWidth="2.5" />
-        <line x1="28" y1="40" x2="20" y2="40" stroke="#111111" strokeWidth="2.5" />
-        <line x1="76" y1="40" x2="84" y2="40" stroke="#111111" strokeWidth="2.5" />
-        <line x1="35" y1="23" x2="29" y2="17" stroke="#111111" strokeWidth="2.5" />
-        <line x1="69" y1="57" x2="75" y2="63" stroke="#111111" strokeWidth="2.5" />
-        <line x1="69" y1="23" x2="75" y2="17" stroke="#111111" strokeWidth="2.5" />
-        <line x1="35" y1="57" x2="29" y2="63" stroke="#111111" strokeWidth="2.5" />
-
-        {/* Sadə Yer / Ot Xətti */}
-        <line x1="15" y1="185" x2="305" y2="185" stroke="#16A34A" strokeWidth="3.5" />
-
-        {/* Baca */}
-        <rect x="205" y="42" width="20" height="38" fill="#E5E7EB" stroke="#111111" strokeWidth="2.5" />
-
-        {/* Paint Üçbucaq Dam */}
-        <polygon
-          points="75,92 165,32 255,92"
-          fill="#EF4444"
-          stroke="#111111"
-          strokeWidth="3"
-          strokeLinejoin="round"
-        />
-
-        {/* Paint Ev Gövdəsi (Dördbucaq) */}
-        <rect
-          x="95"
-          y="92"
-          width="140"
-          height="93"
-          fill="#FEF3C7"
-          stroke="#111111"
-          strokeWidth="3"
-        />
-
-        {/* Qapı */}
-        <rect
-          x="150"
-          y="132"
-          width="30"
-          height="53"
-          fill="#92400E"
-          stroke="#111111"
-          strokeWidth="2.5"
-        />
-        <circle cx="173" cy="158" r="2.5" fill="#FDE047" stroke="#111111" strokeWidth="1.5" />
-
-        {/* Sol Pəncərə (4 gözlü Paint pəncərəsi) */}
-        <rect
-          x="108"
-          y="108"
-          width="28"
-          height="28"
-          fill="#93C5FD"
-          stroke="#111111"
-          strokeWidth="2.5"
-        />
-        <line x1="122" y1="108" x2="122" y2="136" stroke="#111111" strokeWidth="2" />
-        <line x1="108" y1="122" x2="136" y2="122" stroke="#111111" strokeWidth="2" />
-
-        {/* Sağ Pəncərə (4 gözlü Paint pəncərəsi) */}
-        <rect
-          x="194"
-          y="108"
-          width="28"
-          height="28"
-          fill="#93C5FD"
-          stroke="#111111"
-          strokeWidth="2.5"
-        />
-        <line x1="208" y1="108" x2="208" y2="136" stroke="#111111" strokeWidth="2" />
-        <line x1="194" y1="122" x2="222" y2="122" stroke="#111111" strokeWidth="2" />
-
-        {/* Alt yazı */}
-        <text
-          x="160"
-          y="206"
-          textAnchor="middle"
-          fill="#111111"
-          fontSize="11"
-          fontFamily="monospace"
-          fontWeight="bold"
-        >
-          {label}
-        </text>
-      </svg>
-    </div>
-  );
-}
+import { MapPin, MessageCircle, ShieldCheck, CheckCircle2, UserCheck, Images } from 'lucide-react';
 
 export default function HeroSection() {
   return (
-    <section className="px-4 sm:px-8 py-10 lg:py-14 bg-brick-grid border-b-2 border-[#262626] relative z-10">
-      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 items-center">
+    <section className="px-4 sm:px-8 py-10 lg:py-16 bg-[#F4F0DB] border-b-2 border-[#262626] relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 lg:gap-10 items-center">
         
-        {/* Sol 7 Sütun: Kəskin Kərpic Etibar Bloku */}
+        {/* Sol 7 Sütun: Birbaşa Usta Güvəni və Dönüşüm Mərkəzi */}
         <div className="col-span-12 lg:col-span-7 space-y-5">
           
-          {/* Tikinti Koordinat Nişanı */}
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[#262626] text-[#F4F0DB] border border-[#262626] font-mono text-xs font-bold shadow-[3px_3px_0px_#C85A32]">
-            <span className="w-2 h-2 bg-[#C85A32] animate-pulse" />
-            <span>[Bura üst başlıq / ixtisas etiketi yazılacaq]</span>
+          {/* Vasitəçisiz Birbaşa Usta Güvən Nişanı */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#262626] text-[#F4F0DB] border-2 border-[#262626] text-xs font-bold shadow-[3px_3px_0px_#C85A32] rounded-[4px]">
+            <ShieldCheck className="w-4 h-4 text-[#25D366] shrink-0" />
+            <span>Şirkət və ya Vasitəçi Komissiyası Yoxdur — İşi Şəxsən Özüm Görürəm</span>
           </div>
 
-          {/* Əsas Kəsərli Başlıq */}
-          <h1 className="text-3xl sm:text-5xl font-black text-[#262626] tracking-tight leading-[1.08] uppercase">
-            [Bura əsas başlıq (H1) yazılacaq]
+          {/* Əsas Başlıq (Aydın Dəyər Təklifi) */}
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#262626] tracking-tight leading-[1.12]">
+            [Bura əsas başlıq yazılacaq — Məs: Bünövrədən Dama Fərdi Ev Tikintisi, Hörgü və Təmir İşləri]
           </h1>
 
-          {/* Qısa Mənalı Mətn */}
-          <p className="text-sm sm:text-base font-medium text-[#262626]/85 max-w-xl leading-relaxed">
-            [Bura gördüyünüz işlər haqqında qısa giriş mətni və əsas üstünlükləriniz yazılacaq.]
+          {/* Samimi və Dəqiq Usta Açıqlaması (Mobil üçün 16px rahat oxunan ölçü) */}
+          <p className="text-base sm:text-lg font-medium text-[#262626]/90 max-w-2xl leading-relaxed">
+            [Bura ustanın öz adından qısa təqdimat mətni yazılacaq — Məs: Vasitəçi şirkətlərə əlavə faiz ödəmədən, evinizin tikintisini və təmirini birbaşa işi görən ustaya həvalə edin. Materiallı və ya yalnız işçilik seçimi ilə, söz verilən tarixdə təmiz təhvil.]
           </p>
 
-          {/* 4 Kəskin Kərpic Vurğu Bloku */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-mono text-xs">
-            <div className="p-2.5 bg-[#FFFFFF] border-2 border-[#262626] shadow-[2px_2px_0px_#262626]">
-              <div className="font-bold text-[#C85A32] text-sm sm:text-base">[Göstərici 1]</div>
-              <div className="text-[10px] text-[#262626]/70 uppercase font-bold">[Məs: Təcrübə ili]</div>
+          {/* 4 Əsas Güvən Göstəricisi */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <div className="p-3 bg-[#FFFFFF] border-2 border-[#262626] shadow-[3px_3px_0px_#262626] rounded-[4px]">
+              <div className="font-black text-[#C85A32] text-base sm:text-lg">[Məs: 15+ İl]</div>
+              <div className="text-[11px] text-[#262626]/80 font-bold mt-0.5">Fərdi Usta Təcrübəsi</div>
             </div>
-            <div className="p-2.5 bg-[#FFFFFF] border-2 border-[#262626] shadow-[2px_2px_0px_#262626]">
-              <div className="font-bold text-[#262626] text-sm sm:text-base">[Göstərici 2]</div>
-              <div className="text-[10px] text-[#262626]/70 uppercase font-bold">[Məs: Tamamlanmış iş]</div>
+            <div className="p-3 bg-[#FFFFFF] border-2 border-[#262626] shadow-[3px_3px_0px_#262626] rounded-[4px]">
+              <div className="font-black text-[#262626] text-base sm:text-lg">[Məs: 120+ Ev]</div>
+              <div className="text-[11px] text-[#262626]/80 font-bold mt-0.5">Tamamlanmış İş</div>
             </div>
-            <div className="p-2.5 bg-[#FFFFFF] border-2 border-[#262626] shadow-[2px_2px_0px_#262626]">
-              <div className="font-bold text-[#C85A32] text-sm sm:text-base">[Göstərici 3]</div>
-              <div className="text-[10px] text-[#262626]/70 uppercase font-bold">[Məs: Material/Standart]</div>
+            <div className="p-3 bg-[#FFFFFF] border-2 border-[#262626] shadow-[3px_3px_0px_#262626] rounded-[4px]">
+              <div className="font-black text-[#C85A32] text-base sm:text-lg">0% Komissiya</div>
+              <div className="text-[11px] text-[#262626]/80 font-bold mt-0.5">Birbaşa Usta Qiyməti</div>
             </div>
-            <div className="p-2.5 bg-[#FFFFFF] border-2 border-[#262626] shadow-[2px_2px_0px_#262626]">
-              <div className="font-bold text-emerald-700 text-sm sm:text-base">[Göstərici 4]</div>
-              <div className="text-[10px] text-[#262626]/70 uppercase font-bold">[Məs: Zəmanət müddəti]</div>
+            <div className="p-3 bg-[#FFFFFF] border-2 border-[#262626] shadow-[3px_3px_0px_#262626] rounded-[4px]">
+              <div className="font-black text-emerald-700 text-base sm:text-lg">Pulsuz Baxış</div>
+              <div className="text-[11px] text-[#262626]/80 font-bold mt-0.5">Dəqiq Smeta və Zəmanət</div>
             </div>
           </div>
 
-          {/* Fəaliyyət Zonası */}
-          <div className="flex items-center gap-2 text-xs font-mono text-[#262626] bg-[#FFFFFF] p-2 border border-[#262626] inline-flex">
-            <MapPin className="w-3.5 h-3.5 text-[#C85A32]" />
-            <span>[Bura xidmət göstərilən şəhər, rayon və ya qəsəbələr yazılacaq]</span>
+          {/* Xidmət Göstərilən Ərazilər */}
+          <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#262626] bg-[#FFFFFF] px-3.5 py-2 border-2 border-[#262626] rounded-[4px]">
+            <MapPin className="w-4 h-4 text-[#C85A32] shrink-0" />
+            <span>Xidmət əraziləri: [Bura xidmət göstərilən şəhər, rayon və qəsəbələr yazılacaq]</span>
           </div>
 
-          {/* İki Kəskin Kərpic Düyməsi */}
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            <a
-              href="#gallery"
-              className="brick-btn bg-[#C85A32] text-white hover:bg-[#B84A27] px-6 py-3.5 text-xs sm:text-sm font-mono flex items-center gap-2"
-            >
-              <ImageIcon className="w-4 h-4" />
-              <span>[Əsas düymə mətni — Qalereya]</span>
-            </a>
+          {/* Düzəldilmiş Vizual İyerarxiya:
+              1-ci (Əsas Narıncı Düymə) -> Birbaşa Qiymət Al / WhatsApp ilə Şəkil Göndər
+              2-ci (İkincil Ağ Düymə) -> Görülən İşlərə Bax (Qalereya) */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
             <a
               href="#contact"
-              className="brick-btn bg-[#FFFFFF] text-[#262626] hover:bg-[#F4F0DB] px-6 py-3.5 text-xs sm:text-sm font-mono flex items-center gap-2"
+              className="brick-btn min-h-[50px] bg-[#C85A32] text-white hover:bg-[#B84A27] px-6 py-3.5 text-sm sm:text-base font-extrabold flex items-center justify-center gap-2.5"
             >
-              <span>[İkinci düymə mətni — Əlaqə]</span>
-              <ArrowRight className="w-4 h-4 text-[#C85A32]" />
+              <MessageCircle className="w-5 h-5 shrink-0" />
+              <span>Pulsuz Baxış və WhatsApp Qiymət Al</span>
+            </a>
+            <a
+              href="#gallery"
+              className="brick-btn min-h-[50px] bg-[#FFFFFF] text-[#262626] hover:bg-[#EAE5D0] px-5 py-3.5 text-sm font-bold flex items-center justify-center gap-2"
+            >
+              <Images className="w-4 h-4 text-[#C85A32] shrink-0" />
+              <span>Əvvəl / Sonra İşlərə Bax</span>
             </a>
           </div>
 
         </div>
 
-        {/* Sağ 5 Sütun: Paint-də çəkilmiş kimi sadə 2D Ev Eskizi (Mokap şəkil silindi) */}
-        <div className="col-span-12 lg:col-span-5 relative">
-          <div className="relative border-4 border-[#262626] bg-[#FFFFFF] p-2 shadow-[8px_8px_0px_#C85A32] group">
-            <div className="relative aspect-[4/3] overflow-hidden border-2 border-[#262626] bg-[#FFFFFF]">
-              <Paint2DHousePlaceholder label="[Bura əsas ev şəkli qoyulacaq]" />
-
-              <div className="absolute top-3 right-3 bg-[#262626] text-[#F4F0DB] px-2 py-0.5 font-mono text-[10px] font-bold border border-red-500/50 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping" />
-                <span>[Şəkil üstü texniki etiket]</span>
+        {/* Sağ 5 Sütun: Ustanın Şəxsi Təqdimatı və Real İş Başında Foto Çərçivəsi */}
+        <div className="col-span-12 lg:col-span-5">
+          <div className="border-2 border-[#262626] bg-[#FFFFFF] p-3 sm:p-4 shadow-[6px_6px_0px_#262626] rounded-[4px]">
+            
+            {/* Ustanın Real Fotoşəkli və ya Tamamladığı Evin Foto Yeri */}
+            <div className="relative aspect-[4/3] overflow-hidden border-2 border-[#262626] bg-[#EAE5D0] flex flex-col items-center justify-center p-6 text-center rounded-[2px]">
+              <div className="w-16 h-16 rounded-full bg-[#C85A32] text-white border-2 border-[#262626] flex items-center justify-center mb-3 shadow-[3px_3px_0px_#262626]">
+                <UserCheck className="w-8 h-8" />
               </div>
+              <div className="font-black text-sm sm:text-base text-[#262626] mb-1">
+                [Bura Ustanın İş Başında və ya Tamamladığı Evin Real Fotoşəkli Qoyulacaq]
+              </div>
+              <p className="text-xs text-[#262626]/75 max-w-xs leading-relaxed">
+                Müştəri evini əmanət edəcəyi ustanı şəxsən görmək istəyir — bura təmiz tikinti mühitində çəkilmiş real şəkil yerləşdirilir.
+              </p>
             </div>
 
-            {/* Alt Kərpic Zolağı */}
-            <div className="mt-2 p-2 bg-[#262626] text-[#F4F0DB] flex items-center justify-between font-mono text-xs">
-              <div>
-                <span className="text-[#E3C1AA] font-bold uppercase text-[10px] block">
-                  [Bura layihə kateqoriyası yazılacaq]
+            {/* Ustanın Öz Adından Birbaşa Güvən Sözü */}
+            <div className="mt-3 p-3.5 bg-[#F4F0DB] border-2 border-[#262626] rounded-[4px] space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-black text-sm text-[#262626]">
+                  [Ustanın Adı və Soyadı]
                 </span>
-                <span className="font-bold">[Bura seçilmiş əsas layihənin adı və ünvanı yazılacaq]</span>
+                <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 border border-emerald-700 rounded-[2px]">
+                  <CheckCircle2 className="w-3 h-3" />
+                  Birbaşa İcraçı Usta
+                </span>
               </div>
-              <span className="px-2 py-0.5 bg-[#C85A32] text-white text-[10px] font-bold">
-                [Status]
-              </span>
+              <p className="text-xs text-[#262626]/90 leading-relaxed">
+                &ldquo;[Bura ustanın qısa bioqrafiyası və sözü yazılacaq — Məs: Zəng etdikdə operatorla deyil, birbaşa işi görəcək usta ilə danışırsınız. Hər bir hörgünün tərəzisinə və suvağın keyfiyyətinə şəxsən cavabdehəm.]&rdquo;
+              </p>
             </div>
+
           </div>
         </div>
 
