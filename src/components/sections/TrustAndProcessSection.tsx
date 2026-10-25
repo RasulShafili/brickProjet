@@ -55,7 +55,7 @@ export default function TrustAndProcessSection() {
   return (
     <section
       id="trust"
-      className="px-4 sm:px-8 py-12 lg:py-16 bg-[#FFFFFF]/45 border-b-2 border-[#262626] relative z-10"
+      className="px-4 sm:px-8 py-12 lg:py-16 bg-transparent border-b-2 border-[#262626] relative z-10"
     >
       <div className="max-w-7xl mx-auto space-y-12">
         
