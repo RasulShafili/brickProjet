@@ -3,6 +3,110 @@
 import React from 'react';
 import { MapPin, ArrowRight, Image as ImageIcon } from 'lucide-react';
 
+/**
+ * Paint-də çəkilmiş kimi sadə 2D eskiz ev şəkli (Mokap şəkil əvəzləyicisi)
+ */
+function Paint2DHousePlaceholder({ label = '[Bura Ev Şəkli Qoyulacaq]' }: { label?: string }) {
+  return (
+    <div className="w-full h-full bg-[#FFFFFF] flex flex-col items-center justify-center p-3 select-none relative">
+      <svg
+        viewBox="0 0 320 220"
+        className="w-full h-full max-h-[220px]"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Sadə Paint Günəşi */}
+        <circle cx="52" cy="40" r="16" fill="#FDE047" stroke="#111111" strokeWidth="2.5" />
+        <line x1="52" y1="16" x2="52" y2="8" stroke="#111111" strokeWidth="2.5" />
+        <line x1="52" y1="64" x2="52" y2="72" stroke="#111111" strokeWidth="2.5" />
+        <line x1="28" y1="40" x2="20" y2="40" stroke="#111111" strokeWidth="2.5" />
+        <line x1="76" y1="40" x2="84" y2="40" stroke="#111111" strokeWidth="2.5" />
+        <line x1="35" y1="23" x2="29" y2="17" stroke="#111111" strokeWidth="2.5" />
+        <line x1="69" y1="57" x2="75" y2="63" stroke="#111111" strokeWidth="2.5" />
+        <line x1="69" y1="23" x2="75" y2="17" stroke="#111111" strokeWidth="2.5" />
+        <line x1="35" y1="57" x2="29" y2="63" stroke="#111111" strokeWidth="2.5" />
+
+        {/* Sadə Yer / Ot Xətti */}
+        <line x1="15" y1="185" x2="305" y2="185" stroke="#16A34A" strokeWidth="3.5" />
+
+        {/* Baca */}
+        <rect x="205" y="42" width="20" height="38" fill="#E5E7EB" stroke="#111111" strokeWidth="2.5" />
+
+        {/* Paint Üçbucaq Dam */}
+        <polygon
+          points="75,92 165,32 255,92"
+          fill="#EF4444"
+          stroke="#111111"
+          strokeWidth="3"
+          strokeLinejoin="round"
+        />
+
+        {/* Paint Ev Gövdəsi (Dördbucaq) */}
+        <rect
+          x="95"
+          y="92"
+          width="140"
+          height="93"
+          fill="#FEF3C7"
+          stroke="#111111"
+          strokeWidth="3"
+        />
+
+        {/* Qapı */}
+        <rect
+          x="150"
+          y="132"
+          width="30"
+          height="53"
+          fill="#92400E"
+          stroke="#111111"
+          strokeWidth="2.5"
+        />
+        <circle cx="173" cy="158" r="2.5" fill="#FDE047" stroke="#111111" strokeWidth="1.5" />
+
+        {/* Sol Pəncərə (4 gözlü Paint pəncərəsi) */}
+        <rect
+          x="108"
+          y="108"
+          width="28"
+          height="28"
+          fill="#93C5FD"
+          stroke="#111111"
+          strokeWidth="2.5"
+        />
+        <line x1="122" y1="108" x2="122" y2="136" stroke="#111111" strokeWidth="2" />
+        <line x1="108" y1="122" x2="136" y2="122" stroke="#111111" strokeWidth="2" />
+
+        {/* Sağ Pəncərə (4 gözlü Paint pəncərəsi) */}
+        <rect
+          x="194"
+          y="108"
+          width="28"
+          height="28"
+          fill="#93C5FD"
+          stroke="#111111"
+          strokeWidth="2.5"
+        />
+        <line x1="208" y1="108" x2="208" y2="136" stroke="#111111" strokeWidth="2" />
+        <line x1="194" y1="122" x2="222" y2="122" stroke="#111111" strokeWidth="2" />
+
+        {/* Alt yazı */}
+        <text
+          x="160"
+          y="206"
+          textAnchor="middle"
+          fill="#111111"
+          fontSize="11"
+          fontFamily="monospace"
+          fontWeight="bold"
+        >
+          {label}
+        </text>
+      </svg>
+    </div>
+  );
+}
+
 export default function HeroSection() {
   return (
     <section className="px-4 sm:px-8 py-10 lg:py-14 bg-brick-grid border-b-2 border-[#262626] relative z-10">
@@ -73,15 +177,12 @@ export default function HeroSection() {
 
         </div>
 
-        {/* Sağ 5 Sütun: Kəskin Kərpic Çərçivəsində Əsas Şəkil */}
+        {/* Sağ 5 Sütun: Paint-də çəkilmiş kimi sadə 2D Ev Eskizi (Mokap şəkil silindi) */}
         <div className="col-span-12 lg:col-span-5 relative">
           <div className="relative border-4 border-[#262626] bg-[#FFFFFF] p-2 shadow-[8px_8px_0px_#C85A32] group">
-            <div className="relative aspect-[4/3] overflow-hidden border-2 border-[#262626] bg-[#262626]">
-              <img
-                src="/images/projects/house-1.png"
-                alt="Əsas təqdimat şəkli"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+            <div className="relative aspect-[4/3] overflow-hidden border-2 border-[#262626] bg-[#FFFFFF]">
+              <Paint2DHousePlaceholder label="[Bura əsas ev şəkli qoyulacaq]" />
+
               <div className="absolute top-3 right-3 bg-[#262626] text-[#F4F0DB] px-2 py-0.5 font-mono text-[10px] font-bold border border-red-500/50 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping" />
                 <span>[Şəkil üstü texniki etiket]</span>

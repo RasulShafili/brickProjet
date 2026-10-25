@@ -12,10 +12,110 @@ interface ProjectImage {
   tag: string;
 }
 
+/**
+ * Paint-də çəkilmiş kimi sadə 2D ev eskizi (Mokap şəkillər əvəzinə boş şablon)
+ */
+function Paint2DGalleryHouse({ index }: { index: number }) {
+  return (
+    <div className="w-full h-full bg-[#FFFFFF] flex flex-col items-center justify-center p-2 select-none">
+      <svg
+        viewBox="0 0 260 185"
+        className="w-full h-full"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Sadə Paint Günəşi */}
+        <circle cx="42" cy="34" r="13" fill="#FDE047" stroke="#111111" strokeWidth="2.2" />
+        <line x1="42" y1="14" x2="42" y2="7" stroke="#111111" strokeWidth="2" />
+        <line x1="42" y1="54" x2="42" y2="61" stroke="#111111" strokeWidth="2" />
+        <line x1="22" y1="34" x2="15" y2="34" stroke="#111111" strokeWidth="2" />
+        <line x1="62" y1="34" x2="69" y2="34" stroke="#111111" strokeWidth="2" />
+
+        {/* Ot / Yer Xətti */}
+        <line x1="12" y1="154" x2="248" y2="154" stroke="#16A34A" strokeWidth="3" />
+
+        {/* Baca */}
+        <rect x="168" y="34" width="16" height="32" fill="#E5E7EB" stroke="#111111" strokeWidth="2.2" />
+
+        {/* Üçbucaq Paint Damı */}
+        <polygon
+          points="58,78 134,26 210,78"
+          fill="#EF4444"
+          stroke="#111111"
+          strokeWidth="2.5"
+          strokeLinejoin="round"
+        />
+
+        {/* Evin Gövdəsi */}
+        <rect
+          x="74"
+          y="78"
+          width="120"
+          height="76"
+          fill="#FEF3C7"
+          stroke="#111111"
+          strokeWidth="2.5"
+        />
+
+        {/* Qapı */}
+        <rect
+          x="122"
+          y="110"
+          width="24"
+          height="44"
+          fill="#92400E"
+          stroke="#111111"
+          strokeWidth="2.2"
+        />
+        <circle cx="140" cy="133" r="2" fill="#FDE047" stroke="#111111" strokeWidth="1.2" />
+
+        {/* Sol Pəncərə */}
+        <rect
+          x="86"
+          y="92"
+          width="24"
+          height="24"
+          fill="#93C5FD"
+          stroke="#111111"
+          strokeWidth="2"
+        />
+        <line x1="98" y1="92" x2="98" y2="116" stroke="#111111" strokeWidth="1.8" />
+        <line x1="86" y1="104" x2="110" y2="104" stroke="#111111" strokeWidth="1.8" />
+
+        {/* Sağ Pəncərə */}
+        <rect
+          x="158"
+          y="92"
+          width="24"
+          height="24"
+          fill="#93C5FD"
+          stroke="#111111"
+          strokeWidth="2"
+        />
+        <line x1="170" y1="92" x2="170" y2="116" stroke="#111111" strokeWidth="1.8" />
+        <line x1="158" y1="104" x2="182" y2="104" stroke="#111111" strokeWidth="1.8" />
+
+        {/* Alt Şablon Yazısı */}
+        <text
+          x="130"
+          y="173"
+          textAnchor="middle"
+          fill="#111111"
+          fontSize="10"
+          fontFamily="monospace"
+          fontWeight="bold"
+        >
+          [2D Ev Şəkli #{index}]
+        </text>
+      </svg>
+    </div>
+  );
+}
+
 const INITIAL_PROJECTS: ProjectImage[] = [
   {
     id: 'h1',
-    url: '/images/projects/house-1.png',
+    url: '',
     title: '[1-ci Layihənin adı yazılacaq]',
     category: 'full',
     location: '[Ərazi / Ünvan yazılacaq]',
@@ -23,7 +123,7 @@ const INITIAL_PROJECTS: ProjectImage[] = [
   },
   {
     id: 'h2',
-    url: '/images/projects/house-2.png',
+    url: '',
     title: '[2-ci Layihənin adı yazılacaq]',
     category: 'roof',
     location: '[Ərazi / Ünvan yazılacaq]',
@@ -31,7 +131,7 @@ const INITIAL_PROJECTS: ProjectImage[] = [
   },
   {
     id: 'h3',
-    url: '/images/projects/house-3.png',
+    url: '',
     title: '[3-cü Layihənin adı yazılacaq]',
     category: 'masonry',
     location: '[Ərazi / Ünvan yazılacaq]',
@@ -39,7 +139,7 @@ const INITIAL_PROJECTS: ProjectImage[] = [
   },
   {
     id: 'h4',
-    url: '/images/projects/house-4.png',
+    url: '',
     title: '[4-cü Layihənin adı yazılacaq]',
     category: 'full',
     location: '[Ərazi / Ünvan yazılacaq]',
@@ -47,7 +147,7 @@ const INITIAL_PROJECTS: ProjectImage[] = [
   },
   {
     id: 'h5',
-    url: '/images/projects/house-5.png',
+    url: '',
     title: '[5-ci Layihənin adı yazılacaq]',
     category: 'full',
     location: '[Ərazi / Ünvan yazılacaq]',
@@ -55,7 +155,7 @@ const INITIAL_PROJECTS: ProjectImage[] = [
   },
   {
     id: 'h6',
-    url: '/images/projects/house-6.png',
+    url: '',
     title: '[6-cı Layihənin adı yazılacaq]',
     category: 'roof',
     location: '[Ərazi / Ünvan yazılacaq]',
@@ -63,7 +163,7 @@ const INITIAL_PROJECTS: ProjectImage[] = [
   },
   {
     id: 'h7',
-    url: '/images/projects/house-7.png',
+    url: '',
     title: '[7-ci Layihənin adı yazılacaq]',
     category: 'masonry',
     location: '[Ərazi / Ünvan yazılacaq]',
@@ -71,7 +171,7 @@ const INITIAL_PROJECTS: ProjectImage[] = [
   },
   {
     id: 'h8',
-    url: '/images/projects/house-8.png',
+    url: '',
     title: '[8-ci Layihənin adı yazılacaq]',
     category: 'full',
     location: '[Ərazi / Ünvan yazılacaq]',
@@ -79,12 +179,6 @@ const INITIAL_PROJECTS: ProjectImage[] = [
   },
 ];
 
-/**
- * QALEREYA BÖLMƏSİ ANİMASİYASI (Bölmə 2):
- * "Tikinti İskələsi (Lesa) Sökülməsi və Mala/Rulon ilə Yuxarıdan Aşağıya Sürətli Açılış"
- * - İstifadəçi bölməyə çatdıqda və ya filtri dəyişdikdə kartlar 1 -> 2 -> 3 -> 4 ardıcıllığı ilə açılır.
- * - Hər şəkilin üzərindəki dəmir tikinti iskələsi (lesa) və mala xətti sürətlə aşağı çəkilərək hazır evi üzə çıxarır.
- */
 export default function ProjectsGallerySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [projects, setProjects] = useState<ProjectImage[]>(INITIAL_PROJECTS);
@@ -94,7 +188,6 @@ export default function ProjectsGallerySection() {
   const [newTitle, setNewTitle] = useState('');
   const [newLoc, setNewLoc] = useState('');
 
-  // Animasiya vəziyyəti: false = İskələ (Lesa) bağlıdır, true = Yuxarıdan aşağıya sürətlə açılır
   const [revealed, setRevealed] = useState(false);
   const [animCycle, setAnimCycle] = useState(0);
   const hasTriggeredRef = useRef(false);
@@ -242,17 +335,12 @@ export default function ProjectsGallerySection() {
           </button>
         </div>
 
-        {/* =====================================================================
-            QALEREYA ŞƏBƏKƏSİ (Mobildə 2 sütun yığcam, PC-də 4 sütun):
-            Hər kart 1 -> 2 -> 3 -> 4 ardıcıllığı ilə yuxarıdan aşağıya açılır,
-            üzərindəki "Tikinti İskələsi (Lesa) və Mala" pərdəsi sürətlə aşağı enir!
-           ===================================================================== */}
+        {/* Qalereya Şəbəkəsi: Mokap şəkillər silinib, yerində 2D Paint Ev Eskizi göstərilir */}
         <div
           key={`gallery-grid-${animCycle}`}
           className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5"
         >
           {filtered.map((proj, idx) => {
-            // Yuxarıdan aşağıya ardıcıl gecikmə (0ms, 95ms, 190ms, 285ms...)
             const staggerMs = idx * 95;
 
             return (
@@ -268,15 +356,16 @@ export default function ProjectsGallerySection() {
                 }}
                 className="brick-card overflow-hidden group cursor-pointer bg-[#FFFFFF] p-1.5 sm:p-2 will-change-transform"
               >
-                <div className="relative aspect-[4/3] overflow-hidden border border-[#262626] bg-[#262626]">
-                  <img
-                    src={proj.url}
-                    alt={proj.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/images/projects/house-1.png';
-                    }}
-                  />
+                <div className="relative aspect-[4/3] overflow-hidden border border-[#262626] bg-[#FFFFFF]">
+                  {proj.url ? (
+                    <img
+                      src={proj.url}
+                      alt={proj.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <Paint2DGalleryHouse index={idx + 1} />
+                  )}
 
                   {/* --- TİKİNTİ İSKƏLƏSİ (LESA) VƏ MALA AÇILIŞ PƏRDƏSİ --- */}
                   <div
@@ -286,23 +375,18 @@ export default function ProjectsGallerySection() {
                     }}
                     className="absolute inset-0 z-20 pointer-events-none flex flex-col justify-between bg-[#262626]/95 will-change-transform"
                   >
-                    {/* Üst narıncı mala / suvaq şeridi */}
                     <div className="w-full h-2.5 bg-[#C85A32] border-b-2 border-[#1A1A1A] flex items-center justify-between px-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#F4F0DB]" />
                       <span className="font-mono text-[8px] font-bold text-white tracking-wider">LESA // 0{idx + 1}</span>
                       <span className="w-1.5 h-1.5 rounded-full bg-[#F4F0DB]" />
                     </div>
 
-                    {/* Metal İskələ (Lesa) Çarpaz Konstruksiyası SVG */}
                     <svg viewBox="0 0 200 120" className="w-full h-full opacity-80" preserveAspectRatio="none">
-                      {/* Üfüqi dəmir borular */}
                       <line x1="0" y1="40" x2="200" y2="40" stroke="#FACC15" strokeWidth="2.5" />
                       <line x1="0" y1="80" x2="200" y2="80" stroke="#FACC15" strokeWidth="2.5" />
-                      {/* Şaquli dayaqlar */}
                       <line x1="12" y1="0" x2="12" y2="120" stroke="#94A3B8" strokeWidth="3" />
                       <line x1="100" y1="0" x2="100" y2="120" stroke="#94A3B8" strokeWidth="3" />
                       <line x1="188" y1="0" x2="188" y2="120" stroke="#94A3B8" strokeWidth="3" />
-                      {/* Çarpaz X-bərkidicilər */}
                       <line x1="12" y1="0" x2="100" y2="60" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
                       <line x1="100" y1="0" x2="12" y2="60" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
                       <line x1="100" y1="0" x2="188" y2="60" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
@@ -313,7 +397,6 @@ export default function ProjectsGallerySection() {
                       <line x1="188" y1="60" x2="100" y2="120" stroke="#CBD5E1" strokeWidth="1.8" strokeDasharray="4 2" />
                     </svg>
 
-                    {/* Alt sarı-qara tikinti xəbərdarlıq zolağı */}
                     <div
                       className="w-full h-2"
                       style={{
@@ -361,21 +444,27 @@ export default function ProjectsGallerySection() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#FFFFFF] border-4 border-[#262626] max-w-3xl w-full shadow-[8px_8px_0px_#C85A32] relative font-mono"
+            className="bg-[#FFFFFF] border-4 border-[#262626] max-w-2xl w-full shadow-[8px_8px_0px_#C85A32] relative font-mono"
           >
             <button
               onClick={() => setSelectedImg(null)}
-              className="absolute -top-4 -right-4 z-10 w-9 h-9 bg-[#C85A32] text-white border-2 border-[#262626] flex items-center justify-center hover:bg-[#B84A27] font-bold text-sm"
+              className="absolute -top-4 -right-4 z-10 w-9 h-9 bg-[#C85A32] text-white border-2 border-[#262626] flex items-center justify-center hover:bg-[#B84A27] font-bold text-sm cursor-pointer"
             >
               ✕
             </button>
 
-            <div className="max-h-[68vh] overflow-hidden bg-black flex items-center justify-center border-b-2 border-[#262626]">
-              <img
-                src={selectedImg.url}
-                alt={selectedImg.title}
-                className="max-h-[68vh] w-auto object-contain"
-              />
+            <div className="h-[280px] sm:h-[380px] overflow-hidden bg-[#FFFFFF] flex items-center justify-center border-b-2 border-[#262626]">
+              {selectedImg.url ? (
+                <img
+                  src={selectedImg.url}
+                  alt={selectedImg.title}
+                  className="max-h-full w-auto object-contain"
+                />
+              ) : (
+                <div className="w-full h-full max-w-md mx-auto">
+                  <Paint2DGalleryHouse index={1} />
+                </div>
+              )}
             </div>
 
             <div className="p-4 bg-[#F4F0DB] flex items-center justify-between">
@@ -403,7 +492,7 @@ export default function ProjectsGallerySection() {
           >
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 text-[#262626] hover:text-[#C85A32] font-bold text-sm"
+              className="absolute top-4 right-4 text-[#262626] hover:text-[#C85A32] font-bold text-sm cursor-pointer"
             >
               ✕
             </button>
